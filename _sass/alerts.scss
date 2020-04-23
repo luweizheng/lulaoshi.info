@@ -1,0 +1,127 @@
+$color-default: #777;
+$color-success: #5cb85c;
+$color-danger: #d9534f;
+$color-warning: #f0ad4e;
+$color-info: #5bc0de;
+$color-primary: #428bca;
+
+/* callout styles*/
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+.calloutTitle {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code {
+  border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+  margin-top: -5px;
+}
+.bs-callout-default {
+  border-left-color: $color-default;
+}
+.bs-callout-default .calloutTitle {
+  color: $color-default;
+}
+.bs-callout-primary {
+  border-left-color: $color-primary;
+}
+.bs-callout-primary .calloutTitle {
+  color: $color-primary;
+}
+.bs-callout-success {
+  border-left-color: $color-success;
+}
+.bs-callout-success .calloutTitle {
+  color: $color-success;
+}
+.bs-callout-danger {
+  border-left-color: $color-danger;
+}
+.bs-callout-danger .calloutTitle {
+  color: $color-danger;
+}
+.bs-callout-warning {
+  border-left-color: $color-warning;
+}
+.bs-callout-warning .calloutTitle {
+  color: $color-warning;
+}
+.bs-callout-info {
+  border-left-color: $color-info;
+}
+.bs-callout-info .calloutTitle {
+  color: $color-info;
+}
+
+.alert code {
+  background: transparent;
+}
+
+blockquote {
+    background-color: #eef7fa;
+    font-family: arial;
+    font-size: .9em;
+    margin: 0px;
+    padding: 1em;
+}
+
+p.note {
+    background: #f1f1f1;
+    padding: 1em;
+    border-left: 1em solid orange;
+}
+
+p.survey {
+  background: #f1f1f1;
+  padding: 1em;
+  border-left: 1em solid orange;
+}
+
+p.tip {
+    background: #f1f1f1;
+    padding: 1em;
+    border-left: 1em solid deepskyblue;
+}
+
+p.warning {
+    background: #f1f1f1;
+    padding: 1em;
+    border-left: 1em solid red;
+}
+
+p.note::before {
+    content: "注意： ";
+    font-weight: bold;
+}
+
+p.workshop::before {
+    content: "Workshop: ";
+    font-weight: bold;
+}
+
+p.tip::before {
+    content: "提示： ";
+    font-weight: bold;
+}
+
+p.warning::before {
+    content: "警告： ";
+    font-weight: bold;
+}
+
+.alert {
+  font-size: 1.6rem;
+}
+/* end callout styles*/

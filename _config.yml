@@ -18,21 +18,56 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
+title: 鲁老师
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+baseurl: ""
+url: "http://lulaoshi.info"
 
 # Build settings
-theme: minima
 plugins:
   - jekyll-feed
+
+defaults:
+  -
+    scope:
+      path: "flink"
+    values:
+      layout: document
+      breadcrumb-topname: "Flink教程"
+      breadcrumb-topurl: "/flink/"
+
+  -
+    scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "blogdetail"
+#      sidebar: "sidebar-blog"
+      breadcrumb-topname: "博客"
+      breadcrumb-topurl: "/blog/"
+      permalink: "/:year/:month/:day/:title/"
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
+      topnav: topnav
+
+
+# UI text
+uistring:
+  tableofcontents: 目录
+  expandall: 开启所有标签
+  collapseall: 关闭所有标签
+  title: "鲁老师" # Displays as site title on top nav bar and on site metadata
+  description: A guide for technical writers and engineers learning how to document APIs  # Displays as site description meta
+  products: Products
+  docindex_product: Product
+  docindex_startpage: Starting page
 
 # Exclude from processing.
 # The following items will not be processed, by default.

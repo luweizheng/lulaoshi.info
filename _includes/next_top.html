@@ -1,0 +1,20 @@
+{% if site.format == "web" %}<div class="seriesContext">
+
+  {% assign newpages = site.docs | sort:"weight" | reverse %}
+      {% for pg in newpages %}
+          {% if pg.weight < page.weight %}
+          <div class="previousButton_top"><a class="noCrossRef" href="{{site.url}}{{site.baseurl}}{{pg.url}}"><small>&laquo; {{pg.title}}</small></a></div>
+            {% break %}
+        {% endif %}
+      {% endfor %}
+
+    {% assign pages = site.docs | sort:"weight"  %}
+    {% for pg in pages %}
+        {% if pg.weight > page.weight %}
+          <div class="nextButton_top"><a class="noCrossRef" href="{{site.url}}{{site.baseurl}}{{pg.url}}"><small>{{pg.title}} &raquo;</small></a></div>
+          {% break %}
+      {% endif %}
+    {% endfor %}
+</div>
+<div style="clear: both;"></div>
+{% endif %}

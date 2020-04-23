@@ -1,0 +1,50 @@
+{% include topnav.html %}
+
+<div class="container">
+    <div class="row row-offcanvas row-offcanvas-left">
+
+        <!-- sidebar -->
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+
+            {% include sidebar-blog.html %}
+
+        </div>
+
+        <!-- main area -->
+        <div class="col-xs-12 col-sm-9 main">
+            {% include search_results.html %}
+            <div id="content">
+                {% include breadcrumb.html %}
+
+                {% comment %}{% include next_top.html %}{% endcomment %}
+
+                <div class="amazonBook">
+                    {% comment %}{% include amazon_book.html %}{% endcomment %}
+                    {% unless page.no_newsletter == true %}
+                    {% comment %}{% include tinyletter.html %}{% endcomment %}
+                    {% endunless %}
+                </div>
+                {{content}}
+
+                {% unless page.type == 404 %}
+
+                {% include commento.html %}
+                {% endunless %}
+
+            </div>
+
+        </div>
+    </div><!--/.container-->
+
+
+</div><!--/.page-container-->
+{% include footer.html %}
+<!--scripts loaded here-->
+
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0"></script>
+
+</body>
+
+</html>

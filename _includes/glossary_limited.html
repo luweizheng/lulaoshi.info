@@ -1,0 +1,9 @@
+{% assign glossaryFileParam = {{include.file}} %}
+{% assign glossaryFile = site.data[glossaryFileParam] %}
+
+<dl>
+{% for entry in page.glossary_keys %}
+<dt><a id="{{item}}"></a>{{glossaryFile[entry].term}}</dt>
+<dd markdown="span">{{glossaryFile[entry].def}}</dd>
+{% endfor %}
+</dl>

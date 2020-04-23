@@ -1,0 +1,758 @@
+p,
+ol,
+ul,
+li,
+span.calloutText
+{
+  font-size: 1.7rem;
+  line-height: 2.6rem;
+}
+
+p.post-summary
+{
+  margin-top: 0.8em;
+}
+
+
+/* adjust spacing below navbar items */
+.navbar p, .navbar ul, .navbar ol, .navbar li {
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  margin-bottom: .3rem;
+}
+
+p.surveyBanner {
+  border-left: 0em;
+  padding: 1em;
+  border-radius: 6px;
+  border: 1px solid #f0f0f0;
+  line-height: 1.3em !important;
+  size: 20px;
+  font-size: 16px !important;
+  background-color: #daf8da;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+  p.surveyBanner {
+    float: left;
+    clear: both;
+    padding: 1em;
+    border-left: 0em;
+    background: lightgoldenrodyellow;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 500px) {
+  p.surveyBanner {
+    clear: both;
+    border-left: 0em;
+    background: lightgoldenrodyellow;
+    display: block;
+    margin-right: 30px;
+    padding: 1em;
+    border-radius: 6px;
+  }
+}
+
+@media (min-width: 767px)
+{
+p, .alert, pre, ol li ul li, ol li ol li {
+  max-width: 90%;
+}
+}
+
+b, strong {
+  //font-family: 'AmazonEmber_Bd';
+  //font-weight: 100;
+}
+
+i {
+  //font-family: 'AmazonEmber_RgIt';
+}
+
+
+.text-center {
+  padding-top: 20px;
+}
+/* end heading styles */
+
+.col-xs-12.col-sm-7.main {
+  margin-bottom: 100px;
+}
+
+.col-xs-12 {
+  background-color: #fff;
+  padding-left: 40px;
+}
+
+span.muted {
+    color: #a8a8a8;
+}
+
+/* this part adds an icon after external links, using FontAwesome */
+
+a[href^="http://"]:after,
+a[href^="https://"]:after {
+  content: "\f08e";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: none;
+  padding-left: 3px;
+}
+a[data="github"]:after {
+  content: "\f09b";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: none;
+  padding-left: 5px;
+}
+
+
+a[href].noCrossRef::after, a[href].noExtIcon::after, pre a::after, pre.highlight a::after, pre.highlight code a::after, pre code a.vglnk::after,
+a.no_icon:after
+ {
+  content: "" !important;
+  padding-left: 0;
+}
+
+pre a.vglnk, pre a.vglnk:visited {
+  color: lightblue;
+}
+
+pre a:hover, pre a, pre code a.vglnk, pre code a.vglnk:hover {
+  cursor: text;
+  text-decoration: none;
+  color: lightblue;
+}
+
+.docSample a, .docSample a:hover {
+  color: #c7254e;
+}
+
+table code a.vglnk, table code a.vglnk:hover {
+  color: #c7254e;
+}
+
+/* Github edit button */
+
+i.fa.fa-github.fa-lg:hover,
+a.githubButton.noCrossRef:hover {
+  color: black;
+  text-decoration: none;
+}
+a.editButton {
+  color: #000000;
+}
+a.editButton:hover {
+  text-decoration: none;
+  color: #777;
+}
+.githubButton {
+  color: black;
+  background-color: white;
+  border: 1px solid #dedede;
+  padding: 7px;
+  border-radius: 5px;
+  margin: 20px 0px 10px 0px;
+}
+.githubButton:hover {
+  background-color: #fefefe;
+  color: #444;
+  text-decoration: none;
+}
+/* end github button */
+
+/* feedback button */
+.feedbackButton {
+  background-color: orange;
+  border: none;
+  color: whitesmoke;
+  padding: 6px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  box-shadow: 0 5px 6px 0 rgba(0,0,0,0.15);
+}
+.feedbackButton a {
+  color: whitesmoke;
+}
+.feedbackButton:hover {
+  background-color: #F79B08;
+}
+/* end feedback button */
+
+/* syntax highlightig */
+
+.highlight .err {
+  color: #a61717;
+  background-color: transparent !important;
+}
+/* svg styling */
+
+.ie9 img[src$=".svg"] {
+    width: 100%;
+}
+/* 2 */
+
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+    img[src$=".svg"] {
+        width: 100%;
+    }
+}
+/* end */
+/* image styles */
+
+figcaption {
+    padding-bottom: 12px;
+    padding-top: 6px;
+    margin-bottom: 20px;
+    font-style: italic;
+    color: gray;
+}
+/* end */
+
+span.projectTitle {
+    font-family: Arial;
+    font-weight: bold;
+}
+ul#entrypages li {
+    font-size: 12px;
+}
+
+
+.productSubtitle, a.productSubtitle {
+    color: #777;
+}
+
+a.productSubtitle:hover {
+  text-decoration: none;
+  color: #999;
+  cursor: pointer;
+}
+
+
+.main img {
+    // margin: 12px 0px 3px 0px;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.main img.large {
+  max-width: 700px
+}
+
+.main img.medium {
+  max-width: 600px
+}
+
+.main img.small_medium {
+  max-width: 450px;
+}
+
+.main img.small {
+  max-width: 300px;
+}
+
+.main img.tiny {
+  max-width: 200px;
+}
+
+dt {
+  //font-family: "AmazonEmber_Bd";
+}
+dl dt p {
+    margin-left: 20px;
+}
+dl dd {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    font-size: 1.7rem;
+    line-height: 2.6rem;
+}
+dd p {
+    margin-top: 12px;
+}
+dd pre {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.main li {
+    margin: 10px 0px;
+}
+
+
+.highlight .err {
+    color: #a61717;
+    background-color: transparent !important;
+}
+video {
+    display: block;
+    margin: 30px 0px;
+    border: 1px solid #c0c0c0;
+}
+
+
+nav#toc ul li ul li {
+    margin-left: 10px;
+}
+nav#toc ul li ul li,
+div#toc2 ul li ul li {
+    margin: 2px 16px;
+}
+
+.legend img {
+  margin: 5px;
+}
+
+img.docimage.border {
+    border: 1px solid #dedede;
+}
+
+
+.sidebarComics img {
+    float: left;
+    max-width: 95%;
+    margin-top: 1 em;
+    margin-buttom: 0.5 em;
+}
+
+span.red {
+    color: red;
+}
+
+span.orange {
+    color: darkorange;
+}
+/* footer */
+
+
+p.external {
+    font-size: 11px;
+    clear: both;
+}
+ol li ol li {
+    list-style-type: lower-alpha;
+}
+// img.inline {
+//     vertical-align: text-bottom;
+// }
+figure {
+    margin: 10px 0px;
+}
+ol li ul li {
+    list-style: disc;
+}
+
+/* mini toc javascript styles start */
+
+nav#toc ul li,
+div#toc2 ul li {
+  margin: 8px 0px 8px 22px;
+  font-size: 90%;
+  list-style: square;
+}
+nav#toc >ul::before,
+div#toc2 >ul::before {
+  font-weight: 500;
+  color: #555;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+}
+nav#toc ul,
+nav#toc2 ul {
+  background-color: #f7f7f7;
+  padding: 5px;
+  border-radius: 5px;
+  max-width: 300px;
+  color: gray;
+}
+nav#toc2 ul {
+  padding-left: 25px;
+}
+/* mini toc styles end */
+
+/* mini toc kramdown */
+ul#markdown-toc {
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  max-width: 400px;
+  padding-top:20px;
+  margin-top: 30px;
+  color: gray;
+  padding-right: 7px;
+}
+
+ul#markdown-toc::before  {
+  font-size:18px;
+  padding-top:30px;
+  margin: 20px 0px 20px -30px;
+}
+/* end mini toc */
+
+
+.number_legend img.inline {
+  margin-bottom: 2px;
+}
+
+.endpointParam {
+  color: red;
+}
+
+/* homepage */
+
+h1.homepageTitle {
+  margin-top: 50px;
+}
+
+ul.homepageLinks {
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+ul.homepageLinks li {
+  margin-bottom: 6px;
+}
+
+a code.highlighter-rouge {
+    color: #337ab7;
+  }
+/* end homepage */
+
+.docSample {
+    padding: 15px;
+    background-color: #e8f4ff;
+    margin: 1em 0em;
+}
+
+blockquote {
+	padding: 1em;
+	background-color: #e6f3f7;
+	margin: 1em 0em;
+  border-left: 0px;
+}
+
+h3#id-rather-be-writing-newsletter {
+    margin-top: 40px;
+}
+
+.seriesContext {
+  margin-top:30px;
+  margin-bottom: 30px;
+}
+
+.donateButton {
+  padding: 20px;
+}
+
+.amazonBook {
+float: right;
+padding-left: 15px;
+padding-top: 0px;
+padding-bottom: 10px;
+}
+
+.previousButton {
+  margin-bottom:15px;
+}
+
+.nextButton {
+
+}
+
+.previousButton_top {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+
+}
+
+.nextButton_top {
+  float: right;
+  margin-bottom: 20px;
+}
+
+.bs-callout-ad {
+    font-family: arial;
+    font-size:15px;
+    color: gray;
+}
+.sponsorMessageTitle {
+    font-weight: bold;
+    margin-bottom:5px;
+}
+
+.breadcrumb {
+  padding: 0px 10px;
+  margin-top: 5px;
+}
+
+.breadcrumb li {
+    color: #888;
+    font-size: 13px;
+}
+
+
+/* minitoc on page (automatic jump menu)*/
+
+ul.onPageMinitoc {
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  padding-top:20px;
+  margin-top: 30px;
+  color: gray;
+  padding-right: 20px;
+  max-width: 400px;
+}
+
+.docs ul.onPageMinitoc::before  {
+  font-size:18px;
+  padding-top:30px;
+  margin: 20px 0px 20px -30px;
+}
+
+i.onPageMinitocItem {
+  padding-right: 10px;
+}
+
+ul.onPageMinitoc::before  {
+content: "Pages in This Section";
+font-size:18px;
+padding-top:30px;
+margin: 20px 0px 20px -30px;
+}
+
+/* minitoc kramdown */
+ul#markdown-toc {
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  max-width: 400px;
+  padding-top:20px;
+  padding-bottom: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: gray;
+  padding-right: 7px;
+  background-color: #f7f7f7;
+}
+
+ul#markdown-toc::before  {
+  font-size:18px;
+  padding-top:30px;
+  margin: 20px 0px 20px -30px;
+  content: "Table of Contents";
+}
+
+ul#markdown-toc a {
+    text-decoration: none;
+}
+
+ul#markdown-toc li ul {
+    color: gray;
+}
+/* end mini toc */
+
+ul#markdown-toc::before  {
+content: "Table of Contents"
+}
+
+.navbar-form {
+  margin-left: -15px;
+}
+
+.activitySection img {
+    display: inline;
+    vertical-align: bottom;
+    margin-right: 5px;
+}
+
+.activitySection {
+   text-transform: uppercase;
+   font-size: 1.3em;
+   font-weight: bold;
+   margin-bottom: 12px;
+}
+
+dd {
+    margin-top: 8px;
+}
+
+dd ~dd {
+    margin-top: 8px;
+}
+
+dl {
+  font-size: 18px;
+}
+
+#formEmbed {
+  background-color: #eef7fa !important;
+  padding: 15px;
+}
+
+.progressContext {
+  background-color: #dedede;
+  padding: 20px;
+  margin-top:20px;
+  border-radius: 5px;
+}
+
+.card-body {
+  background-color: #F8F8F8;
+  border: 1px solid #dedede;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+// .irbw.form-group {
+//     margin-top: 30px;
+// }
+
+.singlePostComics img {
+    margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+  .amazonBook {
+    float: none !important;
+  }
+   .navbar-header img {
+     display: none;
+   }
+}
+
+
+.sgithub, .sgoogleplus, .situnes, .slinkedin, .srssfeed, .stwitter, .sstitcher, .sfacebook {
+    background: url(https://idratherbewritingmedia.com/images/sprites.png) no-repeat;
+    float: left;
+    padding: 6px;
+    margin-top:18px;
+    margin-left: 6px;
+}
+
+.srssfeed {
+    background-position: 0 0;
+    width: 26px;
+    height: 27px;
+}
+.stwitter {
+    background-position: -50px 0;
+    width: 26px;
+    height: 27px;
+}
+.sstitcher {
+    background-position: -100px 0;
+    width: 26px;
+    height: 27px;
+}
+.sfacebook {
+    background-position: -150px 0;
+    width: 26px;
+    height: 27px;
+}
+.situnes {
+    background-position: -200px 0;
+    width: 26px;
+    height: 27px;
+}
+.slinkedin {
+    background-position: -250px 0;
+    width: 26px;
+    height: 27px;
+}
+.sgithub {
+    background-position: -300px 0;
+    width: 26px;
+    height: 27px;
+}
+
+
+.socialMediaButtons {
+    padding-bottom:20px;
+}
+
+#socialMediaButtons.irbw {
+margin-bottom:15px;
+}
+
+a:focus {
+    color: black;
+}
+
+div#toc ul li {
+    margin: 0.1em 0px 0.2em 1.5em;
+    font-size: 70%;
+    list-style: square;
+}
+div#toc ul {
+    background-color: whitesmoke;
+    padding: 5px;
+    border-radius: 5px;
+    max-width: 300px;
+    color: gray;
+}
+
+div#toc ul li ul {
+    padding-left:8px;
+
+}
+
+div#toc ul li ul li::before {
+    content: "–  ";
+}
+
+div#toc >ul::before {
+    content: "主要内容";
+    font-weight: 500;
+    color: #555;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    width:70px;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:10px;
+}
+
+/** 首页教程 **/
+div#course ul {
+    padding-inline-start: 0;
+}
+
+div#course li {
+    list-style-type:none;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/*文章metadata*/
+.post-meta {
+    font-size: 1em;
+    color: gray;
+    margin-bottom: 1em;
+}
+
+/*captain*/
+img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: light-grey;
+}

@@ -1,0 +1,64 @@
+{% include topnav.html %}
+
+<div class="container">
+    <div class="row row-offcanvas row-offcanvas-left">
+        <!-- sidebar -->
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+
+            {% include sidebar-blog.html %}
+
+        </div>
+
+        <!-- main area -->
+        <div class="col-xs-12 col-sm-9 main">
+            {% include search_results.html %}
+            <div id="content">
+                {% include breadcrumb.html %}
+
+                {% comment %}{% include next_top.html %}{% endcomment %}
+
+                <h1>{{page.title}}</h1>
+
+                <div class="post-meta">
+                    <i class="fa fa-calendar-o"></i> {{ page.date | date: "%Y-%m-%d" }}
+                    &nbsp
+                    <i class="fa fa-tags"></i>
+                        {% for tag in page.categories %}
+                            {{tag}}
+                        {% endfor %}
+                </div>
+
+
+
+                {% unless page.toc == false %}
+                {% include toc.html %}
+                {% endunless %}
+
+                {{content}}
+
+                {% unless page.type == 404 %}
+
+
+                {% comment %}<div style="max-width: 375px">{% include tinyletter.html %}</div>{% endcomment %}
+                {% include commento.html %}
+                {% endunless %}
+
+            </div>
+
+
+
+        </div>
+    </div><!--/.container-->
+
+
+</div><!--/.page-container-->
+{% include footer.html %}
+<!--scripts loaded here-->
+
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0"></script>
+
+</body>
+
+</html>

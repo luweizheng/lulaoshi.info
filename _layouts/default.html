@@ -1,0 +1,67 @@
+{% include topnav.html %}
+
+<div class="container">
+    <div class="row row-offcanvas row-offcanvas-left">
+
+        <!-- sidebar -->
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+
+            {% include sidebar-blog.html %}
+
+        </div>
+        <!-- main area -->
+        <div class="col-xs-12 col-sm-9 main">
+            {% include search_results.html %}
+            <div id="content">
+                {% include breadcrumb.html %}
+
+                {% comment %}{% include next_top.html %}{% endcomment %}
+
+                <h1>{{page.title}}</h1>
+
+
+                <div class="amazonBook">
+                    {% comment %}{% include amazon_book.html %}{% endcomment %}
+                    {% unless page.no_newsletter == true %}
+                    {% comment %}{% include tinyletter.html %}{% endcomment %}
+                    {% endunless %}
+                </div>
+                {% comment %}<p class="workshop surveyBanner" style="width: 66%"> I'm giving an <a href="https://idratherbewriting.com/blog/upcoming-api-documentation-workshop-los-angeles-jan-23/">API documentation workshop in Los Angeles, California</a>, on January 23, 2020. You can <a href="https://www.eventbrite.com/e/api-documentation-workshop-los-angeles-jan-23-2020-tickets-84487066089">view details on EventBrite here.</a>
+                <br/><br/><b>
+                <p class="surveyBanner" style="font-size: 98%; line-height: 18px"><b>I need your input &mdash;</b> I'm conducting a survey about trends in developer documentation for 2020. If you write docs for developers, please <a href='https://www.questionpro.com/t/AOaGwZgCFE'>take this survey.</a> (You can view the ongoing results viewed <a href="https://www.questionpro.com/t/PGhS9ZgCFE">here.</a>)
+                </p>
+                {% endcomment %}
+                {{content}}
+
+                {% unless page.type == 404 %}
+
+                {% include progress.html %}
+                {% comment %}
+                <p class="note" style="margin-top:30px">If this information was helpful, would you consider adding a <a href="https://idratherbewriting.wufoo.com/forms/sxgxvqb1ahtv6q/">course review comment</a>?</p>
+                {% endcomment %}
+                {% include next.html %}
+
+
+                {% comment %}<div style="max-width: 375px">{% include tinyletter.html %}</div>{% endcomment %}
+                {% include commento.html %}
+                {% endunless %}
+
+            </div>
+
+
+
+        </div>
+    </div><!--/.container-->
+
+
+</div><!--/.page-container-->
+{% include footer.html %}
+<!--scripts loaded here-->
+
+<!-- Bootstrap -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0"></script>
+
+</body>
+
+</html>
