@@ -1,5 +1,6 @@
 .idea/*
 _site
+log
 .sass-cache
 .jekyll-cache
 .jekyll-metadata

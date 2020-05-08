@@ -4,7 +4,7 @@ keywords: Flink, DataStream, 窗口, Join, Event Time, Processing Time
 sidebar: sidebar_flink
 
 chapter-name: 时间和窗口
-chapter-url: /flink/chapter-time-window/intro.html
+chapter-url: /flink/chapter-time-window/index.html
 ---
 
 经过上一章的学习，我们已经对Flink DataStream的各类API有了一定认识，能够处理一些流数据。本章将重点介绍Flink的时间和窗口相关知识，通过本章的学习，读者可以了解下面这些知识：

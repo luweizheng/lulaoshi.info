@@ -6,7 +6,9 @@
     <title>{{page.title}} | {{site.title}}</title>
     <meta name="description" content="{% if page.content %}{{ page.content | truncatewords: 30 | strip_html }} {% else %}{{site.uistring.description}}{% endif %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="{{page.tags}}{% if page.tags | join: ', ' | escape %}, {% endif %} {{page.keywords}}">
     <meta name="google" value="notranslate">
+    <meta name="baidu-site-verification" content="Lsxugw73ju" />
     <link rel="icon"  type="image/x-icon" href="/assets/img/favicon.ico">
 
     <!-- FontAwesome -->
@@ -19,6 +21,10 @@
     <script type="text/javascript" src="/assets/js/navgoco.min.js"></script>
     <script type="text/javascript" src="/assets/js/toc.js"></script>
 
+    <!-- Katex -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.1.1/katex.min.js"></script>
+
     <!-- Anchor JS -->
     {% unless page.layout == "homepage" %}
     <script src="/assets/js/anchor.min.js"></script>
@@ -26,7 +32,7 @@
         $( document ).ready(function() {
             anchors.add('h2,h3,h4,h5');
         });
-        </script>
+    </script>
     {% endunless %}
 
     <script>
@@ -75,6 +81,12 @@
     <link rel="stylesheet" href="/assets/css/syntax.css" />
 </head>
 <body>
+<script src="/assets/js/vanilla-back-to-top.min.js"></script>
+<script>addBackToTop({
+  diameter: 40,
+  backgroundColor: '#ddd',
+  textColor: 'dimgrey'
+})</script>
 <div class="page-container">
 
 
@@ -89,7 +101,7 @@
                     <span class="sidebarToggle fa fa-columns fa-2x"></span>
                 </button>
                 <a class="navbar-brand noCrossRef" href="{{site.url}}{{site.baseurl}}/">
-                    <div><img class="navbar-logo" style="width: 100%; vertical-align: text-bottom" src="/assets/img/logo.svg"/></div>
+                    <div><img class="navbar-logo" alt="logo" style="width: 100%; vertical-align: text-bottom" src="/assets/img/logo.svg"/></div>
                 </a>
             </div>
 

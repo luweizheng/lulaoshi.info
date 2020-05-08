@@ -11,7 +11,7 @@
 
         <!-- main area -->
         <div class="col-xs-12 col-sm-9 main">
-            {% include search_results.html %}
+            {% comment %} {% include search_results.html %} {% endcomment %}
             <div id="content">
                 {% include breadcrumb.html %}
 
@@ -43,7 +43,7 @@
 
 
                 {% comment %}<div style="max-width: 375px">{% include tinyletter.html %}</div>{% endcomment %}
-                {% include commento.html %}
+                {% comment %}{% include commento.html %} {% endcomment %}
                 {% endunless %}
 
             </div>
@@ -61,6 +61,20 @@
 <!-- Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0"></script>
+<!-- Parse the Latex divs with Katex-->
+<script type="text/javascript">
+  $("script[type='math/tex']").replaceWith(
+    function(){
+      var tex = $(this).text();
+      return katex.renderToString(tex, {displayMode: false});
+  });
+
+  $("script[type='math/tex; mode=display']").replaceWith(
+    function(){
+      var tex = $(this).text();
+      return katex.renderToString(tex.replace(/%.*/g, ''), {displayMode: true});
+  });
+</script>
 
 </body>
 

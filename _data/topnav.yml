@@ -4,12 +4,16 @@
 navbar_singleitems:
   - items:
       - title: 首页
-        url: /index/
-      - title: 博客
+        url: https://lulaoshi.info/
+
+      - title: 文章
         url: /blog/
 
       - title: Flink教程
         url: /flink/
+
+      - title: GPU教程
+        url: /gpu/
 
       - title: 关于我
         url: /about-me/

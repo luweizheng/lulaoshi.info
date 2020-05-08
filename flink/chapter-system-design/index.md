@@ -4,7 +4,7 @@ keywords: Flink, DataStream, 数据流图, dataflow, 逻辑视图, 物理执行�
 sidebar: sidebar_flink
 
 chapter-name: Flink的设计和运行原理
-chapter-url: /flink/chapter-system-design/intro.html
+chapter-url: /flink/chapter-system-design/index.html
 ---
 
 

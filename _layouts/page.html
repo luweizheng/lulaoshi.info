@@ -12,7 +12,7 @@
 
         <!-- main area -->
         <div class="col-xs-12 col-sm-9 main">
-            {% include search_results.html %}
+            {% comment %} {% include search_results.html %} {% endcomment %}
             <div id="content">
                 {% include breadcrumb.html %}
 
@@ -28,7 +28,7 @@
 
                 {% unless page.type == 404 %}
 
-                {% include commento.html %}
+                {% comment %}{% include commento.html %}{% endcomment %}
                 {% endunless %}
 
             </div>

@@ -1,0 +1,37 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+sidebartitle: GPU快速教程
+
+folders:
+  - title: "关于本教程"
+    jurl: /gpu/index.html
+    folderitems:
+
+      - title: 关于本教程
+        jurl: /gpu/index.html
+
+  - title: "1. GPU基础知识"
+    jurl: /gpu/gpu-basic/index.html
+    folderitems:
+
+      - title: 计算机体系结构回顾
+        jurl: /gpu/gpu-basic/computer-arch.html
+
+      - title: GPU软硬件基础知识
+        jurl: /gpu/gpu-basic/gpu.html
+
+      - title: 人工智能研究者应该选择哪款显卡？
+        jurl: /gpu/gpu-basic/2020-gpu.html
+
+  - title: "2. 使用Python Numba进行CUDA编程"
+    jurl: /gpu/python-cuda/index.html
+    folderitems:
+
+      - title: Numba简介
+        jurl: /gpu/python-cuda/numba.html
+
+      - title: 初识GPU编程
+        jurl: /gpu/python-cuda/cuda-intro.html
+
+      - title: 网格跨步
+        jurl: /gpu/python-cuda/stride.html
