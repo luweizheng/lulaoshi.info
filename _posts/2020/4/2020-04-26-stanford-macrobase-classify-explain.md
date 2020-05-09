@@ -5,8 +5,6 @@ summary: "MacroBase是一款开源的异常点检测和解释系统，面对海�
 categories: [机器学习]
 ---
 
-# MacroBase：斯坦福开源的端到端异常点检测和解释系统
-
 本文和大家分享一个来自Stanford的开源大数据和机器学习系统：MacroBase。
 
 MacroBase源于Stanford的DAWN项目（Data Analytics for What’s Next，下一代数据分析）。Stanford团队称，DAWN项目的初衷是为了让人工智能更加平民化，更多普通人也可以构建AI应用，享受人工智能技术所带来的生产力的提升。可能一些人对DAWN项目并不熟悉，但我们肯定听说过并使用过Apache Spark或Apache Mesos，DAWN团队曾经在这些项目中投入大量研发精力。如今，DAWN开始将视野放到端到端的机器学习问题上，他们构建了一系列工具，希望能够让机器学习工具更加高效，更容易使用。
