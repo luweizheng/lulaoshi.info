@@ -4,11 +4,9 @@ rvm:
 script:
 - chmod +x ./script/cibuild.sh
 - "./script/cibuild.sh"
-
 after_script:
-  - pwd
-  - scp -o StrictHostKeyChecking=no -r _site/*  root@$IP:/var/www/html/
-
+- pwd
+- scp -o StrictHostKeyChecking=no -r _site/*  root@$IP:/var/www/html/
 branches:
   only:
   - master
@@ -19,8 +17,7 @@ addons:
   apt:
     packages:
     - libcurl4-openssl-dev
-  ssh_known_hosts: "154.8.160.59"
-
+  ssh_known_hosts: 154.8.160.59
 sudo: false
 cache: bundler
 notifications:
