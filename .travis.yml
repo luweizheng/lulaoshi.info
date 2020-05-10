@@ -1,33 +1,31 @@
 language: ruby
 rvm:
-  - 2.6.3
-
+- 2.6.3
 script:
-  - chmod +x ./script/cibuild.sh
-  - ./script/cibuild.sh
+- chmod +x ./script/cibuild.sh
+- "./script/cibuild.sh"
 
-#after_success:
-#  - chmod +x _scripts/deploy.sh
-#  - ./scripts/deploy.sh
+after_script:
+  - pwd
+  - scp -o StrictHostKeyChecking=no -r _site/*  root@$IP:/var/www/html/
 
 branches:
   only:
-    - master
-
+  - master
 env:
   global:
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # speeds up installation of html-proofer
-
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
 addons:
   apt:
     packages:
-      - libcurl4-openssl-dev
-      - ncftp
+    - libcurl4-openssl-dev
+  ssh_known_hosts: "154.8.160.59"
 
-sudo: false # route your build to the container-based infrastructure for a faster build
-
-cache: bundler # caching bundler gem packages will speed up build
-
-# Optional: disable email notifications about the outcome of your builds
+sudo: false
+cache: bundler
 notifications:
   email: false
+before_install:
+- openssl aes-256-cbc -K $encrypted_4fecab010afa_key -iv $encrypted_4fecab010afa_iv
+  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa

@@ -59,7 +59,7 @@ defaults:
     values:
       layout: "blogdetail"
 #      sidebar: "sidebar-blog"
-      breadcrumb-topname: "博客"
+      breadcrumb-topname: "文章"
       breadcrumb-topurl: "/blog/"
       permalink: "/blog/:year/:month/:day/:title:output_ext"
   -
