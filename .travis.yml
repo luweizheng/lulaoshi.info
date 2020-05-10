@@ -6,7 +6,7 @@ script:
 - "./script/cibuild.sh"
 after_script:
 - pwd
-- scp -o StrictHostKeyChecking=no -r _site/*  root@$IP:/var/www/html/
+- scp -o StrictHostKeyChecking=no -r _site/*  travis@$IP:/var/www/html/
 branches:
   only:
   - master
@@ -23,6 +23,8 @@ cache: bundler
 notifications:
   email: false
 before_install:
-- openssl aes-256-cbc -K $encrypted_4fecab010afa_key -iv $encrypted_4fecab010afa_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
-- chmod 600 ~/.ssh/id_rsa
+- openssl aes-256-cbc -K $encrypted_6e245bcd2662_key -iv $encrypted_6e245bcd2662_iv -in id_rsa.enc -out .ssh/id_rsa -d
+- chmod 700 .ssh
+- chmod 600 .ssh/id_rsa
+- eval "$(ssh-agent -s)"
+- ssh-add .ssh/id_rsa
