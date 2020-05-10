@@ -5,8 +5,7 @@ script:
 - chmod +x ./script/cibuild.sh
 - "./script/cibuild.sh"
 after_script:
-- pwd
-- scp -o StrictHostKeyChecking=no -r _site/*  travis@$IP:/var/www/html/
+- rsync -azr _site/*  travis@$IP:$TARGET_DIR
 branches:
   only:
   - master
