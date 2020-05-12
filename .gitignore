@@ -6,4 +6,5 @@ log
 .jekyll-metadata
 vendor
 .DS_Store
+.idea/
 **/.DS_Store
