@@ -77,7 +77,7 @@ folders:
       - title: Checkpoint原理及配置方法
         jurl: /flink/chapter-state-checkpoint/checkpoint.html
 
-      - title: 窗口算子的使用
+      - title: Savepoint的使用方法
         jurl: /flink/chapter-state-checkpoint/savepoint.html
 
       - title: 习题 电商平台用户行为分析
