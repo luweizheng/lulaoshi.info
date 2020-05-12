@@ -12,4 +12,4 @@ chapter-url: /gpu/gpu-basic/index.html
 
 * [CPU和GPU的区别](./gpu.html#什么是gpu)
 
-* [GPU硬件知识]((./gpu.html#英伟达gpu硬件架构))和[软件架构](./gpu.html#软件生态)
+* [GPU硬件知识](./gpu.html#英伟达gpu硬件架构)和[软件架构](./gpu.html#软件生态)
