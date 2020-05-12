@@ -5,7 +5,7 @@ script:
 - chmod +x ./script/cibuild.sh
 - "./script/cibuild.sh"
 after_script:
-- rsync -azr _site/*  travis@$IP:$TARGET_DIR
+- rsync -r --delete-after --quiet _site/*  travis@$IP:$TARGET_DIR
 branches:
   only:
   - master
