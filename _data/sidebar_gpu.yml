@@ -35,3 +35,6 @@ folders:
 
       - title: 网格跨步
         jurl: /gpu/python-cuda/stride.html
+
+      - title: 多流
+        jurl: /gpu/python-cuda/streams.html

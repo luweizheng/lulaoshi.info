@@ -10,6 +10,10 @@ chapter-url: /gpu/python-cuda/index.html
 
 本章我们将学习：
 
-* Python Numba简介
+* [Python Numba简介](./numba.html)
 
-* CUDA中Grid、Block、Thread层次结构
+* [CUDA中Grid、Block、Thread层次结构](./cuda-intro.html)
+
+* [网格跨步](./stride.html)
+
+* [多流](./streams.html)
