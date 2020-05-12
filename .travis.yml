@@ -16,7 +16,7 @@ addons:
   apt:
     packages:
     - libcurl4-openssl-dev
-  ssh_known_hosts: $IP
+  ssh_known_hosts: 154.8.160.59
 sudo: false
 cache: bundler
 notifications:
