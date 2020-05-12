@@ -12,4 +12,4 @@ chapter-url: /gpu/gpu-basic/index.html
 
 * CPU和GPU的区别
 
-* [GPU硬件知识和软件架构](./gpu.index)
+* [GPU硬件知识和软件架构](./gpu.html)
