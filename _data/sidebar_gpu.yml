@@ -38,3 +38,6 @@ folders:
 
       - title: 多流
         jurl: /gpu/python-cuda/streams.html
+
+      - title: Shared Memory
+        jurl: /gpu/python-cuda/shared-memory.html

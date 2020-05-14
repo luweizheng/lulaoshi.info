@@ -400,6 +400,40 @@ device_ary = cuda.to_device(ary)
 host_ary = device_ary.copy_to_host()
 ```
 
+## 高维执行配置
+
+前文中，我们曾聊过如何使用`threadIdx`和`blockIdx`等参数来描述线程Thread的编号，我们之前使用的` threadIdx` 和`blockIdx`变量都是一维的，实际上，CUDA允许这两个变量最多为三维。一维、二维和三维的大小配置可以适应向量、矩阵和张量等不同的场景。
+
+![二维block size](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2019-11-21-071231.png)
+*二维Thread层次结构执行配置示意图*
+
+一个二维的执行配置如上图所示，其中，每个Block有(3 * 4)个Thread，每个Grid有(2 * 3)个Block。 二维块大小为 *(Dx, Dy)*，某个线程号 *(x, y)* 的公式为 **(x + y Dx)**；三维块大小为 *(Dx, Dy, Dz)*，某个线程号*(x, y, z)* 的公式为 **(x + y Dx + z Dx Dy)**。各个内置变量中`.x` `.y`和`.z`为不同维度下的值。
+
+例如，一个二维配置，某个线程在矩阵中的位置可以表示为：
+
+```python
+col = cuda.threadIdx.y + cuda.blockDim.y * cuda.blockIdx.y
+row = cuda.threadIdx.x + cuda.blockDim.x * cuda.blockIdx.x
+```
+
+如何将二维Block映射到自己的数据上并没有固定的映射方法，一般情况将`.x`映射为矩阵的行，将`.y`映射为矩阵的列。Numba提供了一个更简单的方法帮我们计算线程的编号：
+
+```python
+row, col = cuda.grid(2)
+```
+
+其中，参数2表示这是一个2维的执行配置。1维或3维的时候，可以将参数改为1或3。
+
+对应的执行配置也要改为二维：
+
+```python
+threads_per_block = (16, 16)
+blocks_per_grid = (32, 32)
+gpu_kernel[blocks_per_grid, threads_per_block]
+```
+
+`(16, 16)`的二维Block是一个常用的配置，共256个线程。之前也曾提到过，每个Block的Thread个数最好是128、256或512，这与GPU的硬件架构高度相关。
+
 ## 小结
 
 Python Numba库可以调用CUDA进行GPU编程，CPU端被称为主机，GPU端被称为设备，运行在GPU上的函数被称为核函数，调用核函数时需要有执行配置，以告知CUDA以多大的并行粒度来计算。使用GPU编程时要合理地将数据在主机和设备间互相拷贝。
