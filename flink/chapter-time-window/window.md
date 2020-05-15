@@ -253,7 +253,7 @@ DataStream<Tuple2<String, Double>> average = stockStream
     .aggregate(new AverageAggregate());
 ```
 
-`AggregateFunction`里`createAccumulator`、`add`、`merge`这几个函数的工作流程如下图所示。在计算之前要先用`createAccumulator`方法创建一个新的ACC，ACC是一个中间状态数据，这时的ACC还没有任何实际表示意义，当有新数据流入时，Flink会调用`add`方法，更新ACC，并返回最新的ACC。当有一些跨节点的ACC融合时，Flink会调用`merge`，生成新的ACC。当所有的ACC最后融合为一个ACC后，Flink调用`getResult`生成结果。
+`AggregateFunction`里`createAccumulator`、`add`、`merge`这几个函数的工作流程如下图所示。在计算之前要创建一个新的ACC，ACC是中间状态数据，此时ACC里还未统计任何数据。当有新数据流入时，Flink会调用`add`方法，更新ACC中的数据。当满足窗口结束条件时，Flink会调用`getResult`方法，将ACC转换为最终结果。此外，还有一些跨窗口的ACC融合情况，比如，会话窗口模式下，窗口长短是不断变化的，多个窗口有可能合并为一个窗口，多个窗口内的ACC也需要合并为一个。窗口融合时，Flink会调用`merge`，将多个ACC合并在一起，生成新的ACC。
 
 ![aggregate的工作流程](./img/aggregate.png)
 
