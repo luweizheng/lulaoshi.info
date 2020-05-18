@@ -34,6 +34,7 @@ kramdown:
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-katex
 
 defaults:
   -

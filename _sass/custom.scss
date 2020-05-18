@@ -93,6 +93,7 @@ span.muted {
 
 /* this part adds an icon after external links, using FontAwesome */
 
+/*
 a[href^="http://"]:after,
 a[href^="https://"]:after {
   content: "\f08e";
@@ -103,6 +104,8 @@ a[href^="https://"]:after {
   text-decoration: none;
   padding-left: 3px;
 }
+*/
+
 a[data="github"]:after {
   content: "\f09b";
   font-family: FontAwesome;
