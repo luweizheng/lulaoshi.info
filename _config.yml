@@ -52,6 +52,14 @@ defaults:
       breadcrumb-topname: "GPU快速教程"
       breadcrumb-topurl: "/gpu/"
 
+  - scope:
+      path: "machine-learning"
+    values:
+      layout: document
+      sidebar: "sidebar_gpu"
+      breadcrumb-topname: "机器学习笔记"
+      breadcrumb-topurl: "/machine-learning/"
+
   -
     scope:
       path: "_posts"

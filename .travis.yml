@@ -5,7 +5,7 @@ script:
 - chmod +x ./script/cibuild.sh
 - "./script/cibuild.sh"
 after_script:
-- rsync -azr _site/*  travis@$IP:$TARGET_DIR
+- rsync -r --delete-after --quiet _site/*  travis@lulaoshi.info:$TARGET_DIR
 branches:
   only:
   - master
@@ -16,7 +16,8 @@ addons:
   apt:
     packages:
     - libcurl4-openssl-dev
-  ssh_known_hosts: $IP
+  ssh_known_hosts: lulaoshi.info
+
 sudo: false
 cache: bundler
 notifications:

@@ -11,24 +11,22 @@ chapter-url: /machine-learning/linear-model/index.html
 
 线性回归对已有数据进行建模，可以对未来数据进行预测。有些人觉得线性回归太过简单，甚至不屑于称之为机器学习；另外一些人觉得很多编程库已经对线性回归做了封装，使用时调用一下函数就好，不必了解太多数学推导过程。实际上，线性回归是所有机器学习技术的一个最好起点，很多复杂的机器学习技术以及当前大火的深度神经网络都或多或少基于线性回归。
 
-本文公式较多，为保证排版质量，我先把文章保存成了PDF，再截图上传。需要PDF源文件的可关注公众号`皮皮鲁的AI星球`，回复`线性回归`获取。
-
 ## 机器学习建模过程
 
-机器学习最常见的场景是监督学习：给定一些数据，使用计算机学习到一种模式，然后用它来预测新的数据。一个简单的监督学习任务可以表示为，给定N个两两数据对$(x_i, y_i)_{i=1}^N$，使用某种机器学习模型对其进行建模，得到一个模型（model），其中某个给定的数据对为样本（sample），$x$ 为特征（feature），$y$ 为真实值（label）。
+机器学习最常见的场景是监督学习：给定一些数据，使用计算机学习到一种模式，然后用它来预测新的数据。一个简单的监督学习任务可以表示为，给定N个两两数据对$$(x_i, y_i)_{ i=1 }^N$$，使用某种机器学习模型对其进行建模，得到一个模型（Model），其中某个给定的数据对为样本（Sample），$$x$$ 为特征（Feature），$$y$$ 为真实值（Label）。
 
 ![收入与教育程度数据集 来源：An Introduction to Statistical Learning](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2019-07-21-222725.png)
 
-例如，上图展示了收入数据集展示了受教育程度与年度收入之间的数据。根据我们的社会经验和图中的数据分布，我们觉得能使用一个直线来描述“收入会随着受教育时间的增多而增多”的现象。所以针对这个数据集，可以使用一个最简单的机器学习模型——一元线性回归。
+例如，上图展示了收入数据集展示了受教育程度与年度收入之间的数据。根据我们的社会经验和图中的数据分布，我们觉得能使用一个直线来描述“收入会随着受教育时间的增多而增多”的现象。所以针对这个数据集，可以使用一个最简单的机器学习模型：一元线性回归。
 
 ## 一元线性回归
 
 
 $$
-y = mx + b \tag{0}
+y = mx + b
 $$
 
-中学时，我们经常使用上面的方程来解一些数学问题，方程描述了变量 $y$ 随着变量 $x$ 而变化。方程从图形上来看，是一条直线。如果建立好这样的数学模型，已知 $x$ 我们就可以得到预测的 $\hat{y}$ 了。统计学家给变量带上了一个小帽子，表示这是预测值，以区别于真实观测到的数据。方程只有一个自变量 $x$，且不含平方立方等非一次项，因此被称为**一元线性方程**。
+中学时，我们经常使用上面的方程来解一些数学问题，方程描述了变量 $$y$$ 随着变量 $$x$$ 而变化。方程从图形上来看，是一条直线。如果建立好这样的数学模型，已知 $x$ 我们就可以得到预测的 $\hat{y}$ 了。统计学家给变量带上了一个小帽子，表示这是预测值，以区别于真实观测到的数据。方程只有一个自变量 $x$，且不含平方立方等非一次项，因此被称为**一元线性方程**。
 
 ![机器学习是一个选择最优参数的过程](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2019-07-21-224107.png)
 
@@ -36,25 +34,25 @@ $$
 
 上图给除了不同的参数，到底哪条直线是最佳的呢？如何衡量模型是否以最优的方式拟合数据呢？机器学习用损失函数（loss function）的来衡量这个问题。损失函数又称为代价函数（cost function），它计算了模型预测值`ŷ`和真实值`y`之间的差异程度。从名字也可以看出，这个函数计算的是模型犯错的损失或代价，损失函数越大，模型越差，越不能拟合数据。统计学家通常使用$L(\hat{y}, y)$来表示损失函数。
 
-![预测值与真实值的误差](error.png)
+![预测值与真实值的误差](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-17-122317.png)
 
 对于线性回归，一个简单实用的损失函数为预测值与真实值误差的平方。上图展示了收入数据集上预测值与真实值之间的误差。
 $$
-L(\hat{y_i}, y_i) = (\hat{y_i} - y_i)^2 \tag{1}
+L(\hat{y_i}, y_i) = (\hat{y_i} - y_i)^2
 $$
 公式1来表示单个样本点上预测值与真实值的误差。
 $$
-L(\hat{y}, y) = \frac{1}{N} \sum_{i=1}^N(\hat{y_i}- y_i)^2 \tag{2}
+L(\hat{y}, y) = \frac{1}{N} \sum_{i=1}^N(\hat{y_i}- y_i)^2
 $$
 
 $$
-L(\hat{y}, y) =\frac{1}{N} \sum_{i=1}^N[(mx_i + b) - y_i]^2 \tag{3}
+L(\hat{y}, y) =\frac{1}{N} \sum_{i=1}^N[(mx_i + b) - y_i]^2
 $$
 
 公式2表示将数据集的所有误差求和取平均，再在其基础上代入公式$\hat{y}=mx + b$，得到公式3。
 
 $$
-m^*, b^* = \mathop{\arg\min}_{m, b}L(m, b) = \mathop{\arg\min}_{m, b}\frac{1}{N}\sum_{i=1}^N[(mx_i + b) - y_i]^2 \tag{4}
+m^*, b^* = \mathop{\arg\min}_{m, b}L(m, b) = \mathop{\arg\min}_{m, b}\frac{1}{N}\sum_{i=1}^N[(mx_i + b) - y_i]^2 
 $$
 
 公式4中`arg min` 是一种常见的数学符号，表示寻找能让`L`函数最小的参数`m*`和`b*`。
@@ -74,37 +72,34 @@ $$
 
 $$
 \frac{\partial}{\partial m}L(m, b) = \frac{2}{N}\sum_{i=1}^Nx_i(mx_i + b -y_i)
-\\=2m(\frac{1}{N}\sum_{i=1}^N{x_i}^2) + 2b(\frac{1}{N}\sum_{i=1}^Nx_i)-2(\frac{1}{N}\sum_{i=1}^N{x_iy_i})\tag{5}
+\\=2m(\frac{1}{N}\sum_{i=1}^N{x_i}^2) + 2b(\frac{1}{N}\sum_{i=1}^Nx_i)-2(\frac{1}{N}\sum_{i=1}^N{x_iy_i})
 $$
 
 
 $$
 \frac{\partial}{\partial b}L(m, b)=\frac{2}{N}\sum_{i=1}^Nmx_i+b-y_i
-\\=2m(\frac{1}{N}\sum_{i=1}^N{x_i}) + 2b - 2(\frac{1}{N}\sum_{i=1}^N{y_i}) \tag{6}
+\\=2m(\frac{1}{N}\sum_{i=1}^N{x_i}) + 2b - 2(\frac{1}{N}\sum_{i=1}^N{y_i}) 
 $$
 
 公式5和6是损失函数对`m`和`b`进行求偏导。
 
 $$
-\bar{x} = \frac{1}{N}\sum_{i=1}^N{x_i} \qquad \qquad \qquad \bar{y} = \frac{1}{N}\sum_{i=1}^N{y_i} \tag{7}
+\bar{x} = \frac{1}{N}\sum_{i=1}^N{x_i} \qquad \qquad \qquad \bar{y} = \frac{1}{N}\sum_{i=1}^N{y_i} 
 $$
 
-$$
-s^2 = \frac{1}{N}\sum_{i=1}^N{{x_i}^2} \qquad \qquad \quad \rho = \frac{1}{N}\sum_{i=1}^N{x_iy_i} \tag{8}
-$$
 
 结果中重复出现了一些关于`x`和`y`的求和项，给定数据集，这些求和项可以通过计算求出来，是常数，可以用公式7和8表示。
 $$
-\frac{\partial}{\partial m}L(m, b) = 0 \Rightarrow ms^2 + b\bar{x} - \rho = 0 \ \tag{9}\\
+\frac{\partial}{\partial m}L(m, b) = 0 \Rightarrow ms^2 + b\bar{x} - \rho = 0 \ \\
 $$
 
 $$
-\frac{\partial}{\partial b}L(m, b) = 0 \Rightarrow m\bar{x} + b - \bar{y} = 0 \tag{10}
+\frac{\partial}{\partial b}L(m, b) = 0 \Rightarrow m\bar{x} + b - \bar{y} = 0 
 $$
 
 当导数为0时，可以求得最小值，即由公式9和10可以得到最优解`m`和`b`。
 $$
-m^*=\frac{\rho-\bar{x}\bar{y}}{s^2-{\bar{x}^2}} \qquad \qquad \qquad \qquad b^*=\bar{y}-\bar{x}m^* \tag{11}
+m^*=\frac{\rho-\bar{x}\bar{y}}{s^2-{\bar{x}^2}} \qquad \qquad \qquad \qquad b^*=\bar{y}-\bar{x}m^*
 $$
 以上就是一元线性回归的最小二乘法求解过程。
 
@@ -114,10 +109,10 @@ $$
 
 现在我们把`x`扩展为多元的情况，即多种因素共同影响变量`y`。现实问题也往往是这种情况，比如，要预测房价，需要考虑包括`是否学区`、`房间数量`、`周边是否繁华`、`交通方便性`等。共有D种维度的影响因素，机器学习领域将这D种影响因素称为**特征**（feature）。每个样本有一个需要预测的$\mathbf{y}$和一组D维向量$\mathbf{X}$。原来的参数$m$变成了D维的向量$\mathbf{w}$。这样，某个 $y_i$ 可以表示成$b + \sum_{d=1}^Dw_dx_{i,d}$，其中 $x_{i, d}$ 表示第 $i$ 个样本向量 $\mathbf{x_i}$ 中第 $d$ 维特征值。
 $$
-y_i = b + \sum_{d=1}^Dw_dx_{i,d}\qquad \qquad b = w_{D+1} \tag{12}
+y_i = b + \sum_{d=1}^Dw_dx_{i,d}\qquad \qquad b = w_{D+1} 
 $$
 $$
-y_i = \sum_{d=1}^{D+1}w_dx_{i,d} \tag{13}\\
+y_i = \sum_{d=1}^{D+1}w_dx_{i,d} \\
 $$
 
 为了表示起来更方便，独立出来的偏置项可以使用下面的方法归纳到向量 $\mathbf{w}$ 中：使用$b=w_{D+1}$来表示参数中的 $b$ ，将 $b$ 添加到特征向量的最后一位，将D维特征扩展成D+1维，也就是在每个 $\mathbf{x}$ 最后添加一个值为1的项，这样就可以由公式12可以得到公式13。
@@ -154,11 +149,11 @@ y_2\\
 \vdots\\
 y_N
 \end{array}
-\right] \tag{14}
+\right] 
 $$
 各个向量形状如公式14所示。其中，向量 $\mathbf{w}$ 表示模型中各个特征的权重；矩阵 $\mathbf{X}$ 的每一行是一条样本，每条样本中有D+1个特征值，分别为该样本在不同维度上的取值；向量 $\mathbf{y}$ 为真实值。可以用内积的形式来表示求和项：$\sum_{d=1}^{D+1}w_dx_{i,d} =\mathbf{w}^\top \mathbf{x_i}$。N条样本组成的数据可以表示为：$\mathbf{y} = \mathbf{X}\mathbf{w}$
 $$
-y_i = \sum_{d=1}^{D+1}w_dx_{i,d} =\mathbf{w}^\top \mathbf{x_i} \Rightarrow \mathbf{y} = \mathbf{X}\mathbf{w}\tag{15}
+y_i = \sum_{d=1}^{D+1}w_dx_{i,d} =\mathbf{w}^\top \mathbf{x_i} \Rightarrow \mathbf{y} = \mathbf{X}\mathbf{w}
 $$
 尽管公式13可以描述变量之间的关系，但是一般机器学习领域更喜欢使用公式15这样的向量乘法的形式。这不仅因为这样表示起来更简单，也是因为现代计算机对向量计算做了大量优化，无论是CPU还是GPU都喜欢向量计算，并行地处理数据，可以得到成百上千倍的加速比。
 
@@ -168,25 +163,25 @@ $$
 
 比一元线性回归更为复杂的是，多元线性回归组成的不是直线，是一个多维空间中的超平面，数据点散落在超平面的两侧。
 $$
-L(w) = (\mathbf{X}\mathbf{w}-\mathbf{y})^\top (\mathbf{X}\mathbf{w}-\mathbf{y}) = ||\mathbf{X}\mathbf{w}-\mathbf{y}||_2^2 \tag{16}
+L(w) = (\mathbf{X}\mathbf{w}-\mathbf{y})^\top (\mathbf{X}\mathbf{w}-\mathbf{y}) = ||\mathbf{X}\mathbf{w}-\mathbf{y}||_2^2 
 $$
 多元线性回归的损失函数仍然使用`预测值-真实值`的平方来计算，公式16为整个模型损失函数的向量表示。这里出现了一个竖线组成的部分，它被称作L2范数的平方。范数通常针对向量，也是一个机器学习领域经常用到的数学符号，公式17展示了一个向量 $\mathbf{x}$ 的L2范数的平方以及其导数。
 $$
 \\
-||\mathbf{x}||_2^2 = ((\sum_{i=1}^Nx_i^2)^1/2)^2 \qquad \qquad \qquad \qquad \nabla||\mathbf{x}||_2^2=2\mathbf{x} \tag{17}\\
+||\mathbf{x}||_2^2 = ((\sum_{i=1}^Nx_i^2)^1/2)^2 \qquad \qquad \qquad \qquad \nabla||\mathbf{x}||_2^2=2\mathbf{x} \\
 $$
 
 $$
-\frac{\partial}{\partial \mathbf{w}}L(\mathbf{w}) = 2\mathbf{X}^\top (\mathbf{X}\mathbf{w} - \mathbf{y}) = 0 \tag{18}
+\frac{\partial}{\partial \mathbf{w}}L(\mathbf{w}) = 2\mathbf{X}^\top (\mathbf{X}\mathbf{w} - \mathbf{y}) = 0 
 $$
 
 对公式16中的向量 $\mathbf{w}$ 求导，得到公式18。
 $$
-\mathbf{X}^\top\mathbf{X}\mathbf{w} = \mathbf{X}^\top \mathbf{y} \tag{19} \Rightarrow (\mathbf{X}^\top\mathbf{X})^{-1} \mathbf{X}^\top\mathbf{X}\mathbf{w}=(\mathbf{X}^\top\mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
+\mathbf{X}^\top\mathbf{X}\mathbf{w} = \mathbf{X}^\top \mathbf{y} \\ \Rightarrow (\mathbf{X}^\top\mathbf{X})^{-1} \mathbf{X}^\top\mathbf{X}\mathbf{w}=(\mathbf{X}^\top\mathbf{X})^{-1} \mathbf{X}^\top \mathbf{y}
 $$
 
 $$
-\mathbf{w}^* = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top \mathbf{y} \tag{20}\\
+\mathbf{w}^* = (\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{X}^\top \mathbf{y} \\
 $$
 
 公式19组成向量 $\mathbf{w}$ 的矩阵方程，根据线性代数的知识，最优解其实是在解这个矩阵方程，英文中称这个公式为`Normal Equation`。
@@ -240,5 +235,3 @@ $$
 线性回归是统计学中最基础的数学模型，几乎各个学科的研究中都能看到线性回归的影子，比如量化金融、计量经济学等；当前炙手可热的深度学习也一定程度构建在线性回归基础上。因此，每个人都有必要了解线性回归的原理。
 
 线性回归的一种最直观解法是最小二乘法，其损失函数是误差的平方，具有最小值点，可以通过解矩阵方程求得这个最小值。尽管推导过程有大量数学符号，线性回归从数学上来讲并不复杂，有微积分和线性代数基础的朋友都可以弄清其原理。
-
-> 这里是`皮皮鲁的AI星球`，本专栏主要关注高性能计算、大数据和人工智能，图文为作者原创，转载请联系公众号。
