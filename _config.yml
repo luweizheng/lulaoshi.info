@@ -25,11 +25,6 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: ""
 url: "https://lulaoshi.info"
 
-## markdown latex
-#markdown: kramdown
-#kramdown:
-#  math_engine: mathjax
-
 # Build settings
 plugins:
   - jekyll-feed
