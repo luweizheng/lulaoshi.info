@@ -25,10 +25,10 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: ""
 url: "https://lulaoshi.info"
 
-# markdown latex
-markdown: kramdown
-kramdown:
-  math_engine: mathjax
+## markdown latex
+#markdown: kramdown
+#kramdown:
+#  math_engine: mathjax
 
 # Build settings
 plugins:
@@ -57,7 +57,7 @@ defaults:
       path: "machine-learning"
     values:
       layout: document
-      sidebar: "sidebar_gpu"
+      sidebar: "sidebar_machine_learning"
       breadcrumb-topname: "机器学习笔记"
       breadcrumb-topurl: "/machine-learning/"
 

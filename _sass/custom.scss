@@ -58,8 +58,11 @@ p.surveyBanner {
 
 @media (min-width: 767px)
 {
-p, .alert, pre, ol li ul li, ol li ol li {
+p, blockquote, table, .alert, .breadcrumb, pre, ol li ul li, ol li ol li  {
   max-width: 90%;
+}
+blockquote > p {
+  max-width: 100%;
 }
 }
 
@@ -84,7 +87,7 @@ i {
 
 .col-xs-12 {
   background-color: #fff;
-  padding-left: 40px;
+  padding: 0.5em;
 }
 
 span.muted {
@@ -451,7 +454,7 @@ blockquote {
 	padding: 1em;
 	background-color: #e6f3f7;
 	margin: 1em 0em;
-  border-left: 0px;
+    border-left: 0px;
 }
 
 h3#id-rather-be-writing-newsletter {

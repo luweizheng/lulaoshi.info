@@ -1,0 +1,18 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+sidebartitle: 机器学习笔记
+
+folders:
+  - title: "关于本教程"
+    jurl: /machine-learning/index.html
+    folderitems:
+
+      - title: 关于本教程
+        jurl: /machine-learning/index.html
+
+  - title: "1. 线性模型"
+    jurl: /machine-learning/linear-model/index.html
+    folderitems:
+
+      - title: 线性模型
+        jurl: /machine-learning/linear-model/linear-regression.html
