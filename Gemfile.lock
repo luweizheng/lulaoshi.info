@@ -42,6 +42,8 @@ GEM
       terminal-table (~> 1.8)
     jekyll-feed (0.13.0)
       jekyll (>= 3.7, < 5.0)
+    jekyll-jupyter-notebook (0.0.4)
+      jekyll
     jekyll-katex (1.0.0)
       execjs (~> 2.7)
       jekyll (>= 3.6, < 5.0)
@@ -102,6 +104,7 @@ DEPENDENCIES
   html-proofer
   jekyll (~> 4.0.0)
   jekyll-feed (~> 0.12)
+  jekyll-jupyter-notebook
   jekyll-katex
   jekyll-sitemap
   minima (~> 2.5)

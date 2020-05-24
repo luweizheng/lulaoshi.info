@@ -15,5 +15,8 @@ navbar_singleitems:
       - title: GPU教程
         url: /gpu/
 
+      - title: 机器学习笔记
+        url: /machine-learning/
+
       - title: 关于我
         url: /about-me/

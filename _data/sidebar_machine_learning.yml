@@ -14,5 +14,8 @@ folders:
     jurl: /machine-learning/linear-model/index.html
     folderitems:
 
-      - title: 线性模型
+      - title: 线性回归的数学表示
         jurl: /machine-learning/linear-model/linear-regression.html
+
+      - title: 线性回归的求解：矩阵方程和梯度下降、数学推导及NumPy实现
+        jurl: /machine-learning/linear-model/minimise-loss-function.html

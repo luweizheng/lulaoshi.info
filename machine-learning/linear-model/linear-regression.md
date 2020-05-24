@@ -123,11 +123,11 @@ $$
 f_\omega  (x) = b + w_1 \times x_1 + w_2 \times x_2 + ... + w_n \times x_n
 $$
 
-这里的$\boldsymbol{w}$是**参数**（也可以叫做**权重**），是从 $\boldsymbol{x}$ 到 $y$ 的线性回归参数。为了简化表示，我们可以把$f_w(x)$ 里面的 $w$  省略掉，就简写成 $f(x)$。这里共有$k$种维度的影响因素，机器学习领域将这$k$种影响因素称为**特征**（Feature）。
+这里的$\boldsymbol{w}$是**参数**（也可以叫做**权重**），是从 $\boldsymbol{x}$ 到 $y$ 的线性回归参数。为了简化表示，我们可以把$f_w(x)$ 里面的 $w$  省略掉，就简写成 $f(x)$。这里共有$n$种维度的影响因素，机器学习领域将这$n$种影响因素称为**特征**（Feature）。
 
 第$i$条样本有一个需要预测的$\hat{y_i}$和一组$n$维向量$\boldsymbol{x_{i}}$。之前一元回归的参数$m$拓展成了$n$维的向量$\boldsymbol{w}$。这样，某个 $\hat{y_i}$ 可以表示成$b + \sum_{j=1}^n w_jx_{i,j}$，其中 $x_{i, j}$ 表示第 $i$ 个样本的特征向量 $\boldsymbol{x_i}$ 中第 $j$ 维特征值。
 $$
-f(\boldsymbol{x_i}) = b + \sum_{j=1}^kw_jx_{i,j}\qquad \qquad b = w_0 \tag{5}
+f(\boldsymbol{x_i}) = b + \sum_{j=1}^nw_jx_{i,j}\qquad \qquad b = w_0 \tag{5}
 $$
 
 为了简化公式，我们还设 $x_{i,0} = 1$，那么$b = w_0 \times 1$，这部分为截距项（Intercept Term）。这样简化之后就有了：
@@ -140,8 +140,11 @@ $$
 
 基于这个公式，得出损失函数，然后根据给定的训练集，尽量让损失函数最小。
 $$
-L(w) = \frac 12 \sum^m_{i=1}(f_w(\boldsymbol{x_{i}})-y_{i})^2 = \frac 12 \sum^m_{i=1}(\boldsymbol{w}^T\boldsymbol{x_{i}}-y_{i})^2\tag{7}
+L(w) = \frac {1}{2} \sum^m_{i=1}(f(\boldsymbol{x_{i}})-y_{i})^2 = \frac {1}{2} \sum^m_{i=1}(\boldsymbol{w}^T\boldsymbol{x_{i}}-y_{i})^2\tag{7}
 $$
+
+{: .tip}
+在上面的公式里，$\frac {1}{m}$表示取平均，这里是否取平均其实对于求解损失函数的最小值没有影响，因此有些资料里为了表示方便，不取平均。另外一些资料中，为了方便对$L(\boldsymbol{w})$求导，会在外层添加一个$\frac {1}{2}$。
 
 同样，针对这个损失函数可以：
 * 直接求解导数为零的点
