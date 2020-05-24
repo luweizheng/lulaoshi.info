@@ -400,4 +400,6 @@ def linear_loss_grad_for_loop(W, X, y):
 1. Andrew Ng: CS229 Lecture Notes
 2. 周志华：《机器学习》
 3. https://houxianxu.github.io/2015/03/31/linear-regression-post/
-
+4. https://www.cs.toronto.edu/~frossard/post/linear_regression/
+5. https://kivy-cn.github.io/Stanford-CS-229-CN/
+6. https://datawhalechina.github.io/pumpkin-book/
