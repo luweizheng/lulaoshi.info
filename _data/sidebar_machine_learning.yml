@@ -19,3 +19,6 @@ folders:
 
       - title: 线性回归的求解：矩阵方程和梯度下降、数学推导及NumPy实现
         jurl: /machine-learning/linear-model/minimise-loss-function.html
+
+      - title: 最大似然估计：从概率角度理解线性回归的优化目标
+        jurl: /machine-learning/linear-model/maximum-likelihood-estimation.html
