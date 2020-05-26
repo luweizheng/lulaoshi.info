@@ -22,3 +22,6 @@ folders:
 
       - title: 最大似然估计：从概率角度理解线性回归的优化目标
         jurl: /machine-learning/linear-model/maximum-likelihood-estimation.html
+
+      - title: 欠拟合和过拟合
+        jurl: /machine-learning/linear-model/underfit-overfit.html
