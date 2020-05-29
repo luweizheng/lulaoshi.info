@@ -395,7 +395,7 @@ def linear_loss_grad_for_loop(W, X, y):
 
 {% endkatexmm %}
 
-## 参考资料
+**参考资料**
 
 1. Andrew Ng: CS229 Lecture Notes
 2. 周志华：《机器学习》

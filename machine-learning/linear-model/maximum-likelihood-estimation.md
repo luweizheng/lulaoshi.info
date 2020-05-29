@@ -147,7 +147,7 @@ $$
 
 {% endkatexmm %}
 
-## 参考资料
+**参考资料**
 
 1. 如何通俗地理解概率论中的「极大似然估计法」? - 马同学的回答 - 知乎 https://www.zhihu.com/question/24124998/answer/242682386
 2. Andrew Ng：CS229 Lecture Notes
