@@ -58,7 +58,7 @@ p.surveyBanner {
 
 @media (min-width: 767px)
 {
-p, blockquote, table, .alert, .breadcrumb, pre, ol li ul li, ol li ol li  {
+p, blockquote, table, .alert, .breadcrumb, pre, ol li, ul li {
   max-width: 90%;
 }
 blockquote > p {

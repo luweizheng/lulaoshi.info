@@ -25,3 +25,6 @@ folders:
 
       - title: 模型容量、欠拟合和过拟合
         jurl: /machine-learning/linear-model/underfit-overfit.html
+
+      - title: Logistic Regression：互联网领域应用最广的模型
+        jurl: /machine-learning/linear-model/logistic-regression.html
