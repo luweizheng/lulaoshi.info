@@ -84,7 +84,7 @@ folders:
         jurl: /flink/chapter-state-checkpoint/exercise-state.html
 
   - title: "8. Table API & SQL"
-    jurl: /flink/chapter-state-checkpoint/index.html
+    jurl: /flink/chapter-table-sql/index.html
     folderitems:
 
       - title: Table API & SQL综述
