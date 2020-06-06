@@ -26,7 +26,7 @@ folders:
       - title: 习题 WordCount程序迭代和完善
         jurl: /flink/chapter-system-design/exercise-wordcount.html
 
-  - title: "4. DataStream API的介绍与使用"
+  - title: "4. DataStream API"
     jurl: /flink/chapter-datastream-api/index.html
     folderitems:
 
@@ -82,3 +82,31 @@ folders:
 
       - title: 习题 电商平台用户行为分析
         jurl: /flink/chapter-state-checkpoint/exercise-state.html
+
+  - title: "8. Table API和SQL"
+    jurl: /flink/chapter-state-checkpoint/index.html
+    folderitems:
+
+      - title: Table API & SQL综述
+        jurl: /flink/chapter-table-sql/table-overview.html
+
+      - title: 动态表和持续查询
+        jurl: /flink/chapter-table-sql/dynamic-table.html
+
+      - title: 时间和窗口
+        jurl: /flink/chapter-table-sql/window.html
+
+      - title: Join
+        jurl: /flink/chapter-table-sql/join.html
+
+      - title: SQL DDL
+        jurl: /flink/chapter-table-sql/sql-ddl.html
+
+      - title: 系统函数
+        jurl: /flink/chapter-table-sql/system-function.html
+
+      - title: 用户自定义函数
+        jurl: /flink/chapter-table-sql/catalog-function.html
+
+      - title: 习题 使用Flink SQL处理物联网数据
+        jurl: /flink/chapter-table-sql/exercise-iot.html
