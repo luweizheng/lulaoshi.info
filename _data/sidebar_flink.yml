@@ -83,7 +83,7 @@ folders:
       - title: 习题 电商平台用户行为分析
         jurl: /flink/chapter-state-checkpoint/exercise-state.html
 
-  - title: "8. Table API和SQL"
+  - title: "8. Table API & SQL"
     jurl: /flink/chapter-state-checkpoint/index.html
     folderitems:
 
