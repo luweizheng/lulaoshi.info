@@ -86,7 +86,7 @@ $$
 P(\epsilon_i) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(\epsilon_i)^2}{2 \sigma^2}})}
 $$
 
-由于$\theta_i = y_i - \boldsymbol{w}^\top \boldsymbol{x_i}$，并取均值$\mu$为0，可得到：
+由于$\epsilon_i = y_i - \boldsymbol{w}^\top \boldsymbol{x_i}$，并取均值$\mu$为0，可得到：
 $$
 P(y_i|\boldsymbol{x_i}; \boldsymbol{w}) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2}{2 \sigma^2}})}
 $$
@@ -95,7 +95,7 @@ $$
 
 前文提到，似然函数是所观察到的各个样本发生的概率的乘积。一组样本有$m$个观测数据，其中单个观测数据发生的概率为刚刚得到的公式，$m$个观测数据的乘积如下所示。
 $$
-L(\boldsymbol{w}) = L(\boldsymbol{w}; \boldsymbol{X}, \boldsymbol{y}) = \prod_{i=1}^{N}Pr(y_i|\boldsymbol{x_i}; \boldsymbol{w})
+L(\boldsymbol{w}) = L(\boldsymbol{w}; \boldsymbol{X}, \boldsymbol{y}) = \prod_{i=1}^{m}P(y_i|\boldsymbol{x_i}; \boldsymbol{w})
 $$
 
 最终，似然函数可以表示成：

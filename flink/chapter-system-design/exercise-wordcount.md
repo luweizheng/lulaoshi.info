@@ -14,7 +14,7 @@ chapter-url: /flink/chapter-system-design/index.html
 
 ## 实验内容
 
-尝试对Flink WordCount程序做简单修改。
+对Flink WordCount程序做一些修改。
 
 ## 实验要求
 

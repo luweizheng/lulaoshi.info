@@ -34,7 +34,7 @@ chapter-url: /flink/chapter-system-design/index.html
 
 ![任务、子任务与算子链](./img/operator-chain.png)
 
-例如，数据从Source前向传播到FlatMap，这中间没有发生跨分区的数据交换，因此，我们完全可以将Source、FlatMap这两个子任务组合在一起，形成一个Task。数据经过keyBy发生了数据交换，数据会跨越分区，因此无法将keyBy以及其后面的窗口聚合链接到一起。由于WindowAggregation的并行度是2，Sink的并行度为1，数据再次发生了交换，我们不能把WindowAggregation和Sink两部分链接到一起。本章第一节中提到，Sink的并行度被人为设置为1，如果我们把Sink的并行度也设置为2，那么是可以让这两个算子链接到一起的。
+例如，数据从Source前向传播到FlatMap，这中间没有发生跨分区的数据交换，因此，我们完全可以将Source、FlatMap这两个子任务组合在一起，形成一个Task。数据经过`keyBy()`发生了数据交换，数据会跨越分区，因此无法将`keyBy()`以及其后面的窗口聚合链接到一起。由于WindowAggregation的并行度是2，Sink的并行度为1，数据再次发生了交换，我们不能把WindowAggregation和Sink两部分链接到一起。本章第一节中提到，Sink的并行度被人为设置为1，如果我们把Sink的并行度也设置为2，那么是可以让这两个算子链接到一起的。
 
 默认情况下，Flink会尽量将更多的子任务链接在一起，这样能减少一些不必要的数据传输开销。但一个子任务有超过一个输入或发生数据交换时，链接就无法建立。两个算子能够链接到一起是有一些规则的，感兴趣的读者可以阅读Flink源码中`org.apache.flink.streaming.api.graph.StreamingJobGraphGenerator`中的`isChainable`方法。`StreamingJobGraphGenerator`类的作用是将`StreamGraph`转换为`JobGraph`。
 

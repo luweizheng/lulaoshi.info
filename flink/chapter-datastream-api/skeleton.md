@@ -14,7 +14,7 @@ chapter-url: /flink/chapter-datastream-api/index.html
 
 1. 初始化运行环境。
 
-2. 读取一到多个数据源。
+2. 读取一到多个数据源Source。
 
 3. 根据业务逻辑对数据流进行Transformation转换。
 
