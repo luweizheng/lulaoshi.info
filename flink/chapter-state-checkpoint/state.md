@@ -102,7 +102,7 @@ Operator State可以用在所有算子上，每个算子子任务或者说每个
 * `ReducingState<T>`和`AggregatingState<IN, OUT>`与`ListState<T>`同属于`MergingState<IN, OUT>`。与`ListState<T>`不同的是，`ReducingState<T>`只有一个元素，而不是一个列表。它的原理是：新元素通过`void add(T value)`加入后，与已有的状态元素使用`ReduceFunction`合并为一个元素，并更新到状态里。`AggregatingState<IN, OUT>`与`ReducingState<T>`类似，也只有一个元素，只不过`AggregatingState<IN, OUT>`的输入和输出类型可以不一样。`ReducingState<T>`和`AggregatingState<IN, OUT>`与窗口上进行`ReduceFunction`和`AggregateFunction`很像，都是将新元素与已有元素做聚合。
 
 {: .note}
-Flink的核心代码目前使用Java实现的，而Java的很多类型与Scala的类型不太相同，比如`List`和`Map`。这里不再详细解释Java和Scala的数据类型的异同，但是开发者在使用Scala调用这些接口，比如状态的接口，需要注意两种语言间的转换。对于`List`和`Map`的转换，只需要需要引用`import scala.collection.JavaConversions._`，并在必要的地方添加后缀`asScala`或`asJava`来进行转换。此外，Scala和Java的空对象使用习惯不太相同，Java一般使用`null`表示空，Scala一般使用`None`。
+Flink的核心代码目前使用Java实现的，而Java的很多类型与Scala的类型不太相同，比如`List`和`Map`。这里不再详细解释Java和Scala的数据类型的异同，但是开发者在使用Scala调用这些接口，比如状态的接口，需要注意两种语言间的转换。对于`List`和`Map`的转换，只需要引用`import scala.collection.JavaConversions._`，并在必要的地方添加后缀`asScala`或`asJava`来进行转换。此外，Scala和Java的空对象使用习惯不太相同，Java一般使用`null`表示空，Scala一般使用`None`。
 
 ### Keyed State的使用方法
 
@@ -470,7 +470,7 @@ DataStream<Tuple2<Long, BehaviorPattern>> matchedStream = keyedStream
     .process(new BroadcastPatternFunction());
 ```
 
-下面的代码展示了BroadcastState完整的使用方法。`BroadcastPatternFunction`是`KeyedBroadcastProcessFunction`的具体实现，它基于BroadcastState处理主数据流，生成`(Long, BehaviorPattern)`，分别表示用户ID和行为模式。
+下面的代码展示了BroadcastState完整的使用方法。`BroadcastPatternFunction`是`KeyedBroadcastProcessFunction`的具体实现，它基于BroadcastState处理主数据流，输出`(Long, BehaviorPattern)`，分别表示用户ID和行为模式。
 
 ```java
 /**
@@ -535,6 +535,6 @@ extends KeyedBroadcastProcessFunction<Long, UserBehavior, BehaviorPattern, Tuple
 在`KeyedBroadcastProcessFunction`函数类中，有两个方法需要实现：
 
 * `processElement`：处理主流中的每条元素，输出零到多个数据。`ReadOnlyContext` 可以获取时间和状态，但是只能以只读的形式读取BroadcastState，不能修改，以保证每个算子实例上的BroadcastState都是相同的。
-* `processBroadcastElement`：处理流入的广播流，可以输出零到多个数据，一般用来更新Broadcast State。
+* `processBroadcastElement`：处理广播流的数据，可以输出零到多个数据，一般用来更新Broadcast State。
 
 此外，`KeyedBroadcastProcessFunction`属于[ProcessFunction系列函数](/flink/chapter-time-window/process-function.html)，可以注册Timer，并在`onTimer`方法中实现回调逻辑。本例中为了保持代码简洁，没有使用，Timer一般用来清空状态，避免状态无限增长下去。

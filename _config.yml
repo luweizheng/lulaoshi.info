@@ -30,7 +30,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-katex
-  - jekyll-jupyter-notebook
 
 defaults:
   -

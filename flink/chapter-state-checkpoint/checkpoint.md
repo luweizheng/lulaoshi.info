@@ -222,7 +222,7 @@ env.setRestartStrategy(RestartStrategies.noRestart());
 CheckpointConfig checkpointCfg = env.getCheckpointConfig();
 ```
 
-默认的Checkpoint配置是支持Exactly-Once投递的，这样能保证在重启恢复时，所有算子的状态对任一条数据只处理一次。从Checkpoint机制原理角度来看，使用Exactly-Once就是进行了Checkpoint Barrier对齐，因此会有一定的延迟。如果作业延迟小，那么应该使用At-Least-Once投递，不进行对齐，但某些数据会被处理多次。
+默认的Checkpoint配置使用了Checkpoint Barrier对齐功能，对齐会增加作业的负担，有一定延迟，但是可以支持Exactly-Once投递的。这里的Exactly-Once指的是除去Source和Sink外其他各算子的Exactly-Once，关于Exactly-Once，我们将在第七章进一步详细解释。Checkpoint Barrier对齐能保证在重启恢复时，各算子的状态对任一条数据只处理一次。如果作业对延迟的要求很低，那么应该使用At-Least-Once投递，不进行对齐，但某些数据会被处理多次。
 
 ```java
 // 使用At-Least-Once
@@ -236,7 +236,7 @@ checkpointCfg.setCheckpointingMode(CheckpointingMode.AT_LEAST_ONCE);
 checkpointCfg.setCheckpointTimeout(3600*1000);
 ```
 
-如果两次Checkpoint之间的间歇时间太短，那么正常的作业可能获取的资源较少，更多的资源被用在了Checkpoint上。对这个参数进行合理配置能保证数据流的正常处理。比如，设置这个参数为60秒，那么前一次Checkpoint结束后60秒内不会启动新的Checkpoint。这种模式只在整个作业最多允许1个Checkpoint时适用。
+如果两次Checkpoint之间的间歇时间太短，那么正常的作业可能获取的资源较少，更多的资源被用在了Checkpoint上。对下面这个参数进行合理配置能保证数据流的正常处理。比如，设置这个参数为60秒，那么前一次Checkpoint结束后60秒内不会启动新的Checkpoint。这种模式只在整个作业最多允许1个Checkpoint时适用。
 
 ```java
 // 两次Checkpoint的间隔为60秒

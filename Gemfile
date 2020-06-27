@@ -32,5 +32,4 @@ group :jekyll_plugins do
     gem 'jekyll-sitemap'
     gem 'html-proofer'
     gem 'jekyll-katex'
-    gem "jekyll-jupyter-notebook"
 end
