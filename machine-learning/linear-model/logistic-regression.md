@@ -17,7 +17,7 @@ chapter-url: /machine-learning/linear-model/index.html
 
 前面几篇文章系统讨论了线性回归模型：
 $$
-f(\boldsymbol{x_i}) = \sum^n_{j=0} w_j x_{i,j} = \boldsymbol{w}^\top \boldsymbol{x_i}
+f(\boldsymbol{x}^{(i)}) = \sum^n_{j=0} w_j x_{j}^{(i)} = \boldsymbol{w}^\top \boldsymbol{x}^{(i)}
 $$
 这是一个回归模型，模型可以预测$(-\infty, +\infty)$范围的目标值。在模型求解时，我们可以使用误差平方定义损失函数，最小化损失函数即可求得模型参数。
 
@@ -56,7 +56,7 @@ y = f(x) = g(w^\top x) = \frac 1{1+e^{-w^{\top}x}}
 $$
 我们在线性回归的基础上增加了一个Logistic函数，于是可以进行二元分类预测。一个训练集中有$m$条数据，第$i$条数据按照下面的公式进行拟合：
 $$
-y_i = f(\boldsymbol{x_i}) = g(\boldsymbol{w}^\top \boldsymbol{x_i}) = \frac 1{1+e^{-\boldsymbol{w}^{\top}\boldsymbol{x_i}}}
+y^{(i)} = f(\boldsymbol{x}^{(i)}) = g(\boldsymbol{w}^\top \boldsymbol{x}^{(i)}) = \frac 1{1+e^{-\boldsymbol{w}^{\top}\boldsymbol{x}^{(i)}}}
 $$
 这就是Logistic回归、逻辑斯蒂回归（Logistic Regression）。
 
@@ -99,8 +99,8 @@ $$
 $$
 \begin{aligned}
 L(\boldsymbol{w}) &= P(\boldsymbol{y}| \boldsymbol{X}; \boldsymbol{w})\\
-&= \prod^m_{i=1}  P(y_{i}| \boldsymbol{x_{i}}; \boldsymbol{w})\\
-&= \prod^m_{i=1} (f (\boldsymbol{x_{i}}))^{y_{i}}(1- f (\boldsymbol{x_{i}}))^{1-y_{i}} \\
+&= \prod^m_{i=1}  P(y^{(i)}| \boldsymbol{x}^{(i)}; \boldsymbol{w})\\
+&= \prod^m_{i=1} (f (\boldsymbol{x}^{(i)}))^{y^{(i)}}(1- f (\boldsymbol{x}^{(i)}))^{1-y^{(i)}} \\
 \end{aligned}
 $$
 和线性回归一样，我们对上面的公式取$\log$，这样更容易实现似然函数的最大化：
@@ -108,7 +108,7 @@ $$
 $$
 \begin{aligned}
 \ell(\boldsymbol{w}) &=\log L(\boldsymbol{w}) \\
-&= \sum^m_{i=1} y_{i} \log f(\boldsymbol{x_{i}})+(1-y_{i})\log (1-f(\boldsymbol{x_{i}}))
+&= \sum^m_{i=1} y^{(i)} \log f(\boldsymbol{x}^{(i)})+(1-y^{(i)})\log (1-f(\boldsymbol{x}^{(i)}))
 \end{aligned}
 $$
 如何求得上面公式的解？和线性回归一样，我们可以利用梯度上升法。当前目标是最大化似然函数，因此我们要使用梯度上升，不断迭代寻找最大值。具体而言，参数按照下面的方式来更新：
@@ -146,15 +146,15 @@ $$
 
 那么，具体到参数迭代更新的公式上，以训练集的第$i$条样本数据拿来进行计算：
 $$
-w_j := w_j + \alpha (y_{i}-f(\boldsymbol{x_{i}}))x_{i,j}
+w_j := w_j + \alpha (y_{i}-f(\boldsymbol{x}^{(i)}))x_{j}^{(i)}
 $$
 跟我们之前推导的线性回归函数的公式可以说是一模一样。于是，在这个问题上，我们可以使用梯度上升法来获得最优解。或者做个简单的变换，变成梯度下降法：
 $$
-w_j := w_j - \alpha (f(\boldsymbol{x_{i}})-y_{i})x_{i,j}
+w_j := w_j - \alpha (f(\boldsymbol{x}^{(i)})-y^{(i)})x_{j}^{(i)}
 $$
-前面公式只是假设训练集中只有一条样本数据，而当训练集有$m$条数据，对$\ell(\boldsymbol{w}) = \sum^m_{i=1} y_{i} \log f(\boldsymbol{x_{i}})+(1-y_{i})\log (1-f(\boldsymbol{x_{i}}))$进行求导，实际上是可以得到：
+前面公式只是假设训练集中只有一条样本数据，而当训练集有$m$条数据，对$\ell(\boldsymbol{w}) = \sum^m_{i=1} y^{(i)} \log f(\boldsymbol{x}^{(i)})+(1-y^{(i)})\log (1-f(\boldsymbol{x}^{(i)}))$进行求导，实际上是可以得到：
 $$
-\frac  {\partial}{\partial w_j} \ell(\boldsymbol{w}) = \sum_{i=1}^m(y_i - f(\boldsymbol{x_i}))\boldsymbol{x_{i,j}}
+\frac  {\partial}{\partial w_j} \ell(\boldsymbol{w}) = \sum_{i=1}^m(y^{(i))} - f(\boldsymbol{x}^{(i)}))\boldsymbol{x}_{j}^{(i)}
 $$
 直接拿全量数据来更新参数不太现实，绝大多数情况下都会使用随机梯度下降法求解，可以随机挑选某个样本来更新参数，也可以随机挑选一小批Mini-batch样本来更新参数。
 

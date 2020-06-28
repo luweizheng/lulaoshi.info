@@ -32,7 +32,7 @@ chapter-url: /machine-learning/linear-model/index.html
 {% katexmm %}
 基于已有数据，我们希望通过计算机的学习，找到数据中的规律，并用来预测其他房屋的价格。这是机器学习最朴素的应用场景。这个过程也被称为监督学习（Supervised Learning），即给定一些数据，使用计算机学习到一种模式，然后用它来预测新的数据。
 
-给定数据集$D = \lbrace(\boldsymbol{x_1}, y_1), (\boldsymbol{x_2}, y_2),..., (\boldsymbol{x_m}, y_m)\rbrace$，数据集中有$m$个数据对。在房价的例子中，一共有47个数据对，第$i$行数据为$(\boldsymbol{x_i}, y_i)$，这行数据被称为一组训练样本（Training Example）。其中，$\boldsymbol{x_i}$是一个两维向量，$x_{i1}$为房屋面积、$x_{i2}$为卧室数量，$y_{i}$是房屋价格。我们可以基于这些数据，使用某种机器学习模型对其进行建模，学习到数据中的规律，得到一个模型（Model），其中某个给定的数据集$D$为样本（Sample），又被称为训练集（Training Set），$\boldsymbol{x}$ 为特征（Feature），$y$ 为真实值（Label）或者目标值（Target）。
+给定数据集$D = \lbrace(\boldsymbol{x}^{(1)}, y^{(1)}), (\boldsymbol{x}^{(2)}, y^{(2)}), ... , (\boldsymbol{x}^{(m)}, y^{(m)}) \rbrace$，数据集中有$m$个数据对。在房价的例子中，一共有47个数据对，第$i$行数据为$(\boldsymbol{x}^{(i)}, y^{(i)})$，这行数据被称为一组训练样本（Training Example）。其中，$\boldsymbol{x^{(i)}}$是一个两维向量，$x^{(i)}_{1}$为房屋面积、$x^{(i)}_{2}$为卧室数量，$y^{(i)}$是房屋价格。我们可以基于这些数据，使用某种机器学习模型对其进行建模，学习到数据中的规律，得到一个模型（Model），其中某个给定的数据集$D$为样本（Sample），又被称为训练集（Training Set），$\boldsymbol{x}$ 为特征（Feature），$y$ 为真实值（Label）或者目标值（Target）。
 
 我们再用更加规范的方式来描述一下监督学习问题，我们的目标是，给定一个训练集，机器学习能够学习出一个函数 $h: X → Y$，当有新的$\boldsymbol{x}$到达时， $h(\boldsymbol{x})$ 能够得到一个预测值，且预测值与对应的真实 $y$ 值尽可能接近。这个函数 $h$ 就被叫做**假设（Hypothesis）**。监督学习的过程大概就是下图这样。在一些其他机器学习资料中，一般使用符号$f$表示这个函数，本文将使用符号$f$。
 
@@ -76,18 +76,18 @@ $a$和$b$可以取不同的参数，到底哪条直线是最佳的呢？如何�
 
 对于线性回归，一个简单实用的损失函数为预测值与真实值误差的平方。公式1来表示单个样本点上预测值与真实值的误差的平方。
 $$
-L(\hat{y_i}, y_i) = (\hat{y_i} - y_i)^2 \tag{1}
+L(\hat{y}^{(i)}, y^{(i)}) = (\hat{y}^{(i)} - y^{(i)})^2 \tag{1}
 $$
 
 公式2表示将数据集的所有误差求和取平均。
 $$
-L(\hat{y}, y) = \frac{1}{m} \sum_{i=1}^m(\hat{y_i}- y_i)^2 \tag{2}
+L(\hat{y}, y) = \frac{1}{m} \sum_{i=1}^m(\hat{y}^{(i)}- y^{(i)})^2 \tag{2}
 $$
 
 再在其基础上代入公式$\hat{y}=ax + b$，得到公式3。
 
 $$
-L(\hat{y}, y) =\frac{1}{m} \sum_{i=1}^m[(ax_i + b) - y_i]^2 \tag{3}
+L(\hat{y}, y) =\frac{1}{m} \sum_{i=1}^m[(ax^{(i)} + b) - y^{(i)}]^2 \tag{3}
 $$
 
 ![假设直线如图，误差的平方和非常大](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035618.png)
@@ -105,7 +105,7 @@ $$
 公式中$\arg\min$ 是一种常见的数学符号，表示寻找能让$L$函数最小的参数$a*$和$b*$。
 
 $$
-a^*, b^* = \mathop{\arg\min}_{a, b}\frac{1}{m}\sum_{i=1}^m[(ax_i + b) - y_i]^2 \tag{4}
+a^*, b^* = \mathop{\arg\min}_{a, b}\frac{1}{m}\sum_{i=1}^m[(ax^{(i)} + b) - y^{(i)}]^2 \tag{4}
 $$
 
 求解这个函数一般有两个方法：
@@ -125,22 +125,22 @@ $$
 
 这里的$\boldsymbol{w}$是**参数**（也可以叫做**权重**），是从 $\boldsymbol{x}$ 到 $y$ 的线性回归参数。为了简化表示，我们可以把$f_w(x)$ 里面的 $w$  省略掉，就简写成 $f(x)$。这里共有$n$种维度的影响因素，机器学习领域将这$n$种影响因素称为**特征**（Feature）。
 
-第$i$条样本有一个需要预测的$\hat{y_i}$和一组$n$维向量$\boldsymbol{x_{i}}$。之前一元回归的参数$m$拓展成了$n$维的向量$\boldsymbol{w}$。这样，某个 $\hat{y_i}$ 可以表示成$b + \sum_{j=1}^n w_jx_{i,j}$，其中 $x_{i, j}$ 表示第 $i$ 个样本的特征向量 $\boldsymbol{x_i}$ 中第 $j$ 维特征值。
+第$i$条样本有一个需要预测的$\hat{y}^{(i)}$和一组$n$维向量$\boldsymbol{x}^{(i)}$。之前一元回归的参数$m$拓展成了$n$维的向量$\boldsymbol{w}$。这样，某个 $\hat{y}^{(i)}$ 可以表示成$b + \sum_{j=1}^n w_jx_{j}^{(i)}$，其中 $x_{j}^{(i)}$ 表示第 $i$ 个样本的特征向量 $\boldsymbol{x}^{(i)}$ 中第 $j$ 维特征值。
 $$
-f(\boldsymbol{x_i}) = b + \sum_{j=1}^nw_jx_{i,j}\qquad \qquad b = w_0 \tag{5}
-$$
-
-为了简化公式，我们还设 $x_{i,0} = 1$，那么$b = w_0 \times 1$，这部分为截距项（Intercept Term）。这样简化之后就有了：
-
-$$
-f(\boldsymbol{x_i}) = \sum^n_{j=0} w_j x_{i,j} = \boldsymbol{w}^T \boldsymbol{x_i} \tag{6}
+f(\boldsymbol{x}^{(i)}) = b + \sum_{j=1}^nw_jx_{j}^{(i)}\qquad \qquad b = w_0 \tag{5}
 $$
 
-等式最右边的 $w$ 和 $x_i$ 都是向量，等式中的 $n$ 是特征的维度（不包括$x_{i,0}$)。
+为了简化公式，我们还设 $x_{0}^{(i)} = 1$，那么$b = w_0 \times 1$，这部分为截距项（Intercept Term）。这样简化之后就有了：
+
+$$
+f(\boldsymbol{x}^{(i)}) = \sum^n_{j=0} w_j x_{j}^{(i)} = \boldsymbol{w}^T \boldsymbol{x}^{(i)} \tag{6}
+$$
+
+等式最右边的 $w$ 和 $x^{(i)}$ 都是向量，等式中的 $n$ 是特征的维度（不包括$x_{0}^{(i)}$)。
 
 基于这个公式，得出损失函数，然后根据给定的训练集，尽量让损失函数最小。
 $$
-L(w) = \frac {1}{2} \sum^m_{i=1}(f(\boldsymbol{x_{i}})-y_{i})^2 = \frac {1}{2} \sum^m_{i=1}(\boldsymbol{w}^T\boldsymbol{x_{i}}-y_{i})^2\tag{7}
+L(w) = \frac {1}{2} \cdot \frac{1}{m} \sum^m_{i=1}(f(\boldsymbol{x}^{(i)})-y^{(i)})^2 = \frac {1}{2} \cdot \frac{1}{m} \sum^m_{i=1}(\boldsymbol{w}^T\boldsymbol{x}^{(i)}-y^{(i)})^2\tag{7}
 $$
 
 {: .tip}

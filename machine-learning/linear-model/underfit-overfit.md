@@ -15,11 +15,11 @@ chapter-url: /machine-learning/linear-model/index.html
 
 那么，之前我们讨论的线性回归的最优化求解，实际上是在最小化训练集的误差：
 $$
-\frac{1}{2}(f(\boldsymbol{x_i}^{train})-y_i^{train})^2
+\frac{1}{2}(f(\boldsymbol{x}^{(i)train})-y^{(i)train})^2
 $$
 实际上，为了衡量模型的泛化能力，我们关注的是模型在测试集上的误差：
 $$
-\frac{1}{2}(f(\boldsymbol{x_i}^{test})-y_i^{test})^2
+\frac{1}{2}(f(\boldsymbol{x}^{(i)test})-y^{(i)test})^2
 $$
 在之前的例子中，我们将训练数据集拿来进行最优化求解，优化目标是降低模型在训练集上的误差。但是，机器学习又不能简单等同于最优化问题，因为在一些情况下，尽管我们可以让模型在训练集上将误差优化到很小，但是这个模型很可能在新输入数据上的泛化能力很差。
 

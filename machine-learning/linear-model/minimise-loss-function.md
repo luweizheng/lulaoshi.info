@@ -19,50 +19,50 @@ chapter-url: /machine-learning/linear-model/index.html
 
 假设我们的模型只有一维数据，模型是一条直线$f(x) = ax + b$，我们共有$m$条训练数据，损失函数为误差平方和的平均数：
 $$
-L(a, b) =\frac{1}{m} \sum_{i=1}^m[(ax_i + b) - y_i]^2 \tag{1}
+L(a, b) =\frac{1}{m} \sum_{i=1}^m[(ax^{(i)} + b) - y^{(i)}]^2 \tag{1}
 $$
 
 可以对$a$和$b$分别求导，导数为0时，损失函数最小。
 
 $$
 \begin{aligned}
-\frac{\partial}{\partial a}L(a, b) &= \frac{2}{m}\sum_{i=1}^mx_i(ax_i + b -y_i)
-\\ &=\frac{2a}{m}\sum_{i=1}^m{x_i}^2 + \frac{2b}{m}\sum_{i=1}^mx_i-\frac{2}{m}\sum_{i=1}^m{x_iy_i} 
-\\ &= \frac{2}{m}(a\sum_{i=1}^m{x_i}^2 + b\sum_{i=1}^mx_i - \sum_{i=1}^m{x_iy_i})
-\\ &= \frac{2}{m}(a\sum_{i}^m{x_i}^2-\sum_{i=1}^m(y_i-b)x_i)
+\frac{\partial}{\partial a}L(a, b) &= \frac{2}{m}\sum_{i=1}^mx^{(i)}(ax^{(i)} + b -y^{(i)})
+\\ &=\frac{2a}{m}\sum_{i=1}^m{x^{(i)}}^2 + \frac{2b}{m}\sum_{i=1}^mx^{(i)}-\frac{2}{m}\sum_{i=1}^m{x^{(i)}y^{(i)}} 
+\\ &= \frac{2}{m}(a\sum_{i=1}^m{x^{(i)}}^2 + b\sum_{i=1}^mx^{(i)} - \sum_{i=1}^m{x^{(i)}y^{(i)}})
+\\ &= \frac{2}{m}(a\sum_{i}^m{x^{(i)}}^2-\sum_{i=1}^m(y^{(i)}-b)x^{(i)})
 \end{aligned} \tag{2}
 $$
 
 
 $$
 \begin{aligned}
-\frac{\partial}{\partial b}L(a, b) &= \frac{2}{m}\sum_{i=1}^max_i+b-y_i
-\\ &= \frac{2a}{m}\sum_{i=1}^m{x_i} + 2b - \frac{2}{m}\sum_{i=1}^m{y_i}
-\\ &= \frac{2}{m}(\sum_{i=1}^max_i + mb - \sum_{i=1}^my_i)
-\\ &= \frac{2}{m}(mb - \sum_{i=1}^m(y_i -ax_i))
+\frac{\partial}{\partial b}L(a, b) &= \frac{2}{m}\sum_{i=1}^max^{(i)}+b-y^{(i)}
+\\ &= \frac{2a}{m}\sum_{i=1}^m{x^{(i)}} + 2b - \frac{2}{m}\sum_{i=1}^m{y^{(i)}}
+\\ &= \frac{2}{m}(\sum_{i=1}^max^{(i)} + mb - \sum_{i=1}^my^{(i)})
+\\ &= \frac{2}{m}(mb - \sum_{i=1}^m(y^{(i)} -ax^{(i)}))
 \end{aligned} \tag{3}
 $$
 
 上面两个公式是损失函数$L$对$a$和$b$进行求偏导。当导数为0时，可以求得损失函数的最小值，即由公式2和3可以得到最优解$a^*$和$b^*$。
 
 $$
-\frac{\partial}{\partial a}L(a, b) = 0 \Rightarrow \frac{2}{m}(a\sum_{i=1}^m{x_i}^2-\sum_{i=1}^m(y_i-b)x_i) = 0 \tag{4}
+\frac{\partial}{\partial a}L(a, b) = 0 \Rightarrow \frac{2}{m}(a\sum_{i=1}^m{x^{(i)}}^2-\sum_{i=1}^m(y^{(i)}-b)x^{(i)}) = 0 \tag{4}
 $$
 
 $$
-\frac{\partial}{\partial b}L(a, b) = 0 \Rightarrow \frac{2}{m}(mb - \sum_{i=1}^m(y_i -ax_i)) = 0 \tag{5}
+\frac{\partial}{\partial b}L(a, b) = 0 \Rightarrow \frac{2}{m}(mb - \sum_{i=1}^m(y^{(i)} -ax^{(i)})) = 0 \tag{5}
 $$
 
 最优解为：
 
 $$
-a^*=\frac{\sum_{i=1}^my_i(x_i-\bar{x})}{\sum_{i=1}^mx_{i}^2-\frac{1}{m}(\sum_{i=1}^mx_i)^2} \tag{6}
+a^*=\frac{\sum_{i=1}^my^{(i)}(x^{(i)}-\bar{x})}{\sum_{i=1}^m{x^{(i)}}^2-\frac{1}{m}(\sum_{i=1}^mx^{(i)})^2} \tag{6}
 $$
 $$
-b^*=\frac{1}{m}\sum_{i=1}^m(y_i-ax_i)
+b^*=\frac{1}{m}\sum_{i=1}^m(y^{(i)}-ax^{(i)})
 $$
 
-其中，$\bar{x}=\frac{1}{m}\sum_{i=1}^mx_i$，即为$\boldsymbol{x}$的均值。
+其中，$\bar{x}=\frac{1}{m}\sum_{i=1}^mx^{(i)}$，即为$\boldsymbol{x}$的均值。
 
 以上就是一元线性回归的最小二乘法求解过程。很多机器学习模型中都需要经历上述过程：确定损失函数，求使损失函数最小的参数。求解过程会用到一些简单的微积分，因此复习一下微积分中偏导数部分，有助于理解机器学习的数学原理。
 
@@ -72,10 +72,10 @@ $$
 
 
 $$
-f(\boldsymbol{x_i}) = \boldsymbol{w}^T \boldsymbol{x_i} \tag{7}
+f(\boldsymbol{x}^{(i)}) = \boldsymbol{w}^T \boldsymbol{x}^{(i)} \tag{7}
 $$
 
-上面的公式中，我们其实是使用$b=w_{0}$来表示参数中的 $b$ ，将 $b$ 添加到特征向量中，将$n$维特征扩展成$n+1$维，也就是在每个 $\boldsymbol{x_i}$ 中添加一个值为1的项。各个向量和矩阵形状如公式8所示。
+上面的公式中，我们其实是使用$b=w_{0}$来表示参数中的 $b$ ，将 $b$ 添加到特征向量中，将$n$维特征扩展成$n+1$维，也就是在每个 $\boldsymbol{x}^{(i)}$ 中添加一个值为1的项。各个向量和矩阵形状如公式8所示。
 $$
 \boldsymbol{w} = \left[ 
 \begin{array}{c}
@@ -89,17 +89,17 @@ w_n \\
 \quad
 \boldsymbol{X} = \left[ 
 \begin{array}{c}
-x_1\\
-x_2\\
+x^{(1)}\\
+x^{(2)}\\
 \vdots\\
-x_m
+x^{(m)}
 \end{array}
 \right] = 
 \begin{pmatrix}
-        1 & x_{1,1} & x_{1,2} & \cdots & x_{1,n} \\
-        1 & x_{2,1} & x_{2,2} & \cdots & x_{2,n}\\
+        1 & x_{1}^{(1)} & x_{2}^{(1)} & \cdots & x_{n}^{(1)} \\
+        1 & x_{1}^{(2)} & x_{2}^{(2)} & \cdots & x_{n}^{(2)}\\
         \vdots & \vdots & \ddots & \vdots & \vdots \\
-        1 & x_{m,1} & x_{m,2} & \cdots & x_{m,n} \\
+        1 & x_{1}^{(m)} & x_{2}^{(m)} & \cdots & x_{n}^{(m)} \\
 \end{pmatrix}
 \quad
 \boldsymbol{y} = \left[ 
@@ -111,9 +111,9 @@ y_m
 \end{array}
 \right] \tag{8}
 $$
-其中，向量 $\boldsymbol{w}$ 表示模型中各个特征的权重；矩阵 $\boldsymbol{X}$ 的每一行是一条样本，每条样本中有$n+1$个特征值，分别为该样本在不同维度上的取值；向量 $\boldsymbol{y}$ 为真实值。可以用内积的形式来表示求和项：$\sum_{j=0}^{n}w_jx_{i,j} =\boldsymbol{w}^\top \boldsymbol{x_i}$。用矩阵乘法的形式可以表示为：$\boldsymbol{y} = \boldsymbol{X}\boldsymbol{w}$。
+其中，向量 $\boldsymbol{w}$ 表示模型中各个特征的权重；矩阵 $\boldsymbol{X}$ 的每一行是一条样本，每条样本中有$n+1$个特征值，分别为该样本在不同维度上的取值；向量 $\boldsymbol{y}$ 为真实值。可以用内积的形式来表示求和项：$\sum_{j=0}^{n}w_jx_{j}^{(i)} =\boldsymbol{w}^\top \boldsymbol{x}^{(i)}$。用矩阵乘法的形式可以表示为：$\boldsymbol{y} = \boldsymbol{X}\boldsymbol{w}$。
 $$
-y_i = \sum_{j=1}^{j+1}w_jx_{i,j} =\boldsymbol{w}^\top \boldsymbol{x_i} \Rightarrow \boldsymbol{y} = \boldsymbol{X}\boldsymbol{w}\tag{9}
+y^{(i)} = \sum_{j=0}^{n}w_jx_{j}^{(i)} =\boldsymbol{w}^\top \boldsymbol{x}^{(i)} \Rightarrow \boldsymbol{y} = \boldsymbol{X}\boldsymbol{w}\tag{9}
 $$
 一般机器学习领域更喜欢使用矩阵乘法的形式来表示一个模型，这不仅因为这样表示起来更简单，也是因为现代计算机对向量计算做了大量优化，无论是CPU还是GPU都喜欢向量计算，并行地处理数据，可以得到成百上千倍的加速比。
 
@@ -131,7 +131,7 @@ $$
 多元线性回归的损失函数仍然使用“预测值-真实值”的平方来计算，公式10为整个模型损失函数的向量表示。这里出现了一个竖线组成的部分，它被称作L2范数的平方。范数通常针对向量，也是一个机器学习领域经常用到的数学符号，公式11展示了一个向量 $\boldsymbol{x}$ 的L2范数的平方以及其导数。
 $$
 \\
-||\boldsymbol{x}||_2^2 = ((\sum_{i=1}^Nx_i^2)^{\frac{1}{2}})^2 \qquad \qquad \qquad \qquad \nabla||\boldsymbol{x}||_2^2=2\boldsymbol{x} \tag{11}\\
+||\boldsymbol{x}||_2^2 = ((\sum_{i=1}^N{x^{(i)}}^2)^{\frac{1}{2}})^2 \qquad \qquad \qquad \qquad \nabla||\boldsymbol{x}||_2^2=2\boldsymbol{x} \tag{11}\\
 $$
 
 对公式10中的向量$\boldsymbol{w}$ 求导，令导数为零：
@@ -150,11 +150,11 @@ $$
 \boldsymbol{w}^* = (\boldsymbol{X}^\top\boldsymbol{X})^{-1}\boldsymbol{X}^\top \boldsymbol{y} \tag{14}
 $$
 
-公式14是向量$\boldsymbol{w}$ 的解，这是一个矩阵方程。使用这种方法求最优解，其实是在解这个矩阵方程，英文中称这种方法为Normal Equation。
+公式14是向量$\boldsymbol{w}$ 的解，这是一个矩阵方程。使用这种方法求最优解，其实是在解这个矩阵方程，英文中称这种方法为正规方程（Normal Equation）。
 
 这个方法有一个问题，在线性代数课程中肯定曾提到过，$\boldsymbol{X}^\top\boldsymbol{X}$是满秩（Full-Rank）或正定（Positive Definite）时，才能解方程组。“满秩”或者“正定”到底什么意思呢？用通俗的话来讲，样本中的数据必须足够丰富，且有足够的代表性，矩阵方程才有唯一解，否则矩阵方程会有多组解。如果特征有上万维，但只有几十个样本来训练，我们很难得到一个满意的最优解。
 
-上述方法还有一个问题：公式14中矩阵求逆的计算量比较大，复杂度在$O(n^3)$级别。当特征维度达到百万级以上或样本数量极大时，计算时间非常长，单台计算机内存甚至存储不下这些参数，求解矩阵方程的办法就不现实了。
+上述方法还有一个问题：公式14中矩阵求逆的计算量比较大，复杂度在$O(n^3)$级别。当特征维度达到百万级以上或样本数量极大时，计算时间非常长，单台计算机内存甚至存储不下这些参数，求解正规方程的办法就不现实了。
 
 前面花了点时间描述线性回归的求解过程，出现了不少公式，跟很多朋友一样，笔者以前非常讨厌看公式，看到一些公式就头大，因此觉得机器学习非常难。不过，静下心来仔细读一遍，会发现其实这些公式用到的都是微积分、线性代数中比较基础的部分，并不需要高大上的知识，理工科背景的朋友应该都能看得懂。另外，复习一下矩阵和求导等知识有助于我们理解深度学习的一些数学原理。
 
@@ -181,53 +181,53 @@ $$
 
 我们之前提到过，$\boldsymbol{w}$是一个向量，假设它是$n$维的，在更新$\boldsymbol{w}$时，我们是要同时对 $n$ 维所有$\boldsymbol{w}$值进行更新，其中第$j$维就是使用上面的公式15。
 
-接下来我们简单推导一下梯度公式，首先考虑只有一条训练样本 $(\boldsymbol{x_i}, y_j)$ 的情况。由$L(w)=\frac{1}{2}(f(\boldsymbol{x_i})-y_i)^2$，其中，$\frac{1}{2}$是常数项，不影响最优解的取值，主要是为了方便求导。可以得到：
+接下来我们简单推导一下梯度公式，首先考虑只有一条训练样本 $(\boldsymbol{x}^{(i)}, y^{(i)})$ 的情况。由$L(w)=\frac{1}{2}(f(\boldsymbol{x}^{(i)})-y^{(i)})^2$，其中，$\frac{1}{2}$是常数项，不影响最优解的取值，主要是为了方便求导。可以得到：
 $$
 \begin{aligned}
-\frac \partial {\partial w_j}L(\boldsymbol{w}) & = \frac \partial {\partial w_j} \frac  12(f(\boldsymbol{x_i})-y_i)^2\\
-& = 2 \cdot\frac 12(f(\boldsymbol{x_i})-y_i)\cdot \frac \partial {\partial w_j}  (f(\boldsymbol{x_i})-y_i) \\
-& = (f(\boldsymbol{x_i})-y_i)\cdot \frac \partial {\partial w_j}(\sum^n_{j=0} w_jx_{i,j}-y_i) \\
-& = (f(\boldsymbol{x_i})-y_i) x_{i,j}
+\frac \partial {\partial w_j}L(\boldsymbol{w}) & = \frac \partial {\partial w_j} \frac  12(f(\boldsymbol{x}^{(i)})-y^{(i)})^2\\
+& = 2 \cdot\frac 12(f(\boldsymbol{x}^{(i)})-y^{(i)})\cdot \frac \partial {\partial w_j}  (f(\boldsymbol{x}^{(i)})-y^{(i)}) \\
+& = (f(\boldsymbol{x}^{(i)})-y^{(i)})\cdot \frac \partial {\partial w_j}(\sum^n_{j=0} w_jx_{j}^{(i)}-y^{(i)}) \\
+& = (f(\boldsymbol{x}^{(i)})-y^{(i)}) x_{j}^{(i)}
 \end{aligned}
 $$
 
 对单个训练样本，每次对梯度的更新规则如下所示：
 
 $$
-w_j := w_j - \alpha (f(\boldsymbol{x_i})-y_i) x_{i,j}
+w_j := w_j - \alpha (f(\boldsymbol{x}^{(i)})-y^{(i)}) x_{j}^{(i)}
 $$
 
 这个规则有几个看上去就很自然直观的特性：
 
-* 更新的大小与$(f(\boldsymbol{x_i})-y_i)$成比例。
-* 当我们遇到训练样本的预测值$f(\boldsymbol{x_i})$与 $y_i$ 的真实值非常接近的情况下，就会发现基本没必要再对参数进行修改了；与此相反的情况是，如果我们的预测值 $f(\boldsymbol{x_i})$ 与 $y_i$真实值有很大的误差（比如距离特别远），那就需要对参数进行更大地调整。这也与前面所展示的梯度下降动态图中相吻合。
+* 更新的大小与$(f(\boldsymbol{x}^{(i)})-y^{(i)})$成比例。
+* 当我们遇到训练样本的预测值$f(\boldsymbol{x}^{(i)})$与 $y^{(i)}$ 的真实值非常接近的情况下，就会发现基本没必要再对参数进行修改了；与此相反的情况是，如果我们的预测值 $f(\boldsymbol{x}^{(i)})$ 与 $y^{(i)}$真实值有很大的误差（比如距离特别远），那就需要对参数进行更大地调整。这也与前面所展示的梯度下降动态图中相吻合。
 
 ### 批量梯度下降法
 
-当只有一个训练样本的时候，我们推导出了权重更新的规则。当一个训练集有$m$个训练样本的时候，$L(\boldsymbol{w}) = \frac{1}{2}\sum_{i=1}^m(f(\boldsymbol{x_i}) - y_i)^2$。求导时，只需要对多条训练样本的数据做加和。
+当只有一个训练样本的时候，我们推导出了权重更新的规则。当一个训练集有$m$个训练样本的时候，$L(\boldsymbol{w}) = \frac{1}{2}\sum_{i=1}^m(f(\boldsymbol{x}^{(i)}) - y^{(i)})^2$。求导时，只需要对多条训练样本的数据做加和。
 $$
-L(\boldsymbol{w}) = \frac{1}{2} \lbrace (f(\boldsymbol{x_1}) - y_i)^2 + \cdots + (f(\boldsymbol{x_m}) - y_m)^2 \rbrace
+L(\boldsymbol{w}) = \frac{1}{2} \lbrace (f(\boldsymbol{x}^{(1)}) - y^{(1)})^2 + \cdots + (f(\boldsymbol{x}^{(m)}) - y^{(m)})^2 \rbrace
 $$
 
 $$
 \begin{aligned}
-\frac \partial {\partial w_j}L(w) & = \frac \partial {\partial w_j} \frac  12\lbrace (f(\boldsymbol{x_1}) - y_i)^2 + \cdots + (f(\boldsymbol{x_m}) - y_m)^2 \rbrace\\
-& = 2 \cdot\frac 12(f(\boldsymbol{x_1})-y_1)\cdot \frac \partial {\partial w_j}  (f(\boldsymbol{x_1})-y_1) + \cdots\\
-& = (f(\boldsymbol{x_1})-y_1)\cdot \frac \partial {\partial w_j}(\sum^n_{j=0} w_jx_{1,j}-y_1) + \cdots \\
-& = (f(\boldsymbol{x_1})-y_1) x_{1,j} + \cdots \\
-& = \sum_{i=1}^m(f(\boldsymbol{x_i}) - y_i)x_{i,j}
+\frac \partial {\partial w_j}L(w) & = \frac \partial {\partial w_j} \frac  12\lbrace (f(\boldsymbol{x}^{(1)}) - y^{(1)})^2 + \cdots + (f(\boldsymbol{x}^{(m)}) - y^{(m)})^2 \rbrace\\
+& = 2 \cdot\frac 12(f(\boldsymbol{x}^{(1)})-y^{(1)})\cdot \frac \partial {\partial w_j}  (f(\boldsymbol{x}^{(1)})-y^{(1)}) + \cdots\\
+& = (f(\boldsymbol{x}^{(1)})-y^{(1)})\cdot \frac \partial {\partial w_j}(\sum^n_{j=0} w_jx_{j}^{(1)}-y^{(1)}) + \cdots \\
+& = (f(\boldsymbol{x}^{(1)})-y^{(1)}) x_{j}^{(1)} + \cdots \\
+& = \sum_{i=1}^m(f(\boldsymbol{x}^{(i)}) - y^{(i)})x_{j}^{(i)}
 \end{aligned}
 $$
 
 因此，可以得出每个$w_j$的导数：
 $$
-w_j := w_j - \alpha \sum^m_{i=1}(f(\boldsymbol{x_{i}})-y_i)x_{i,j}
+w_j := w_j - \alpha \sum^m_{i=1}(f(\boldsymbol{x}^{(i)})-y^{(i)})x_{j}^{(i)}
 $$
 具体而言，这个算法为：
 $$
 \begin{aligned}
 &\quad Repeat \ k \ iterations \quad \{ \\
-& \quad\quad for \ every \ \ w_j \ in \ \boldsymbol{w} \ w_j := w_j - \alpha \sum^m_{i=1}(f(\boldsymbol{x_{i}})-y_i)x_{i,j}\quad \\
+& \quad\quad for \ every \ \ w_j \ in \ \boldsymbol{w} \ w_j := w_j - \alpha \sum^m_{i=1}(f(\boldsymbol{x}^{(i)})-y^{(i)})x_{j}^{(i)}\quad \\
 &\quad\}
 \end{aligned}
 $$
@@ -240,7 +240,7 @@ $$
 \begin{aligned}
 &\quad Repeat \ k \ iterations \quad \{ \\
 & \quad\quad randomly \ choose \ i \\
-& \quad\quad for \ every \ \ w_j \ in \ \boldsymbol{w} \ w_j := w_j - \alpha (f(\boldsymbol{x_{i}})-y_i)x_{i,j}\quad \\
+& \quad\quad for \ every \ \ w_j \ in \ \boldsymbol{w} \ w_j := w_j - \alpha (f(\boldsymbol{x}^{(i)})-y^{(i)})x_{j}^{(i)}\quad \\
 &\quad\}
 \end{aligned}
 $$

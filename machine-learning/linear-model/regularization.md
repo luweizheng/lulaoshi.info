@@ -17,22 +17,22 @@ chapter-url: /machine-learning/linear-model/index.html
 
 $$
 \begin{aligned}
-L(\boldsymbol{w}) &= \frac{1}{2}\sum_{i=1}^m(f_\boldsymbol{w}(\boldsymbol{x_i}) - y_i)^2 \\ 
-&= \frac{1}{2}\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x_i} - y_i)^2
+L(\boldsymbol{w}) &= \frac{1}{2}\sum_{i=1}^m(f_\boldsymbol{w}(\boldsymbol{x}^{(i)}) - y^{(i)})^2 \\ 
+&= \frac{1}{2}\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x}^{(i)} - y^{(i)})^2
 \end{aligned}
 $$
 
 在上面公式基础上，我们添加一个正则项，得到一个新的损失函数：
 $$
-L(\boldsymbol{w}) = \frac{1}{2}\left(\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x_i} - y_i)^2 + \lambda\sum_{j=1}^nw_j^2\right)
+L(\boldsymbol{w}) = \frac{1}{2}\left(\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x}^{(i)} - y^{(i)})^2 + \lambda\sum_{j=1}^nw_j^2\right)
 $$
 注意，模型的$\boldsymbol{w}$有$n$维，新增加的正则项直接对每个$w$取平方。
 
-直观上来讲，当我们最小化当前这个新的损失函数的时候，一方面要使线性回归本身的误差项$\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x_i}-y_i)^2$最小化，另一方面，每个$w$不能太大，否则正则项$\lambda\sum_{j=1}^nw_j^2$会很大。正则项又被称为惩罚项，用来惩罚各个$w$过大导致的模型过于复杂的情况。正则项中的$\lambda$是用来平衡损失函数和正则项之间的系数，被称为正则化系数，系数越大，正则项的惩罚效果越强，后文还会提到正则化系数。
+直观上来讲，当我们最小化当前这个新的损失函数的时候，一方面要使线性回归本身的误差项$\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x}^{(i)}-y^{(i)})^2$最小化，另一方面，每个$w$不能太大，否则正则项$\lambda\sum_{j=1}^nw_j^2$会很大。正则项又被称为惩罚项，用来惩罚各个$w$过大导致的模型过于复杂的情况。正则项中的$\lambda$是用来平衡损失函数和正则项之间的系数，被称为正则化系数，系数越大，正则项的惩罚效果越强，后文还会提到正则化系数。
 
 对于刚刚得到的新损失函数，我们可以对这个公式进行求导，以得到梯度，进而可以使用梯度下降法求解。
 $$
-\frac \partial {\partial w_j}L(w) = \sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x_i} - y_i)x_{i,j} + \lambda w_j
+\frac \partial {\partial w_j}L(w) = \sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x}^{(i)} - y^{(i)})x_{j}^{(i)} + \lambda w_j
 $$
 
 线性回归使用二次正则项来惩罚参数$\boldsymbol{w}$的整个过程被称为岭回归（Ridge Regression），或者说使用了L2正则化（L2 Regularization）。其他机器学习模型如逻辑回归和神经网络也可以使用L2正则化。
@@ -41,7 +41,7 @@ $$
 
 如果使用一次正则项来惩罚线性回归的参数$\boldsymbol{w}$，被称为Lasso(Least Absolute Shrinkage and Selection Operator) Regression，或者说回归使用了L1正则化：
 $$
-L(\boldsymbol{w}) = \frac{1}{2}\left(\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x} - y)^2 + \lambda\sum_{i=1}^n|w_i|\right)
+L(\boldsymbol{w}) = \frac{1}{2}\left(\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x} - y)^2 + \lambda\sum_{j=1}^n|w_j|\right)
 $$
 可以看到，Lasso回归主要是使用绝对值来做惩罚项。绝对值项在零点有一个突变，它的求导稍微麻烦一些。Lasso回归求解需要用到次梯度（Subgradient）方法，或者使用近端梯度下降（Promximal Gradient Descent，PGD）法，这里不再赘述。
 

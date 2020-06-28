@@ -69,7 +69,7 @@ $$
 
 之前的文章提到，线性回归的误差项$ε$是预测值与真实值之间的差异，如下面公式所示。它可能是一些随机噪音，也可能是线性回归模型没考虑到的一些其他影响因素。
 $$
-y_i = \epsilon_i + \sum_{j=1}^n w_jx_{i,j} =\epsilon_i + \boldsymbol{w}^\top \boldsymbol{x_i}
+y^{(i)} = \epsilon^{(i)} + \sum_{j=1}^n w_jx_{j}^{(i)} =\epsilon^{(i)} + \boldsymbol{w}^\top \boldsymbol{x}^{(i)}
 $$
 
 
@@ -83,37 +83,37 @@ $$
 既然误差项服从正态分布，那么：
 
 $$
-P(\epsilon_i) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(\epsilon_i)^2}{2 \sigma^2}})}
+P(\epsilon^{(i)}) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(\epsilon^{(i)})^2}{2 \sigma^2}})}
 $$
 
-由于$\epsilon_i = y_i - \boldsymbol{w}^\top \boldsymbol{x_i}$，并取均值$\mu$为0，可得到：
+由于$\epsilon^{(i)} = y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)}$，并取均值$\mu$为0，可得到：
 $$
-P(y_i|\boldsymbol{x_i}; \boldsymbol{w}) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2}{2 \sigma^2}})}
+P(y^{(i)}|\boldsymbol{x}^{(i)}; \boldsymbol{w}) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2}{2 \sigma^2}})}
 $$
-上式表示给定$\boldsymbol{x_i}$，$y_i$的概率分布。$\boldsymbol{w}$并不是随机变量，而是一个参数，所以用$;$分号隔开。或者说$\boldsymbol{w}$和$\boldsymbol{x_i}$不是同一类变量，需要分开单独理解。$P(y_i|\boldsymbol{x_i}, \boldsymbol{w})$则有完全不同的意义，表示$\boldsymbol{x_i}$和$\boldsymbol{w}$同时发生时，$y_i$的概率分布。
+上式表示给定$\boldsymbol{x}^{(i)}$，$y^{(i)}$的概率分布。$\boldsymbol{w}$并不是随机变量，而是一个参数，所以用$;$分号隔开。或者说$\boldsymbol{w}$和$\boldsymbol{x}^{(i)}$不是同一类变量，需要分开单独理解。$P(y^{(i)}|\boldsymbol{x}^{(i)}, \boldsymbol{w})$则有完全不同的意义，表示$\boldsymbol{x}^{(i)}$和$\boldsymbol{w}$同时发生时，$y^{(i)}$的概率分布。
 
 
 前文提到，似然函数是所观察到的各个样本发生的概率的乘积。一组样本有$m$个观测数据，其中单个观测数据发生的概率为刚刚得到的公式，$m$个观测数据的乘积如下所示。
 $$
-L(\boldsymbol{w}) = L(\boldsymbol{w}; \boldsymbol{X}, \boldsymbol{y}) = \prod_{i=1}^{m}P(y_i|\boldsymbol{x_i}; \boldsymbol{w})
+L(\boldsymbol{w}) = L(\boldsymbol{w}; \boldsymbol{X}, \boldsymbol{y}) = \prod_{i=1}^{m}P(y^{(i)}|\boldsymbol{x}^{(i)}; \boldsymbol{w})
 $$
 
 最终，似然函数可以表示成：
 $$
-L(\boldsymbol{w}) = \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2}{2 \sigma^2}})}
+L(\boldsymbol{w}) = \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2}{2 \sigma^2}})}
 $$
 
 
-其中，$\boldsymbol{x_i}$和$y_i$都是观测到的真实数据，是已知的，$\boldsymbol{w}$是需要去求解的模型参数。
+其中，$\boldsymbol{x}^{(i)}$和$y^{(i)}$都是观测到的真实数据，是已知的，$\boldsymbol{w}$是需要去求解的模型参数。
 
-给定一组观测数据$\boldsymbol{X}$和$\boldsymbol{y}$，如何选择参数$\boldsymbol{w}$来使模型达到最优的效果？最大似然估计法告诉我们应该选择一个$\boldsymbol{w}$，使得似然函数$L$最大。$L$中的乘积符号和$\exp$运算看起来就非常复杂，直接用$L$来计算十分不太方便，于是统计学家在原来的似然函数基础上，取了$\log$对数。$\log$的一些性质能大大化简计算复杂程度，且对原来的似然函数增加$log$对数并不影响参数$ω$的最优值。通常使用花体的$\ell$来表示损失函数的对数似然函数。
+给定一组观测数据$\boldsymbol{X}$和$\boldsymbol{y}$，如何选择参数$\boldsymbol{w}$来使模型达到最优的效果？最大似然估计法告诉我们应该选择一个$\boldsymbol{w}$，使得似然函数$L$最大。$L$中的乘积符号和$\exp$运算看起来就非常复杂，直接用$L$来计算十分不太方便，于是统计学家在原来的似然函数基础上，取了$\log$对数。$\log$的一些性质能大大化简计算复杂程度，且对原来的似然函数增加$\log$对数并不影响参数$w$的最优值。通常使用花体的$\ell$来表示损失函数的对数似然函数。
 $$
 \begin{aligned}
 \ell(\boldsymbol{w}) &= \log\ L(\boldsymbol{w}) \\
-& = \log \ \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2}{2 \sigma^2}})} \\
-&= \sum_{i=1}^{m}\log[\frac{1}{\sqrt{2 \pi \sigma^2}}\cdot\exp{({-\frac{(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2}{2 \sigma^2}})}] \\
-&= \sum_{i=1}^{m}\log[\frac{1}{\sqrt{2 \pi \sigma^2}}] + \sum_{i=1}^{m}\log[\exp{({-\frac{(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2}{2 \sigma^2}})}] \\
-&= m\log{\frac{1}{\sqrt{2 \pi \sigma^2}}} - \frac{1}{2 \sigma^2}\sum_{i=1}^{m}(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2
+& = \log \ \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^2}}\exp{({-\frac{(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2}{2 \sigma^2}})} \\
+&= \sum_{i=1}^{m}\log[\frac{1}{\sqrt{2 \pi \sigma^2}}\cdot\exp{({-\frac{(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2}{2 \sigma^2}})}] \\
+&= \sum_{i=1}^{m}\log[\frac{1}{\sqrt{2 \pi \sigma^2}}] + \sum_{i=1}^{m}\log[\exp{({-\frac{(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2}{2 \sigma^2}})}] \\
+&= m\log{\frac{1}{\sqrt{2 \pi \sigma^2}}} - \frac{1}{2 \sigma^2}\sum_{i=1}^{m}(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x^{(i)}})^2
 \end{aligned}
 $$
 
@@ -126,9 +126,9 @@ $$
 
 由于$\log$对数可以把乘法转换为加法，似然函数中的乘积项变成了求和项。又因为$\log$对数可以消去幂，最终可以得到上述结果。
 
-由于我们只关心参数$\boldsymbol{w}$取何值时，似然函数最大，标准差$\sigma$并不会影响$\boldsymbol{w}$取何值时似然函数最大，所以可以忽略掉带有标准差$\sigma$的项$m\log{\frac{1}{\sqrt{2 \pi \sigma^2}}}$。再在$-\frac{1}{2 \sigma^2}\sum_{i=1}^{m}(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2$加个负号，负负得正，原来似然函数$\ell$最大化问题就变成了最小化问题，其实最后还是最小化：
+由于我们只关心参数$\boldsymbol{w}$取何值时，似然函数最大，标准差$\sigma$并不会影响$\boldsymbol{w}$取何值时似然函数最大，所以可以忽略掉带有标准差$\sigma$的项$m\log{\frac{1}{\sqrt{2 \pi \sigma^2}}}$。再在$-\frac{1}{2 \sigma^2}\sum_{i=1}^{m}(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2$加个负号，负负得正，原来似然函数$\ell$最大化问题就变成了最小化问题，其实最后还是最小化：
 $$
-\sum_{i=1}^{m}(y_i - \boldsymbol{w}^\top \boldsymbol{x_i})^2
+\sum_{i=1}^{m}(y^{(i)} - \boldsymbol{w}^\top \boldsymbol{x}^{(i)})^2
 $$
 
 这与最小二乘法所优化的损失函数几乎一样，都是“真实值 - 预测值”的平方和，可以说是殊途同归。
