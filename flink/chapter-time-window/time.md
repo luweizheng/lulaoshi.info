@@ -55,7 +55,7 @@ env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 如果想用另外两种时间语义，需要替换为：`TimeCharacteristic.ProcessingTime`和`TimeCharacteristic.IngestionTime`。
 
 {: .note}
-首次进行时间相关计算的读者可能因为没有正确设置数据流时间相关属性而得不到正确的结果。包括本书前序章节的示例代码在内，一些测试或演示代码常常使用`StreamExecutionEnvironment.fromElements`或`StreamExecutionEnvironment.fromCollection`方法来创建一个`DataStream`，用这种方法生成的`DataStream`没有时序性，如果不对元素设置时间戳，无法进行时间相关的计算。或者说，在一个没有时序性的数据流上进行时间相关计算，无法得到正确的结果。想要建立数据之间的时序性，一种方法是继续用`StreamExecutionEnvironment.fromElements`或`StreamExecutionEnvironment.fromCollection`方法，使用Event Time时间语义，对数据流中每个元素的Event Time进行赋值。另一种方法是使用其他的Source，比如`StreamExecutionEnvironment.socketTextStream`或Kafka，这些Source的输入数据本身带有时序性，支持Processinng Time时间语义。
+首次进行时间相关计算的读者可能因为没有正确设置数据流时间相关属性而得不到正确的结果。包括本书前序章节的示例代码在内，一些测试或演示代码常常使用`StreamExecutionEnvironment.fromElements()`或`StreamExecutionEnvironment.fromCollection()`方法来创建一个`DataStream`，用这种方法生成的`DataStream`没有时序性，如果不对元素设置时间戳，无法进行时间相关的计算。或者说，在一个没有时序性的数据流上进行时间相关计算，无法得到正确的结果。想要建立数据之间的时序性，一种方法是继续用`StreamExecutionEnvironment.fromElements()`或`StreamExecutionEnvironment.fromCollection()`方法，使用Event Time时间语义，对数据流中每个元素的Event Time进行赋值。另一种方法是使用其他的Source，比如`StreamExecutionEnvironment.socketTextStream()`或Kafka，这些Source的输入数据本身带有时序性，支持Processinng Time时间语义。
 
 ## Event Time和Watermark
 
@@ -87,7 +87,7 @@ Watermark的生成有以下几点需要注意：
 
 这样的设计机制满足了并行环境下Watermark在各算子中的传播问题，但是假如某个上游分区的Watermark一直不更新，Partition Watermark列表其他地方都在正常更新，唯独个别分区的Watermark停滞，这会导致算子的Event Time时钟不更新，相应的时间窗口计算也不会被触发，大量的数据积压在算子内部得不到处理，整个流处理处于空转状态。这种问题可能出现在数据流自带Watermark的场景，自带的Watermark在某些分区下没有及时更新。针对这种问题，一种解决办法是根据机器当前的时钟，周期性地生成Watermark。
 
-此外，在`union`等多数据流处理时，Flink也使用上述Watermark更新机制，那就意味着，多个数据流的时间必须对齐，如果一方的Watermark时间较老，那整个应用的Event Time时钟也会使用这个较老的时间，其他数据流的数据会被积压。一旦发现某个数据流不再生成新的Watermark，我们要在`SourceFunction`中的`SourceContext`里调用`markAsTemporarilyIdle`设置该数据流为空闲状态，避免空转。
+此外，在`union()`等多数据流处理时，Flink也使用上述Watermark更新机制，那就意味着，多个数据流的时间必须对齐，如果一方的Watermark时间较老，那整个应用的Event Time时钟也会使用这个较老的时间，其他数据流的数据会被积压。一旦发现某个数据流不再生成新的Watermark，我们要在`SourceFunction`中的`SourceContext`里调用`markAsTemporarilyIdle()`设置该数据流为空闲状态，避免空转。
 
 ## 抽取时间戳及生成Watermark
 
@@ -95,7 +95,7 @@ Watermark的生成有以下几点需要注意：
 
 ### Source
 
-我们可以在Source阶段，通过自定义`SourceFunction`或`RichSourceFunction`，在`SourceContext`里重写`void collectWithTimestamp(T element, long timestamp)`和`void emitWatermark(Watermark mark)`两个方法，其中，`collectWithTimestamp`给数据流中的每个元素T赋值一个`timestamp`作为Event Time，`emitWatermark`生成Watermark。下面的代码展示了调用这两个方法抽取时间戳并生成Watermark。
+我们可以在Source阶段完成时间戳抽取和Watermark生成的工作。Flink 1.11开始推出了新的Source接口，并计划逐步替代老的Source接口，我们将在第七章展示两种接口的具体工作方式，这里暂时以老的Source接口来展示时间戳抽取和Watermark生成的过程。在老的Source接口中，通过自定义`SourceFunction`或`RichSourceFunction`，在`SourceContext`里重写`void collectWithTimestamp(T element, long timestamp)`和`void emitWatermark(Watermark mark)`两个方法，其中，`collectWithTimestamp()`给数据流中的每个元素T赋值一个`timestamp`作为Event Time，`emitWatermark()`生成Watermark。下面的代码展示了调用这两个方法抽取时间戳并生成Watermark。
 
 ```java
 class MyType {
@@ -122,143 +122,151 @@ class MySource extends RichSourceFunction[MyType] {
 }
 ```
 
-### 在Source之后通过`TimestampAssigner`设置
+### Source之后
 
-如果我们不想修改Source，也可以在Source之后，通过时间戳指定器（TimestampAssigner）来设置。`TimestampAssigner`是一个在`DataStream<T>`上调用的算子，它会给数据流生成时间戳和Watermark，但不改变数据流的类型T。比如，我们可以在Source之后，先过滤掉不需要的内容，然后设置时间戳和Watermark。下面的代码展示了使用`TimestampAssigner`的大致流程。
+如果我们不想修改Source，也可以在Source之后，通过`assignTimestampsAndWatermarks()`方法来设置。与Source接口一样，Flink 1.11重构了`assignTimestampsAndWatermarks()`方法，重构后的`assignTimestampsAndWatermarks()`方法和新的Source接口结合更好、表达能力更强，这里介绍一下重构后的`assignTimestampsAndWatermarks()`方法。
+
+新的`assignTimestampsAndWatermarks()`方法主要依赖`WatermarkStrategy`，通过`WatermarkStrategy`我们可以为每个元素抽取时间戳并生成Watermark。`assignTimestampsAndWatermarks()`方法结合`WatermarkStrategy`的大致使用方式为：
 
 ```java
-StreamExecutionEnvironment env = 
-  StreamExecutionEnvironment.getExecutionEnvironment();
-// 使用EventTime时间语义
-env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+DataStream<MyType> stream = ...
 
-DataStream<MyEvent> stream = env.addSource(...);
-
-// 先过滤不需要的内容，然后设置Timestamp和Watermark。
-DataStream<MyEvent> withTimestampsAndWatermarks = stream
-        .filter( event -> event.severity() == WARNING )
-  			// 我们要实现一个MyTimestampsAndWatermarks
-  			// MyTimestampsAndWatermarks继承并实现了TimestampAssigner
-  			// 告知Flink如何抽取时间戳并生成Watermark。
-        .assignTimestampsAndWatermarks(new MyTimestampsAndWatermarks());
-
-withTimestampsAndWatermarks
-        .keyBy(<KeySelector>)
-        .timeWindow(Time.seconds(10))
-        .reduce( (a, b) -> a.add(b) )
-        .addSink(...);
+DataStream<MyType> withTimestampsAndWatermarks = stream
+        .assignTimestampsAndWatermarks(
+            WatermarkStrategy
+                .forGenerator(...)
+                .withTimestampAssigner(...)
+        );
 ```
 
-`MyTimestampsAndWatermarks`需要继承并实现`TimestampAssigner`。`TimestampAssigner`是一个函数式接口类，它的源码如下：
+可以看到`WatermarkStrategy.forGenerator(...).withTimestampAssigner(...)`链式调用了两个方法，`forGenerator()`方法用来生成Watermark，`withTimestampAssigner()`方法用来为数据流的每个元素设置时间戳。
+
+`withTimestampAssigner()`方法相对更好理解，它抽取数据流中的每个元素的时间戳，一般是告知Flink具体哪个字段为时间戳字段。例如，一个`MyType`数据流中`eventTime`字段为时间戳，数据流的每个元素为`event`，使用Lambda表达式来抽取时间戳，可以写成：`.withTimestampAssigner((event, timestamp) -> event.eventTime)`。这个Lambda表达式可以帮我们抽取数据流元素中的时间戳``eventTime``，我们暂且可以不用关注第二个参数`timestamp`。
+
+基于Event Time时间戳，我们还要设置Watermark生成策略，一种方法是自己实现一些Watermark策略类，并使用`forGenerator()`方法调用这些Watermark策略类。我们曾多次提到，Watermark是一种插入到数据流中的特殊元素，Watermark元素包含一个时间戳，当某个算子接收到一个Watermark元素时，算子会假设早于这条Watermark的数据流元素都已经到达。那么如何向数据流中插入Watermark呢？Flink提供了两种方式，一种是周期性地（Periodic）生成Watermark，一种是逐个式地（Punctuated）生成Watermark。无论是Periodic方式还是Punctuated方式，都需要实现`WatermarkGenerator`接口类，如下所示，`T`为数据流元素类型。
 
 ```java
-public interface TimestampAssigner<T> extends Function {
+// Flink源码
+// 生成Watermark的接口类
+@Public
+public interface WatermarkGenerator<T> {
   
-	long extractTimestamp(T element, long previousElementTimestamp);
-  
+    // 数据流中的每个元素流入后都会调用onEvent()方法
+    // Punctunated方式下，一般根据数据流中的元素是否有特殊标记来判断是否需要生成Watermark
+    // Periodic方式下，一般用于记录各元素的Event Time时间戳
+    void onEvent(T event, long eventTimestamp, WatermarkOutput output);
+
+    // 每隔固定周期调用onPeriodicEmit()方法
+    // 一般主要用于Periodic方式
+    // 固定周期用 ExecutionConfig#setAutoWatermarkInterval() 方法设置
+    void onPeriodicEmit(WatermarkOutput output);
 }
 ```
 
-`extractTimestamp`方法为数据流中的每个元素T的Event Time赋值。
+#### Periodic
 
-`TimestampAssigner`主要有两种实现方式，一种是周期性地（Periodic）生成Watermark，一种是逐个式地（Punctuated）生成Watermark。如果同时也在Source阶段设置了时间戳，那使用这种方式设置的时间戳和Watermark会将Source阶段的设置覆盖。
-
-#### AssignerWithPeriodicWatermarks
-
-`AssignerWithPeriodicWatermarks`是一个继承了`TimestampAssigner`的接口类：
+假如我们想周期性地生成Watermark，这个周期是可以设置的，默认情况下是每200毫秒生成一个Watermark，或者说Flink每200毫秒调用一次生成Watermark的方法。我们可以在执行环境中设置这个周期：
 
 ```java
-public interface AssignerWithPeriodicWatermarks<T> 
-  extends TimestampAssigner<T> {
-	Watermark getCurrentWatermark();
-}
-```
-
-它可以周期性地生成Watermark，这个周期是可以设置的，默认情况下是每200毫秒生成一个Watermark，或者说Flink每200毫秒调用一次`getCurrentWatermark`方法。我们可以在执行环境中设置这个周期：
-
-```scala
 // 每5000毫秒生成一个Watermark
 env.getConfig.setAutoWatermarkInterval(5000L)
 ```
 
-下面的代码具体实现了`AssignerWithPeriodicWatermarks`，它抽取元素中的第二个字段为Event Time，每次抽取完时间戳后，更新时间戳最大值，然后以时间戳最大值减1分钟作为Watermark发送出去。
+下面的代码定期生成Watermark，数据流元素是一个`Tuple2`，第二个字段`Long`是Event Time时间戳。
 
 ```java
-// Tuple2的第二个字段是时间戳
-DataStream<Tuple2<String, Long>> watermark = input.assignTimestampsAndWatermarks(new MyPeriodicAssigner());
+// 定期生成Watermark
+// 数据流元素 Tuple2<String, Long> 共两个字段
+// 第一个字段为数据本身
+// 第二个字段是时间戳
+public static class MyPeriodicGenerator implements WatermarkGenerator<Tuple2<String, Long>> {
 
-public static class MyPeriodicAssigner implements AssignerWithPeriodicWatermarks<Tuple2<String, Long>> {
-    private long bound = 60 * 1000;        // 1分钟
-    private long maxTs = Long.MIN_VALUE;   // 已抽取的Timestamp最大值
+    private final long maxOutOfOrderness = 60 * 1000; // 1分钟
+    private long currentMaxTimestamp;                 // 已抽取的Timestamp最大值
 
     @Override
-    public long extractTimestamp(Tuple2<String, Long> element, long previousElementTimestamp) {
-        // 更新maxTs为当前遇到的最大值
-        maxTs = Math.max(maxTs, element.f1);
-        return element.f1;
+    public void onEvent(Tuple2<String, Long> event, long eventTimestamp, WatermarkOutput output) {
+        // 更新currentMaxTimestamp为当前遇到的最大值
+        currentMaxTimestamp = Math.max(currentMaxTimestamp, eventTimestamp);
     }
 
     @Override
-    public Watermark getCurrentWatermark() {
-        // Watermark比Timestamp最大值慢1分钟
-        Watermark watermark = new Watermark(maxTs - bound);
-        return watermark;
+    public void onPeriodicEmit(WatermarkOutput output) {
+        // Watermark比currentMaxTimestamp最大值慢1分钟
+        output.emitWatermark(new Watermark(currentMaxTimestamp - maxOutOfOrderness));
     }
+
 }
 ```
 
-这段代码假设了Watermark比已流入数据的最大时间戳慢1分钟，超过1分钟的将被视为迟到数据。
+我们用变量`currentMaxTimestamp`记录已抽取的时间戳最大值，每个元素到达后都会调用`onEvent()`方法，更新`currentMaxTimestamp`时间戳最大值。当需要发射Watermark时，以时间戳最大值减1分钟作为Watermark发送出去。这种Watermark策略假设Watermark比已流入数据的最大时间戳慢1分钟，超过1分钟的将被视为迟到数据。
 
-考虑到这种场景比较普遍，Flink已经帮我们封装好了这样的代码，名为`BoundedOutOfOrdernessTimestampExtractor`，其内部实现与上面的代码几乎一致，我们只需要将最大的延迟时间作为参数传入，但是我们仍然要给每个元素赋值Event Time。
+实现好`MyPeriodicGenerator`后，我们要用`forGenerator()`方法调用这个类：
 
 ```java
-DataStream<Tuple2<String, Long>> boundedOutOfOrder = input.assignTimestampsAndWatermarks(new BoundedOutOfOrdernessTimestampExtractor<Tuple2<String, Long>>(Time.minutes(1)) {
-    @Override
-    public long extractTimestamp(Tuple2<String, Long> element) {
-      	return element.f1;
-    }
-});
+// 第二个字段是时间戳
+DataStream<Tuple2<String, Long>> watermark = input.assignTimestampsAndWatermarks(
+    WatermarkStrategy
+        .forGenerator((context -> new MyPeriodicGenerator()))
+        .withTimestampAssigner((event, recordTimestamp) -> event.f1));
 ```
 
-综上，继承一个`AssignerWithPeriodicWatermarks`需要实现两个方法：`extractTimestamp`和`getCurrentWatermark`。`extractTimestamp`赋值Event Time，`getCurrentWatermark`定期生成Watermark。
-
-#### AssignerWithPunctuatedWatermarks
-
-同样，`AssignerWithPunctuatedWatermarks`也是一个继承了`TimestampAssigner`的接口类：
+考虑到这种基于时间戳最大值的场景比较普遍，Flink已经帮我们封装好了这样的代码，名为`BoundedOutOfOrdernessWatermarks`，其内部实现与上面的代码几乎一致，我们只需要将最大的延迟时间作为参数传入：
 
 ```java
-public interface AssignerWithPunctuatedWatermarks<T> 
-  extends TimestampAssigner<T> {
-		// checkAndGetNextWatermark会在extractTimestamp方法之后调用
-		Watermark checkAndGetNextWatermark(T lastElement, long extractedTimestamp);
-}
+// 第二个字段是时间戳
+DataStream<Tuple2<String, Long>> input = env
+    .addSource(new MySource())
+    .assignTimestampsAndWatermarks(
+        WatermarkStrategy
+            .<Tuple2<String, Long>>forBoundedOutOfOrderness(Duration.ofSeconds(5))
+            .withTimestampAssigner((event, timestamp) -> event.f1)
+);
 ```
 
-这种方式对数据流中的每个元素逐个进行检查，如果数据流的元素中有一些特殊标记，我们要在`checkAndGetNextWatermark`方法中加以判断，并生成Watermark。`checkAndGetNextWatermark`方法会在`extractTimestamp`方法之后调用。
-
-下面的代码中，假设数据流有三个字段，第二个字段是Event Time时间戳，第三个字段标记是否是Watermark。`checkAndGetNextWatermark`对每个元素进行检查，判断是否需要生成新的Watermark。
+除了`BoundedOutOfOrdernessWatermarks`，另外一种预置的Watermark策略为`AscendingTimestampsWatermarks`。`AscendingTimestampsWatermarks`其实是继承了`BoundedOutOfOrdernessWatermarks`，只不过`AscendingTimestampsWatermarks`会假设Event Time时间戳单调递增，从内部代码实现上来说，Watermark的发射时间为时间戳最大值，不添加任何延迟。使用时，可以参照下面的方式：
 
 ```java
-// Tuple3第二个字段是时间戳，第三个字段判断是否为Watermark的标记
-public static class MyPunctuatedAssigner implements AssignerWithPunctuatedWatermarks<Tuple3<String, Long, Boolean>> {
-    @Override
-    public long extractTimestamp(Tuple3<String, Long, Boolean> element, long previousElementTimestamp) {
-      	return element.f1;
-    }
+// 第二个字段是时间戳
+DataStream<Tuple2<String, Long>> input = env
+    .addSource(new MySource())
+    .assignTimestampsAndWatermarks(
+        WatermarkStrategy
+            .<Tuple2<String, Long>>forMonotonousTimestamps()
+            .withTimestampAssigner((event, timestamp) -> event.f1)
+);
+```
+
+#### Punctuated
+
+假如数据流元素有一些特殊标记，标记了某些元素为Watermark，我们可以逐个检查数据流各元素，根据是否有特殊标记判断是否要生成Watermark。下面的代码以一个`Tuple3<String, Long, Boolean>`为例，其中第二个字段是时间戳，第三个字段标记了是否为Watermark。我们只需要在`onEvent()`方法中根据第三个字段来决定是否生成一条新的Watermark，由于这里不需要周期性的操作，因此`onPeriodicEmit()`方法里不需要做任何事情。
+
+```java
+// 逐个检查数据流中的元素，根据元素中的特殊字段，判断是否要生成Watermark
+// 数据流元素 Tuple3<String, Long, Boolean> 共三个字段
+// 第一个字段为数据本身
+// 第二个字段是时间戳
+// 第三个字段判断是否为Watermark的标记
+public static class MyPunctuatedGenerator implements WatermarkGenerator<Tuple3<String, Long, Boolean>> {
 
     @Override
-    public Watermark checkAndGetNextWatermark(Tuple3<String, Long, Boolean> element, long extractedTimestamp) {
-        if (element.f2) {
-          	return new Watermark(extractedTimestamp);
-        } else {
-          	return null;
+    public void onEvent(Tuple3<String, Long, Boolean> event, long eventTimestamp, WatermarkOutput output) {
+        if (event.f2) {
+          output.emitWatermark(new Watermark(event.f1));
         }
     }
+
+    @Override
+    public void onPeriodicEmit(WatermarkOutput output) {
+      	// 这里不需要做任何事情，因为我们在 onEvent() 方法中生成了Watermark
+    }
+
 }
 ```
 
-可见，继承一个`AssignerWithPunctuatedWatermarks`需要实现两个方法：`extractTimestamp`和`checkAndGetNextWatermark`。`extractTimestamp`赋值Event Time，`checkAndGetNextWatermark`判断是否生成Watermark。这种Watermark生成方式多用在数据流有特殊元素，特殊元素标记了是否需要生成Watermark。
+{: .tip}
+假如每个元素都带有Watermark标记，Flink是允许为每个元素都生成一个Watermark的，但这种策略非常激进，大量的Watermark会增大下游计算的延迟，拖累整个Flink作业的性能。
 
 ## 平衡延迟和准确性
 
-至此，我们已经了解了Flink的Event Time和Watermark生成方法，那么具体如何操作呢？实际上，这个问题可能并没有一个标准答案。批处理中，数据都已经准备好了，不需要考虑未来新流入的数据，而流处理中，我们无法完全预知有多少迟到数据，数据的流入依赖业务的场景、数据的输入、网络的传输、集群的性能等等。Watermark是一种在延迟和准确性之间平衡的策略：Watermark与事件的时间戳贴合较紧，一些重要数据有可能被当成迟到数据，影响计算结果的准确性；Watermark设置得较松，整个应用的延迟增加，更多的数据会先缓存起来以等待计算，会增加内存的压力。对待具体的业务场景，我们可能需要反复尝试，不断迭代和调整时间策略。
+至此，我们已经了解了Flink的Event Time和Watermark生成方法，那么具体如何操作呢？实际上，这个问题可能并没有一个标准答案。批处理中，数据都已经准备好了，不需要考虑未来新流入的数据，而流处理中，我们无法完全预知有多少迟到数据，数据的流入依赖业务的场景、数据的输入、网络的传输、集群的性能等等。Watermark是一种在延迟和准确性之间平衡的策略：Watermark与事件的时间戳贴合较紧，一些重要数据有可能被当成迟到数据，影响计算结果的准确性；Watermark设置得较松，整个应用的延迟增加，更多的数据会先缓存起来以等待计算，会增加内存的压力。对待具体的业务场景，我们可能需要反复尝试，不断迭代和调整时间戳和Watermark策略。
