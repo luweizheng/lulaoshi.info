@@ -72,7 +72,7 @@ Source算子做完快照后，还会给Checkpoint Coodinator发送一个确认�
 
 对于第一个问题，Flink提供了异步快照（Asynchronous Snapshot）的机制。当实际执行快照时，Flink可以立即向下广播Checkpoint Barrier，表示自己已经执行完自己部分的快照。同时，Flink启动一个后台线程，它创建本地状态的一份拷贝，这个线程用来将本地状态的拷贝同步到State Backend上，一旦数据同步完成，再给Checkpoint Coordinator发送确认信息。拷贝一份数据肯定占用更多内存，这时可以利用写入时复制（Copy-on-Write）的优化策略。Copy-on-Write指：如果这份内存数据没有任何修改，那没必要生成一份拷贝，只需要有一个指向这份数据的指针，通过指针将本地数据同步到State Backend上；如果这份内存数据有一些更新，那再去申请额外的内存空间并维护两份数据，一份是快照时的数据，一份是更新后的数据。是否开启Asynchronous Snapshot是可以配置的，下一节使用不同的State Backend将介绍如何配置。
 
-对于第二个问题，Flink允许跳过对齐这一步，或者说一个算子子任务不需要等待所有上游通道的Checkpoint Barrier，直接将Checkpoint Barrier广播，执行快照并继续处理后续流入数据。为了保证数据一致性，Flink必须将那些上下游正在传输的数据也作为状态保存到快照中，一旦重启，这些元素会被重新处理一遍。这种不需要对齐的Checkpoint机制被称为Unaligned Checkpoint，我们可以通过`env.getCheckpointConfig().enableUnalignedCheckpoints();`开启Unaligned Checkpoint。
+对于第二个问题，Flink允许跳过对齐这一步，或者说一个算子子任务不需要等待所有上游通道的Checkpoint Barrier，直接将Checkpoint Barrier广播，执行快照并继续处理后续流入数据。为了保证数据一致性，Flink必须将那些上下游正在传输的数据也作为状态保存到快照中，一旦重启，这些元素会被重新处理一遍。这种不需要对齐的Checkpoint机制被称为Unaligned Checkpoint，我们可以通过`env.getCheckpointConfig().enableUnalignedCheckpoints();`开启Unaligned Checkpoint。Unaligned Checkpoint也是支持Exactly-Once的。Unaligned Checkpoint不执行Checkpoint Barrier对齐，因此在负载较重的场景下表现更好，但这并不意味这Unaligned Checkpoint就是最优方案，由于要将正在传输的数据也进行快照，状态数据会很大，磁盘负载会加重，同时更大的状态意味着重启后状态恢复的时间也更长，运维管理的难度更大。
 
 ## State Backend
 

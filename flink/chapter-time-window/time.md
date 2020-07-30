@@ -91,7 +91,7 @@ Watermark的生成有以下几点需要注意：
 
 ## 抽取时间戳及生成Watermark
 
-至此，我们已经了解了Flink的Event Time和Watermark机制的大致工作原理，接下来我们将展示如何在代码层面设置时间戳并生成Watermark。因为时间在后续处理中都会用到，时间的设置要在任何时间窗口操作之前。总之，时间越早设置越好。对时间和Watermark的设置只对Event Time时间语义起作用，如果一个作业基于Processing Time或Ingestion Time，那设置时间没有什么意义。Flink提供了两种方法设置时间戳和Watermark。无论哪种方法，我们都需要明白，Event Time时间戳和Watermark是捆绑在一起的，一旦涉及到Event Time，就必须抽取时间戳并生成Watermark。
+至此，我们已经了解了Flink的Event Time和Watermark机制的大致工作原理，接下来我们将展示如何在代码层面设置时间戳并生成Watermark。因为时间在后续处理中都会用到，时间的设置要在任何时间窗口操作之前。总之，时间越早设置越好。对时间和Watermark的设置只对Event Time时间语义起作用，如果一个作业基于Processing Time或Ingestion Time，那设置时间没有什么意义。Flink提供了新老两种方法设置时间戳和Watermark。无论哪种方法，我们都需要明白，Event Time时间戳和Watermark是捆绑在一起的，一旦涉及到Event Time，就必须抽取时间戳并生成Watermark。
 
 ### Source
 

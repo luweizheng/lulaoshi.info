@@ -8,7 +8,7 @@ chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html
 ---
 
-在继续介绍Flink时间和窗口相关操作之前，我们需要先了解一下`ProcessFunction`系列函数。它们是Flink体系中最底层的API，提供了对数据流更细粒度的操作权限。之前提到的一些算子和函数能够进行一些时间上的操作，但是不能获取算子当前的Processing Time或者是Watermark时间戳，调用起来简单但功能相对受限。如果想获取数据流中Watermark的时间戳，或者在时间上前后穿梭，需要使用`ProcessFunction`系列函数。Flink SQL是基于这些函数实现的，一些需要高度个性化的业务场景也需要使用这些函数。
+在继续介绍Flink时间和窗口相关操作之前，我们需要先了解一下`ProcessFunction`系列函数。它们是Flink体系中最底层的API，提供了对数据流更细粒度的操作权限。之前提到的一些算子和函数能够进行一些时间上的操作，但是不能获取算子当前的Processing Time或者是Watermark时间戳，调用起来简单但功能相对受限。如果想获取数据流中Watermark的时间戳，或者使用定时器，需要使用`ProcessFunction`系列函数。Flink SQL是基于这些函数实现的，一些需要高度个性化的业务场景也需要使用这些函数。
 
 目前，这个系列函数主要包括`KeyedProcessFunction`、`ProcessFunction`、`CoProcessFunction`、`KeyedCoProcessFunction`、`ProcessJoinFunction`和`ProcessWindowFunction`等多种函数，这些函数各有侧重，但核心功能比较相似，主要包括两点：
 
@@ -22,7 +22,7 @@ chapter-url: /flink/chapter-time-window/index.html
 
 说到时间相关的操作，就不能避开定时器（Timer）。我们可以把Timer理解成一个闹钟，使用前先在Timer中注册一个未来的时间，当这个时间到达，闹钟会“响起”，程序会执行一个回调函数，回调函数中执行一定的业务逻辑。这里以`KeyedProcessFunction`为例，来介绍Timer的注册和使用。
 
-`ProcessFunction`有两个重要的方法：`processElement`和`onTimer`，其中`processElement`函数在源码中的Java签名如下：
+`ProcessFunction`有两个重要的方法：`processElement()`和`onTimer()`，其中`processElement`函数在源码中的Java签名如下：
 
 
 ```java
@@ -30,28 +30,28 @@ chapter-url: /flink/chapter-time-window/index.html
 public abstract void processElement(I value, Context ctx, Collector<O> out)
 ```
 
-`processElement`方法处理数据流中的一条类型为I的元素，并通过`Collector<O>`输出出来。`Context`是它区别于`FlatMapFunction`等普通函数的特色，开发者可以通过`Context`来获取时间戳，访问`TimerService`，设置Timer。
+`processElement()`方法处理数据流中的一条类型为I的元素，并通过`Collector<O>`输出出来。`Context`是它区别于`FlatMapFunction`等普通函数的特色，开发者可以通过`Context`来获取时间戳，访问`TimerService`，设置Timer。
 
-另外一个接口是`onTimer`方法：
+`ProcessFunction`类中另外一个接口是`onTimer()`方法：
 
 ```java
 // 时间到达后的回调函数
 public void onTimer(long timestamp, OnTimerContext ctx, Collector<O> out)
 ```
 
-这是一个回调函数，当到了“闹钟”时间，Flink会调用`onTimer`，并执行一些业务逻辑。这里也有一个参数`OnTimerContext`，它实际上是继承了上面的那个`Context`，与`Context`几乎相同。
+这是一个回调函数，当到了“闹钟”时间，Flink会调用`onTimer()`，并执行一些业务逻辑。这里也有一个参数`OnTimerContext`，它实际上是继承了上面的那个`Context`，与`Context`几乎相同。
 
 使用Timer的方法主要逻辑为：
 
-1. 在`processElement`方法中通过`Context`注册一个未来的时间戳t。这个时间戳的语义可以是Processing Time，也可以是Event Time，根据业务需求来选择。
-2. 在`onTimer`方法中实现一些逻辑，到达t时刻，`onTimer`方法被自动调用。
+1. 在`processElement()`方法中通过`Context`注册一个未来的时间戳t。这个时间戳的语义可以是Processing Time，也可以是Event Time，根据业务需求来选择。
+2. 在`onTimer()`方法中实现一些逻辑，到达t时刻，`onTimer()`方法被自动调用。
 
-从`Context`中，我们可以获取一个`TimerService`，这是一个访问时间戳和Timer的接口。我们可以通过`Context.timerService.registerProcessingTimeTimer`或`Context.timerService.registerEventTimeTimer`这两个方法来注册Timer，只需要传入一个时间戳即可。我们可以通过`Context.timerService.deleteProcessingTimeTimer`和`Context.timerService.deleteEventTimeTimer`来删除之前注册的Timer。此外，还可以从中获取当前的时间戳：`Context.timerService.currentProcessingTime`和`Context.timerService.currentWatermark`。从函数名看出，这里都是两两出现的函数，两个方法分别对应两种时间语义。
+从`Context`中，我们可以获取一个`TimerService`，这是一个访问时间戳和Timer的接口。我们可以通过`Context.timerService.registerProcessingTimeTimer()`或`Context.timerService.registerEventTimeTimer()`这两个方法来注册Timer，只需要传入一个时间戳即可。我们可以通过`Context.timerService.deleteProcessingTimeTimer`和`Context.timerService.deleteEventTimeTimer`来删除之前注册的Timer。此外，还可以从中获取当前的时间戳：`Context.timerService.currentProcessingTime`和`Context.timerService.currentWatermark`。这些方法中，名字带有“ProcessingTime”的方法表示该方法基于Processing Time语义；名字带有“EventTime”或“Watermark”的方法表示该方法基于Event Time语义。
 
 {: .note}
 我们只能在`KeyedStream`上注册Timer。每个Key下可以使用不同的时间戳注册不同的Timer，但是每个Key的每个时间戳只能注册一个Timer。如果想在一个`DataStream`上应用Timer，可以将所有数据映射到一个伪造的Key上，但这样所有数据会流入一个算子子任务。
 
-我们再次以[股票交易](/flink/chapter-datastream-api/exercise-stock-basic.html)场景来解释如何使用Timer。一次股票交易包括：股票代号、时间戳、股票价格、成交量。我们现在想看一支股票未来是否一直连续上涨，如果一直上涨，则发送出一个提示。如果新数据比上次数据价格更高且目前没有注册Timer，则注册一个未来的Timer，如果在这期间价格降低则把刚才注册的Timer删除，如果在这期间价格没有降低，Timer时间到达后出发`onTimer`，发送一个提示。
+我们再次以[股票交易](/flink/chapter-datastream-api/exercise-stock-basic.html)场景来解释如何使用Timer。一次股票交易包括：股票代号、时间戳、股票价格、成交量。我们现在想看一支股票未来是否一直连续上涨，如果一直上涨，则发送出一个提示。如果新数据比上次数据价格更高且目前没有注册Timer，则注册一个未来的Timer，如果在这期间价格降低则把刚才注册的Timer删除，如果在这期间价格没有降低，Timer时间到达后触发`onTimer()`，发送一个提示。下面的代码中，`intervalMills`表示一个毫秒精度的时间段，如果这个时间段内一支股票价格一直上涨，则会输出文字提示。
 
 ```java
 // 三个泛型分别为 Key、输入、输出
@@ -121,7 +121,7 @@ public static class IncreaseAlertFunction
 }
 ```
 
-在主逻辑里，通过下面的`process`算子调用`KeyedProcessFunction`：
+在主逻辑里，通过下面的`process()`算子调用`KeyedProcessFunction`：
 
 ```java
 DataStream<StockPrice> inputStream = ...
@@ -183,15 +183,15 @@ public class SingleOutputStreamOperator<T> extends DataStream<T> {
 
 ## 在两个流上使用`ProcessFunction`
 
-我们在DataStream API部分曾提到使用`connect`将两个数据流的合并，如果想从更细的粒度在两个数据流进行一些操作，可以使用`CoProcessFunction`或`KeyedCoProcessFunction`。这两个函数都有`processElement1`和`processElement2`方法，分别对第一个数据流和第二个数据流的每个元素进行处理。第一个数据流类型、第二个数据流类型和经过函数处理后的输出类型可以互不相同。尽管数据来自两个不同的流，但是他们可以共享同样的状态，所以可以参考下面的逻辑来实现两个数据流上的Join：
+我们在DataStream API部分曾提到使用`connect()`将两个数据流的合并，如果想从更细的粒度在两个数据流进行一些操作，可以使用`CoProcessFunction`或`KeyedCoProcessFunction`。这两个函数都有`processElement1()`和`processElement2()`方法，分别对第一个数据流和第二个数据流的每个元素进行处理。第一个数据流类型、第二个数据流类型和经过函数处理后的输出类型可以互不相同。尽管数据来自两个不同的流，但是他们可以共享同样的状态，所以可以参考下面的逻辑来实现两个数据流上的Join：
 
 * 创建一到多个状态，两个数据流都能访问到这些状态，这里以状态a为例。
-* `processElement1`方法处理第一个数据流，更新状态a。
-* `processElement2`方法处理第二个数据流，根据状态a中的数据，生成相应的输出。
+* `processElement1()`方法处理第一个数据流，更新状态a。
+* `processElement2()`方法处理第二个数据流，根据状态a中的数据，生成相应的输出。
 
-我们这次将股票价格结合媒体评价两个数据流一起讨论，假设对于某支股票有一个媒体评价数据流，媒体评价数据流包含了对该支股票的正负评价。两支数据流一起流入`KeyedCoProcessFunction`，`processElement2`方法处理流入的媒体数据，将媒体评价更新到状态`mediaState`上，`processElement1`方法处理流入的股票交易数据，获取`mediaState`状态，生成到新的数据流。两个方法分别处理两个数据流，共享一个状态，通过状态来通信。
+我们这次将股票价格结合媒体评价两个数据流一起讨论，假设对于某支股票有一个媒体评价数据流，媒体评价数据流包含了对该支股票的正负评价。两支数据流一起流入`KeyedCoProcessFunction`，`processElement2()`方法处理流入的媒体数据，将媒体评价更新到状态`mediaState`上，`processElement1()`方法处理流入的股票交易数据，获取`mediaState`状态，生成到新的数据流。两个方法分别处理两个数据流，共享一个状态，通过状态来通信。
 
-在主逻辑中，我们将两个数据流`connect`，然后按照股票代号进行`keyBy`，进而使用`process`算子：
+在主逻辑中，我们将两个数据流`connect()`，然后按照股票代号进行`keyBy()`，进而使用`process()`：
 
 ```scala
 // 读入股票数据流

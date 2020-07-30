@@ -19,34 +19,34 @@ chapter-url: /flink/chapter-time-window/index.html
 ```scala
 // Keyed Window
 stream
-       .keyBy(<KeySelector>)               <-  按照一个Key进行分组
-       .window(<WindowAssigner>)              <-  将数据流中的元素分配到相应的窗口中
-      [.trigger(<Trigger>)]            <-  指定触发器Trigger（可选）
-      [.evictor(<Evictor>)]            <-  指定清除器Evictor(可选)
-       .reduce/aggregate/process()      <-  窗口处理函数Window Function
+       .keyBy(<KeySelector>)           //  按照一个Key进行分组
+       .window(<WindowAssigner>)       //  将数据流中的元素分配到相应的窗口中
+      [.trigger(<Trigger>)]            //  指定触发器Trigger（可选）
+      [.evictor(<Evictor>)]            //  指定清除器Evictor(可选)
+       .reduce/aggregate/process()     //  窗口处理函数Window Function
 
 // Non-Keyed Window
 stream
-       .windowAll(WindowAssigner)           <-  不分组，将数据流中的所有元素分配到相应的窗口中
-      [.trigger(<Trigger>)]            <-  指定触发器Trigger（可选）
-      [.evictor(<Evictor>)]            <-  指定清除器Evictor(可选)
-       .reduce/aggregate/process()      <-  窗口处理函数Window Function
+       .windowAll(WindowAssigner)      //  不分组，将数据流中的所有元素分配到相应的窗口中
+      [.trigger(<Trigger>)]            //  指定触发器Trigger（可选）
+      [.evictor(<Evictor>)]            //  指定清除器Evictor(可选)
+       .reduce/aggregate/process()     //  窗口处理函数Window Function
 ```
 
-首先，我们要决定是否对一个`DataStream`按照Key进行分组，这一步必须在窗口计算之前进行。经过`keyBy`的数据流将形成多组数据，下游算子的多个实例可以并行计算。`windowAll`不对数据流进行分组，所有数据将发送到下游算子单个实例上。决定是否分组之后，窗口的后续操作基本相同，本文所涉及内容主要针对经过`keyBy`的窗口（Keyed Window），经过`windowAll`的算子是不分组的窗口（Non-Keyed Window），它们的原理和操作与Keyed Window类似，唯一的区别在于所有数据将发送给下游的单个实例，或者说下游算子的并行度为1。
+首先，我们要决定是否对一个`DataStream`按照Key进行分组，这一步必须在窗口计算之前进行。经过`keyBy()`的数据流将形成多组数据，下游算子的多个实例可以并行计算。`windowAll()`不对数据流进行分组，所有数据将发送到下游算子单个实例上。决定是否分组之后，窗口的后续操作基本相同，本文所涉及内容主要针对经过`keyBy()`的窗口（Keyed Window），经过`windowAll()`的是不分组的窗口（Non-Keyed Window），它们的原理和操作与Keyed Window类似，唯一的区别在于所有数据将发送给下游的单个实例，或者说下游算子的并行度为1。
 
 Flink窗口的骨架程序中有两个必须的两个操作：
 
 * 使用窗口分配器（WindowAssigner）将数据流中的元素分配到对应的窗口。
-* 当满足窗口触发条件后，对窗口内的数据使用窗口处理函数（Window Function）进行处理，常用的Window Function有`reduce`、`aggregate`、`process`。
+* 当满足窗口触发条件后，对窗口内的数据使用窗口处理函数（Window Function）进行处理，常用的Window Function有`reduce()`、`aggregate()`、`process()`。
 
-其他的`trigger`、`evictor`则是窗口的触发和销毁过程中的附加选项，主要面向需要更多自定义的高级编程者，如果不设置则会使用默认的配置。
+其他的`trigger()`、`evictor()`则是窗口的触发和销毁过程中的附加选项，主要面向需要更多自定义的高级编程者，如果不设置则会使用默认的配置。
 
 下图是窗口的生命周期示意图，假如我们设置的是一个10分钟的滚动窗口，第一个窗口的起始时间是0:00，结束时间是0:10，后面以此类推。当数据流中的元素流入后，窗口分配器会根据时间（Event Time或Processing Time）分配给相应的窗口。相应窗口满足了触发条件，比如已经到了窗口的结束时间，会触发相应的Window Function进行计算。注意，本图只是一个大致示意图，不同的Window Function的处理方式略有不同。
 
 ![窗口的生命周期](./img/窗口的生命周期.png)
 
-如下图所示，从数据类型上来看，一个`DataStream`经过`keyBy`转换成`KeyedStream`，再经过`window`转换成`WindowedStream`，我们要在之上进行`reduce`、`aggregate`或`process`等Window Function，对数据进行必要的聚合操作。
+如下图所示，从数据类型上来看，一个`DataStream`经过`keyBy()`转换成`KeyedStream`，再经过`window()`转换成`WindowedStream`，我们要在之上进行`reduce()`、`aggregate()`或`process()`等Window Function，对数据进行必要的聚合操作。
 
 ![DataStream、KeyedStream和WindowedStream之间如何相互转换](./img/data-stream-window-stream.png)
 
@@ -67,26 +67,26 @@ Count-based Window根据元素到达窗口的先后顺序管理窗口，到达�
 ```java
 DataStream<T> input = ...
 
-// tumbling event-time windows
+// 基于Event Time的滚动窗口
 input
     .keyBy(<KeySelector>)
     .window(TumblingEventTimeWindows.of(Time.seconds(5)))
     .<window function>(...)
 
-// tumbling processing-time windows
+// 基于Processing Time的滚动窗口
 input
     .keyBy(<KeySelector>)
     .window(TumblingProcessingTimeWindows.of(Time.seconds(5)))
     .<window function>(...)
 
-// 1 hour tumbling event-time windows offset by 15 minutes.
+// 在小时级滚动窗口上设置15分钟的Offset偏移
 input
     .keyBy(<KeySelector>)
     .window(TumblingEventTimeWindows.of(Time.hours(1), Time.minutes(15)))
     .<window function>(...)
 ```
 
-读者在其他的代码中可能看到过，时间窗口使用的是`timeWindow`而非`window`，比如，`input.keyBy(...).timeWindow(Time.seconds(1))`。`timeWindow`是一种简写。当我们在执行环境设置了`TimeCharacteristic.EventTime`时，Flink对应调用`TumblingEventTimeWindows`；如果我们基于`TimeCharacteristic.ProcessingTime`，Flink使用`TumblingProcessingTimeWindows`。
+读者在其他的代码中可能看到过，时间窗口使用的是`timeWindow()`而非`window()`，比如，`input.keyBy(...).timeWindow(Time.seconds(1))`。`timeWindow()`是一种简写。当我们在执行环境设置了`TimeCharacteristic.EventTime`时，Flink对应调用`TumblingEventTimeWindows`；如果我们基于`TimeCharacteristic.ProcessingTime`，Flink使用`TumblingProcessingTimeWindows`。
 
 ### 滑动窗口
 
@@ -94,24 +94,24 @@ input
 
 ![滑动窗口](./img/sliding-window.png)
 
-跟前面介绍的一样，我们使用`Time`类中的时间单位来定义Slide和Size，也可以设置offset。同样，`timeWindow`是一种缩写，根据执行环境中设置的时间语义来选择相应的方法设置窗口。
+跟前面介绍的一样，我们使用`Time`类中的时间单位来定义Slide和Size，也可以设置offset。同样，`timeWindow()`是一种缩写，根据执行环境中设置的时间语义来选择相应的方法设置窗口。
 
 ```java
 DataStream<T> input = ...
 
-// sliding event-time windows
+// 基于Event Time的滑动窗口
 input
     .keyBy(<KeySelector>)
     .window(SlidingEventTimeWindows.of(Time.seconds(10), Time.seconds(5)))
     .<window function>(...)
 
-// sliding processing-time windows
+// 基于Processing Time的滑动窗口
 input
     .keyBy(<KeySelector>)
     .window(SlidingProcessingTimeWindows.of(Time.seconds(10), Time.seconds(5)))
     .<window function>(...)
 
-// sliding processing-time windows offset by -8 hours
+// 在滑动窗口上设置Offset偏移
 input
     .keyBy(<KeySelector>)
     .window(SlidingProcessingTimeWindows.of(Time.hours(12), Time.hours(1), Time.hours(-8)))
@@ -120,7 +120,7 @@ input
 
 ### 会话窗口
 
-会话窗口根据Session Gap切分不同的窗口，当一个窗口在大于Session Gap的时间内没有接收到新数据时，窗口将关闭。在这种模式下，窗口的长度是可变的，每个窗口的开始和结束时间并不是确定的。我们可以设置定长的Session Gap，也可以使用`SessionWindowTimeGapExtractor`动态地确定Session Gap的长度。
+会话窗口模式下，两个窗口之间有一个间隙，被称为Session Gap。当一个窗口在大于Session Gap的时间内没有接收到新数据时，窗口将关闭。在这种模式下，窗口的长度是可变的，每个窗口的开始和结束时间并不是确定的。我们可以设置定长的Session Gap，也可以使用`SessionWindowTimeGapExtractor`动态地确定Session Gap的长度。
 
 ![会话窗口](./img/session-window.png)
 
@@ -129,43 +129,43 @@ input
 ```java
 DataStream<T> input = ...
 
-// event-time session windows with static gap
+// 基于Event Time定长Session Gap的会话窗口
 input
     .keyBy(<KeySelector>)
     .window(EventTimeSessionWindows.withGap(Time.minutes(10)))
     .<window function>(...)
 
-// event-time session windows with dynamic gap
+// 基于Event Time变长Session Gap的会话窗口
 input
     .keyBy(<KeySelector>)
     .window(EventTimeSessionWindows.withDynamicGap((element) -> {
-        // determine and return session gap
+        // 返回Session Gap的长度
     }))
     .<window function>(...)
 
-// processing-time session windows with static gap
+// 基于Processing Time定长Session Gap的会话窗口
 input
     .keyBy(<KeySelector>)
     .window(ProcessingTimeSessionWindows.withGap(Time.minutes(10)))
     .<window function>(...)
 
 
-// processing-time session windows with dynamic gap
+// 基于Processing Time变长Session Gap的会话窗口
 input
     .keyBy(<KeySelector>)
     .window(ProcessingTimeSessionWindows.withDynamicGap((element) -> {
-        // determine and return session gap
+        // 返回Session Gap的长度
     }))
     .<window function>(...)
 ```
 
 ## 窗口函数
 
-数据经过了`window`和`WindowAssigner`之后，已经被分配到不同的窗口里，接下来，我们要通过窗口函数，在每个窗口上对窗口内的数据进行处理。窗口函数主要分为两种，一种是增量计算，如`reduce`和`aggregate`，一种是全量计算，如`process`。增量计算指的是窗口保存一份中间数据，每流入一个新元素，新元素与中间数据两两合一，生成新的中间数据，再保存到窗口中。全量计算指的是窗口先缓存所有元素，等到触发条件后对窗口内的全量元素执行计算。
+数据经过了`window()`和`WindowAssigner`之后，已经被分配到不同的窗口里，接下来，我们要通过窗口函数，在每个窗口上对窗口内的数据进行处理。窗口函数主要分为两种，一种是增量计算，如`reduce()`和`aggregate()`，一种是全量计算，如`process()`。增量计算指的是窗口保存一份中间数据，每流入一个新元素，新元素与中间数据两两合一，生成新的中间数据，再保存到窗口中。全量计算指的是窗口先缓存所有元素，等到触发条件后对窗口内的全量元素执行计算。
 
 ### ReduceFunction
 
-使用`reduce`算子时，我们要重写一个`ReduceFunction`。`ReduceFunction`在[DataStream API](/flink/chapter-datastream-api/transformations.html)章节中已经介绍过，它接受两个相同类型的输入，生成一个输出，即两两合一地进行汇总操作，生成一个同类型的新元素。在窗口上进行`reduce`的原理与之类似，只不过是在窗口元素上进行这个操作。窗口上的`reduce`需要维护一个状态数据，这个状态数据的数据类型和输入的数据类型是一致的，是之前两两计算的中间结果数据。当数据流中的新元素流入后，`ReduceFunction`将中间结果和新流入数据两两合一，生成新的数据替换之前的状态数据。
+使用`reduce()`时，我们要重写一个`ReduceFunction`。`ReduceFunction`在[DataStream API](/flink/chapter-datastream-api/transformations.html)章节中已经介绍过，它接受两个相同类型的输入，生成一个输出，即两两合一地进行汇总操作，生成一个同类型的新元素。在窗口上进行`reduce()`的原理与之类似，只不过是在窗口元素上进行这个操作。窗口上的`reduce()`需要维护一个状态数据，这个状态数据的数据类型和输入的数据类型是一致的，是之前两两计算的中间结果数据。当数据流中的新元素流入后，`ReduceFunction`将中间结果和新流入数据两两合一，生成新的数据替换之前的状态数据。
 
 ```java
 // 读入股票数据流
@@ -180,9 +180,9 @@ DataStream<StockPrice> sum = stockStream
     .reduce((s1, s2) -> StockPrice.of(s1.symbol, s2.price, s2.ts,s1.volume + s2.volume));
 ```
 
-上面的代码使用Lambda表达式对两个元组进行操作，由于对symbol字段进行了`keyBy`，相同symbol的数据都分组到了一起，接着我们在`reduce`中将交易量加和，`reduce`的返回的结果必须也是`StockPrice`类型。
+上面的代码使用Lambda表达式对两个元组进行操作，由于对symbol字段进行了`keyBy()`，相同symbol的数据都分组到了一起，接着我们在`reduce()`中将交易量加和，`reduce()`的返回的结果必须也是`StockPrice`类型。
 
-使用`reduce`的好处是窗口的状态数据量非常小，实现一个`ReduceFunction`也相对比较简单，可以使用Lambda表达式，也可以重写函数。缺点是能实现的功能非常有限，因为中间状态数据的数据类型、输入类型以及输出类型三者必须一致，而且只保存了一个中间状态数据，当我们想对整个窗口内的数据进行操作时，仅仅一个中间状态数据是远远不够的。
+使用`reduce()`的好处是窗口的状态数据量非常小，实现一个`ReduceFunction`也相对比较简单，可以使用Lambda表达式，也可以重写函数。缺点是能实现的功能非常有限，因为中间状态数据的数据类型、输入类型以及输出类型三者必须一致，而且只保存了一个中间状态数据，当我们想对整个窗口内的数据进行操作时，仅仅一个中间状态数据是远远不够的。
 
 ### AggregateFunction
 
@@ -253,7 +253,7 @@ DataStream<Tuple2<String, Double>> average = stockStream
     .aggregate(new AverageAggregate());
 ```
 
-`AggregateFunction`里`createAccumulator`、`add`、`merge`这几个函数的工作流程如下图所示。在计算之前要创建一个新的ACC，ACC是中间状态数据，此时ACC里还未统计任何数据。当有新数据流入时，Flink会调用`add`方法，更新ACC中的数据。当满足窗口结束条件时，Flink会调用`getResult`方法，将ACC转换为最终结果。此外，还有一些跨窗口的ACC融合情况，比如，会话窗口模式下，窗口长短是不断变化的，多个窗口有可能合并为一个窗口，多个窗口内的ACC也需要合并为一个。窗口融合时，Flink会调用`merge`，将多个ACC合并在一起，生成新的ACC。
+`AggregateFunction`里`createAccumulator`、`add`、`merge`这几个函数的工作流程如下图所示。在计算之前要创建一个新的ACC，ACC是中间状态数据，此时ACC里还未统计任何数据。当有新数据流入时，Flink会调用`add()`方法，更新ACC中的数据。当满足窗口结束条件时，Flink会调用`getResult()`方法，将ACC转换为最终结果。此外，还有一些跨窗口的ACC融合情况，比如，会话窗口模式下，窗口长短是不断变化的，多个窗口有可能合并为一个窗口，多个窗口内的ACC也需要合并为一个。窗口融合时，Flink会调用`merge()`，将多个ACC合并在一起，生成新的ACC。
 
 ![aggregate的工作流程](./img/aggregate.png)
 
@@ -308,7 +308,7 @@ public abstract class ProcessWindowFunction<IN, OUT, KEY, W extends Window> exte
 }
 ```
 
-使用时，我们需要实现`process`方法，Flink将某个Key下某个窗口的所有元素都缓存在`Iterable<IN>`中，我们需要对其进行处理，然后用`Collector<OUT>`收集输出。我们可以使用`Context`获取窗口内更多的信息，包括时间、状态、迟到数据发送位置等。
+使用时，我们需要实现`process()`方法，Flink将某个Key下某个窗口的所有元素都缓存在`Iterable<IN>`中，我们需要对其进行处理，然后用`Collector<OUT>`收集输出。我们可以使用`Context`获取窗口内更多的信息，包括时间、状态、迟到数据发送位置等。
 
 下面的代码是一个`ProcessWindowFunction`的简单应用，我们对价格出现的次数做了统计，选出出现次数最多的输出出来。
 
@@ -357,15 +357,15 @@ public static class FrequencyProcessFunction extends ProcessWindowFunction<Stock
 }
 ```
 
-`Context`中有两种状态：一种是针对Key的全局状态，它是跨多个窗口的，多个窗口都可以访问，通过`Context.globalState`获取；另一种是该Key下的单窗口的状态，通过`Context.windowState`获取。单窗口的状态只保存该窗口的数据，主要是针对`process`函数多次被调用的场景，比如处理迟到数据或自定义Trigger等场景。当使用单窗口状态时，要在`clear`方法中清理状态。
+`Context`中有两种状态：一种是针对Key的全局状态，它是跨多个窗口的，多个窗口都可以访问，通过`Context.globalState()`获取；另一种是该Key下的单窗口的状态，通过`Context.windowState()`获取。单窗口的状态只保存该窗口的数据，主要是针对`process()`函数多次被调用的场景，比如处理迟到数据或自定义Trigger等场景。当使用单个窗口状态时，要在`clear()`方法中清理状态。
 
 `ProcessWindowFunction`相比`AggregateFunction`和`ReduceFunction`的应用场景更广，能解决的问题也更复杂。但`ProcessWindowFunction`需要将窗口中所有元素缓存起来，这将占用大量的存储资源，尤其是在数据量大窗口多的场景下，使用不慎可能导致整个作业崩溃。假如每天的数据在TB级别，我们需要Slide为十分钟Size为一小时的滑动窗口，这种设置会导致窗口数量很多，而且一个元素会被复制好多份分给每个所属窗口，这将带来巨大的内存压力。
 
 ### ProcessWindowFunction与增量计算相结合
 
-当我们既想访问窗口里的元数据，又不想缓存窗口里的所有数据时，可以将`ProcessWindowFunction`与增量计算函数`reduce`和`aggregate`相结合。对于一个窗口来说，Flink先增量计算，窗口关闭前，将增量计算结果发送给`ProcessWindowFunction`作为输入再进行处理。
+当我们既想访问窗口里的元数据，又不想缓存窗口里的所有数据时，可以将`ProcessWindowFunction`与增量计算函数`reduce()`和`aggregate()`相结合。对于一个窗口来说，Flink先增量计算，窗口关闭前，将增量计算结果发送给`ProcessWindowFunction`作为输入再进行处理。
 
-下面的代码中，计算的结果保存在四元组`(股票代号，最大值、最小值，时间戳)`中，`reduce`部分是增量计算，其结果传递给`WindowEndProcessFunction`，`WindowEndProcessFunction`只需要将窗口结束的时间戳添加到四元组的最后一个字段上即可。
+下面的代码中，计算的结果保存在四元组`(股票代号，最大值、最小值，时间戳)`中，`reduce()`部分是增量计算，其结果传递给`WindowEndProcessFunction`，`WindowEndProcessFunction`只需要将窗口结束的时间戳添加到四元组的最后一个字段上即可。
 
 ```java
 // 读入股票数据流

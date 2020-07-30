@@ -47,7 +47,7 @@ tableEnv.execute("table");
 2. 获取数据表`Table`
 3. 使用Table API或SQL在`Table`上做查询等操作
 4. 将结果输出到外部系统
-5. 调用`execute`，执行作业
+5. 调用`execute()`，执行作业
 
 在真正编写一个作业之前，我们还需要在Maven中添加相应的依赖。根据用户选择Java还是Scala，需要引用`flink-table-api-*-bridge`项目，这个项目是Table API与DataStream/DataSet API之间的桥梁。
 
@@ -94,7 +94,7 @@ tableEnv.execute("table");
 `TableEnvironment`是Table API & SQL编程中最基础的类，也是整个程序的入口，它包含了程序的核心上下文信息。`TableEnvironment`的核心功能包括：
 
 * 连接外部系统
-* 向表目录（Catalog）中注册`Table`或者从中获取`Table`
+* 向目录（Catalog）中注册`Table`或者从中获取`Table`
 * 执行Table API或SQL操作
 * 注册用户自定义函数
 * 提供一些其他配置功能
