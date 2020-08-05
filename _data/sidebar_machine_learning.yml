@@ -38,3 +38,6 @@ folders:
 
       - title: 前馈神经网络
         jurl: /machine-learning/neural-network/feedforward-neural-network.html
+
+      - title: Softmax
+        jurl: /machine-learning/neural-network/softmax.html
