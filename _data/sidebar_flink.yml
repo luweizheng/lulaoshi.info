@@ -2,6 +2,8 @@
 
 sidebartitle: Flink原理与实践
 
+github: "https://github.com/luweizheng/flink-tutorials"
+
 folders:
   - title: "关于本教程"
     jurl: /flink/index.html
