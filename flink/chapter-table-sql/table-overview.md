@@ -34,7 +34,7 @@ Table tabApiResult = tableEnv.from("user_behavior").select(...);
 Table sqlResult  = tableEnv.sqlQuery("SELECT ... FROM user_behavior ... ");
 
 // 将查询结果输出到outputTable
-tapiResult.insertInto("output_table");
+tabApiResult.insertInto("output_table");
 sqlResult.insertInto("output_table");
 
 // execute
