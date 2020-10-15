@@ -1,6 +1,6 @@
 ---
 title: Softmax
-keywords: 神经网络, 深度学习, 深度神经网络, BP算法, 反向传播, BP
+keywords: 神经网络, 深度学习, 深度神经网络, Softmax
 summary: ""
 
 chapter-name: 神经网络

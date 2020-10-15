@@ -41,3 +41,6 @@ folders:
 
       - title: Softmax
         jurl: /machine-learning/neural-network/softmax.html
+
+      - title: PyTorch的Tensor和自动求导
+        jurl: /machine-learning/neural-network/pytorch-tensor-autograd.html
