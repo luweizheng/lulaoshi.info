@@ -46,3 +46,6 @@ folders:
 
       - title: PyTorch的Tensor和自动求导
         jurl: /machine-learning/neural-network/pytorch-tensor-autograd.html
+
+      - title: 实战：使用PyTorch构建神经网络进行房价预测
+        jurl: /machine-learning/neural-network/pytorch-kaggle-house-prices.html
