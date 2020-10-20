@@ -2,6 +2,8 @@
 
 sidebartitle: 机器学习笔记
 
+github: "https://github.com/luweizheng/machine-learning-notes"
+
 folders:
   - title: "关于本教程"
     jurl: /machine-learning/index.html
