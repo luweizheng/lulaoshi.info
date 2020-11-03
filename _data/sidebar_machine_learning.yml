@@ -49,3 +49,10 @@ folders:
 
       - title: 实战：使用PyTorch构建神经网络进行房价预测
         jurl: /machine-learning/neural-network/pytorch-kaggle-house-prices.html
+
+  - title: "3. 卷积神经网络"
+    jurl: /machine-learning/convolutional/indexr.html
+    folderitems:
+
+      - title: 二维卷积层入门：卷积运算、填充与步幅、输入输出通道
+        jurl: /machine-learning/convolutional/two-dimension-convolution-layer.html
