@@ -51,7 +51,7 @@ folders:
         jurl: /machine-learning/neural-network/pytorch-kaggle-house-prices.html
 
   - title: "3. 卷积神经网络"
-    jurl: /machine-learning/convolutional/indexr.html
+    jurl: /machine-learning/convolutional/index.html
     folderitems:
 
       - title: 二维卷积层入门：卷积运算、填充与步幅、输入输出通道
