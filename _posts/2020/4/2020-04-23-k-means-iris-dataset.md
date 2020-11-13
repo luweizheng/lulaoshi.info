@@ -51,7 +51,7 @@ iris = datasets.load_iris()
 
 ### 对数据集进行探索
 # 打印数据集特征
-print("特征名：" + str(iris_df.feature_names))
+print("特征名：" + str(iris.feature_names))
 
 # 探索一个样本数据，每行数据4列，分别表示上述4种特征
 print("第一行样本：" + str(iris.data[:1]))
