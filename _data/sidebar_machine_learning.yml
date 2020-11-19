@@ -56,3 +56,6 @@ folders:
 
       - title: 二维卷积层入门：卷积运算、填充与步幅、输入输出通道
         jurl: /machine-learning/convolutional/two-dimension-convolution-layer.html
+
+      - title: 池化层：缓解卷积层对图像位置的敏感性
+          jurl: /machine-learning/convolutional/pooling.html
