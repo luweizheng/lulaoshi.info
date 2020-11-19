@@ -58,4 +58,4 @@ folders:
         jurl: /machine-learning/convolutional/two-dimension-convolution-layer.html
 
       - title: 池化层：缓解卷积层对图像位置的敏感性
-          jurl: /machine-learning/convolutional/pooling.html
+        jurl: /machine-learning/convolutional/pooling.html
