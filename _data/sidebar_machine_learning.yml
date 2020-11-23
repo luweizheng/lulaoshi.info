@@ -59,3 +59,6 @@ folders:
 
       - title: 池化层：缓解卷积层对图像位置的敏感性
         jurl: /machine-learning/convolutional/pooling.html
+
+      - title: LeNet：一个简单的卷积神经网络
+        jurl: /machine-learning/convolutional/lenet.html
