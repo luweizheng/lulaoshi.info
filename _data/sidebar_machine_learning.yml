@@ -62,3 +62,6 @@ folders:
 
       - title: LeNet：一个简单的卷积神经网络
         jurl: /machine-learning/convolutional/lenet.html
+
+      - title: AlexNet：深度卷积神经网络开始兴起
+        jurl: /machine-learning/convolutional/alexnet.html
