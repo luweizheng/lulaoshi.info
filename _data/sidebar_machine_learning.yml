@@ -65,3 +65,10 @@ folders:
 
       - title: AlexNet：深度卷积神经网络开始兴起
         jurl: /machine-learning/convolutional/alexnet.html
+
+  - title: "4. 分布式机器学习"
+    jurl: /machine-learning/distributed/index.html
+    folderitems:
+
+      - title: 分布式深度学习简介：数据并行和模型并行
+        jurl: /machine-learning/distributed/distributed-deep-learning-model-data-parallelism.html
