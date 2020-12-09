@@ -66,6 +66,9 @@ folders:
       - title: AlexNet：深度卷积神经网络开始兴起
         jurl: /machine-learning/convolutional/alexnet.html
 
+      - title: VGG：使用基础卷积块的网络
+        jurl: /machine-learning/convolutional/vgg.html
+
   - title: "4. 分布式机器学习"
     jurl: /machine-learning/distributed/index.html
     folderitems:
