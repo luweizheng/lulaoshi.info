@@ -2,13 +2,10 @@
 title: Flink的时间语义
 keywords: Flink, DataStream, 时间, EventTime, ProcessingTime
 summary: "本节将主要介绍Flink提供的三种时间语义以及如何使用Event Time和Watermark。"
-sidebar: sidebar_flink
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html
 ---
-
-# Flink的时间语义
 
 在流处理中，时间是一个非常核心的概念，是整个系统的基石。我们经常会遇到这样的需求：给定一个时间窗口，比如一个小时，统计时间窗口内的数据指标。那如何界定哪些数据将进入这个窗口呢？在窗口的定义之前，首先需要确定一个作业使用什么样的时间语义。
 

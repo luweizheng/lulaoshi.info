@@ -1,0 +1,129 @@
+# main links
+main:
+  - title: "博文"
+    url: /blog/
+
+  - title: "Flink教程"
+    url: /flink/
+
+  - title: "机器学习笔记"
+    url: /machine-learning/
+
+  - title: "GPU教程"
+    url: /gpu/
+
+
+# flink folder
+flink:
+  - title: "Flink原理与实践"
+    children:
+      - title: 关于本教程
+        url: /flink/index.html
+
+  - title: "3. Flink的设计和运行原理"
+    children:
+      - title: Flink数据流图简介
+        url: /flink/chapter-system-design/dataflow.html
+      - title: Flink架构与核心组件
+        url: /flink/chapter-system-design/flink-core.html
+      - title: 任务执行与资源划分
+        url: /flink/chapter-system-design/task-resource.html
+      - title: 习题 WordCount程序迭代和完善
+        url: /flink/chapter-system-design/exercise-wordcount.html
+
+  - title: "4. DataStream API"
+    children:
+      - title: Flink程序的骨架结构
+        url: /flink/chapter-datastream-api/skeleton.html
+      - title: 常见Transformation的使用方法
+        url: /flink/chapter-datastream-api/transformations.html
+      - title: 数据类型和序列化
+        url: /flink/chapter-datastream-api/data-types.html
+      - title: 用户自定义函数
+        url: /flink/chapter-datastream-api/user-define-functions.html
+      - title: 习题 股票数据流处理
+        url: /flink/chapter-datastream-api/exercise-stock-basic.html
+
+  - title: "5. 时间和窗口"
+    children:
+      - title: Flink的时间语义
+        url: /flink/chapter-time-window/time.html
+      - title: ProcessFunction系列函数
+        url: /flink/chapter-time-window/process-function.html
+      - title: 窗口算子的使用
+        url: /flink/chapter-time-window/window.html
+      - title: 双流关联
+        url: /flink/chapter-time-window/join.html
+      - title: 处理迟到数据
+        url: /flink/chapter-time-window/late-elements.html
+      - title: 习题 股票价格数据进阶分析
+        url: /flink/chapter-time-window/exercise-stock.html
+
+  - title: "6. 状态、检查点和保存点"
+    children:
+      - title: 实现有状态的计算
+        url: /flink/chapter-state-checkpoint/state.html
+      - title: Checkpoint原理及配置方法
+        url: /flink/chapter-state-checkpoint/checkpoint.html
+      - title: Savepoint的使用方法
+        url: /flink/chapter-state-checkpoint/savepoint.html
+      - title: 习题 电商平台用户行为分析
+        url: /flink/chapter-state-checkpoint/exercise-state.html
+
+  - title: "8. Table API & SQL"
+    children:
+      - title: Table API & SQL综述
+        url: /flink/chapter-table-sql/table-overview.html
+      - title: 动态表和持续查询
+        url: /flink/chapter-table-sql/dynamic-table.html
+      - title: 时间和窗口
+        url: /flink/chapter-table-sql/window.html
+      - title: Join
+        url: /flink/chapter-table-sql/join.html
+      - title: SQL DDL
+        url: /flink/chapter-table-sql/sql-ddl.html
+      - title: 系统函数
+        url: /flink/chapter-table-sql/system-function.html
+      - title: 用户自定义函数
+        url: /flink/chapter-table-sql/catalog-function.html
+      - title: 习题 使用Flink SQL处理物联网数据
+        url: /flink/chapter-table-sql/exercise-iot.html
+
+# gpu folder
+gpu:
+  - title: "关于本教程"
+    url: /gpu/index.html
+    children:
+      - title: 关于本教程
+        url: /gpu/index.html
+
+  - title: "1. GPU基础知识"
+    url: /gpu/gpu-basic/index.html
+    children:
+      - title: 1.1 计算机体系结构回顾
+        url: /gpu/gpu-basic/computer-arch.html
+
+      - title: 1.2 GPU软硬件基础知识
+        url: /gpu/gpu-basic/gpu.html
+
+      - title: 1.3 人工智能研究者应该选择哪款显卡？
+        url: /gpu/gpu-basic/2020-gpu.html
+
+  - title: "2. 使用Python Numba进行CUDA编程"
+    url: /gpu/python-cuda/index.html
+    children:
+
+      - title: 2.1 Numba简介
+        jurl: /gpu/python-cuda/numba.html
+
+      - title: 2.2 初识GPU编程
+        jurl: /gpu/python-cuda/cuda-intro.html
+
+      - title: 2.3 网格跨步
+        jurl: /gpu/python-cuda/stride.html
+
+      - title: 2.4 多流
+        jurl: /gpu/python-cuda/streams.html
+
+      - title: 2.5 Shared Memory
+        jurl: /gpu/python-cuda/shared-memory.html

@@ -1,7 +1,6 @@
 ---
 title: 关于本章 
 keywords: Flink, DataStream, 窗口, Join, Event Time, Processing Time
-sidebar: sidebar_flink
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

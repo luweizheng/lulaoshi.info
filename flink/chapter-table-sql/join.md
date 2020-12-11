@@ -2,7 +2,6 @@
 title: Join
 keywords: Flink, Table API, Flink SQL, Join
 summary: ""
-sidebar: sidebar_flink
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

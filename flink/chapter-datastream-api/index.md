@@ -1,7 +1,7 @@
 ---
 title: 关于本章 
 keywords: Flink, DataStream, map, flatMap, keyBy, union, rescale
-sidebar: sidebar_flink
+
 chapter-name: DataStream API的介绍和使用
 chapter-url: /flink/chapter-datastream-api/index.html
 ---

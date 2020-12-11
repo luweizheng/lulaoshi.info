@@ -2,7 +2,6 @@
 title: Checkpoint原理及配置方法
 keywords: Flink, DataStream, State, Checkpoint, State Backend
 summary: "本节将介绍Flink的Checkpoint算法原理，以及如何配置Checkpoint。"
-sidebar: sidebar_flink
 
 chapter-name: 状态、检查点和保存点
 chapter-url: /flink/chapter-state-checkpoint/index.html

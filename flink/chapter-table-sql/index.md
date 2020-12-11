@@ -1,7 +1,6 @@
 ---
 title: 关于本章 
 keywords: Flink, Table API, Flink SQL
-sidebar: sidebar_flink
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

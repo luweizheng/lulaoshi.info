@@ -2,7 +2,6 @@
 title: 用户自定义函数
 keywords: Flink, DataStream, 用户自定义函数, UDF
 summary: "本节将总结如何在Flink中自定义函数。"
-sidebar: sidebar_flink
 
 chapter-name: DataStream API的介绍和使用
 chapter-url: /flink/chapter-datastream-api/index.html

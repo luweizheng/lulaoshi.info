@@ -2,7 +2,6 @@
 title: 实现有状态的计算
 keywords: Flink, DataStream, State, 状态, Keyed State, Operator State
 summary: "本节将介绍Flink的状态相关知识，主要包括Keyed State和Operator State。"
-sidebar: sidebar_flink
 
 chapter-name: 状态、检查点和保存点
 chapter-url: /flink/chapter-state-checkpoint/index.html

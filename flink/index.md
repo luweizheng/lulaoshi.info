@@ -1,9 +1,7 @@
 ---
 title: 关于本教程
 keywords: Flink, 学习, 教程, Flink例子, Flink教程
-sidebar: sidebar_flink
 
-topnav: topnav
 ---
 
 我现在是一名高校教师，主要研究领域为大数据和高性能计算，毕业于北京邮电大学、北京大学，曾在创业公司Boss直聘和小米从事大数据和机器学习相关工作。

@@ -2,7 +2,6 @@
 title: Flink数据流图简介 
 keywords: Flink, DataStream, 数据流图, dataflow, 逻辑视图, 物理执行图
 summary: "本节将主要介绍Flink的数据流图，包括逻辑视图和物理执行图。"
-sidebar: sidebar_flink
 
 chapter-name: Flink的设计和运行原理
 chapter-url: /flink/chapter-system-design/index.html

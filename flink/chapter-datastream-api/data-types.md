@@ -2,7 +2,6 @@
 title: 数据类型和序列化
 keywords: Flink, DataStream, 类型
 summary: "本节将主要介绍Flink的数据类型和序列化机制。"
-sidebar: sidebar_flink
 
 chapter-name: DataStream API的介绍和使用
 chapter-url: /flink/chapter-datastream-api/index.html

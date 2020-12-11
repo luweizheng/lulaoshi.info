@@ -2,7 +2,6 @@
 title: DataStream API - Transformations
 keywords: Flink, DataStream, keyBy, map, flatMap
 summary: "本节将主要介绍Flink DataStream API中几种常见的Transformation。"
-sidebar: sidebar_flink
 
 chapter-name: DataStream API的介绍和使用
 chapter-url: /flink/chapter-datastream-api/index.html

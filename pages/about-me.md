@@ -2,7 +2,6 @@
 title: 关于我
 keywords: 大数据, 机器学习
 permalink: /about-me/
-layout: page
 ---
 
 # 初心

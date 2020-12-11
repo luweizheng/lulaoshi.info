@@ -1,7 +1,6 @@
 ---
 title: 关于本章 
 keywords: Flink, DataStream, 状态, State, Checkpoint, Savepoint
-sidebar: sidebar_flink
 
 chapter-name: 状态、检查点和保存点
 chapter-url: /flink/chapter-state-checkpoint/index.html

@@ -25,68 +25,117 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: ""
 url: "https://lulaoshi.info"
 
+theme: minimal-mistakes-jekyll
+locale: zh-CN
+
+# set permalink globally
+permalink: /blog/:year/:month/:day/:title:output_ext
+
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
+
 # Build settings
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-katex
+  - jekyll-paginate
+  - jekyll-sitemap
 
 defaults:
-  -
-    scope:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      related: true
+      show_date: true
+      toc: true
+  - scope:
       path: "flink"
     values:
-      layout: document
-      breadcrumb-topname: "Flink教程"
-      breadcrumb-topurl: "/flink/"
-
+      layout: single
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
+      toc: true
+      sidebar:
+        nav: "flink"
   - scope:
       path: "gpu"
     values:
-      layout: document
-      sidebar: "sidebar_gpu"
-      breadcrumb-topname: "GPU快速教程"
-      breadcrumb-topurl: "/gpu/"
+      layout: single
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
+      toc: true
+      sidebar:
+        nav: "gpu"
 
-  - scope:
-      path: "machine-learning"
-    values:
-      layout: document
-      sidebar: "sidebar_machine_learning"
-      breadcrumb-topname: "机器学习笔记"
-      breadcrumb-topurl: "/machine-learning/"
-
-  -
-    scope:
-      path: "_posts"
-      type: "posts"
-    values:
-      layout: "blogdetail"
-#      sidebar: "sidebar-blog"
-      breadcrumb-topname: "文章"
-      breadcrumb-topurl: "/blog/"
-      permalink: "/blog/:year/:month/:day/:title:output_ext"
-  -
-    scope:
-      path: ""
-    values:
-      layout: default
-      topnav: topnav
-
-
-# UI text
-uistring:
-  tableofcontents: 目录
-  expandall: 开启所有标签
-  collapseall: 关闭所有标签
-  title: "鲁老师" # Displays as site title on top nav bar and on site metadata
-  description: A guide for technical writers and engineers learning how to document APIs  # Displays as site description meta
-  products: Products
-  docindex_product: Product
-  docindex_startpage: Starting page
+#  - scope:
+#      path: "gpu"
+#    values:
+#      layout: document
+#      sidebar: "sidebar_gpu"
+#      breadcrumb-topname: "GPU快速教程"
+#      breadcrumb-topurl: "/gpu/"
+#
+#  - scope:
+#      path: "machine-learning"
+#    values:
+#      layout: document
+#      sidebar: "sidebar_machine_learning"
+#      breadcrumb-topname: "机器学习笔记"
+#      breadcrumb-topurl: "/machine-learning/"
+#
+#  -
+#    scope:
+#      path: "_posts"
+#      type: "posts"
+#    values:
+#      layout: "blogdetail"
+##      sidebar: "sidebar-blog"
+#      breadcrumb-topname: "文章"
+#      breadcrumb-topurl: "/blog/"
+#      permalink: "/blog/:year/:month/:day/:title:output_ext"
+#  -
+#    scope:
+#      path: ""
+#    values:
+#      layout: default
+#      topnav: topnav
 
 exclude:
   - script/
+
+# Site Author
+author:
+  name             : "鲁蔚征"
+  avatar           : "/assets/img/avatar.svg"
+  bio              : "中国人民大学计算平台老师，主要研究领域为大数据和高性能计算。曾在小米大数据等一线互联网公司工作。"
+  location         : "北京"
+  email            : "luweizhen36@hotmail.com"
+  links:
+    - label: "邮箱"
+      icon: "fas fa-fw fa-envelope-square"
+      # url: "mailto:luweizhen36@hotmail.com"
+    - label: "网站"
+      icon: "fas fa-fw fa-link"
+      url: "https://lulaoshi.info"
+    - label: "微信"
+      icon: "fab fa-fw fa-weixin"
+      # url: "https://twitter.com/"
+    - label: "知乎"
+      icon: "fab fa-fw fa-zhihu"
+      url: "https://www.zhihu.com/people/steven-lu-08"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/luweizheng"
 
 # Exclude from processing.
 # The following items will not be processed, by default.

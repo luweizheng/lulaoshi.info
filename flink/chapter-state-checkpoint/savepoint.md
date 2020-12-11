@@ -2,7 +2,6 @@
 title: Savepoint原理及使用方法
 keywords: Flink, DataStream, State, Savepoint, State Processor API
 summary: "本节将介绍如何使用Savepoint迭代开发Flink有状态作业，如何使用State Processor API在Savepoint中读写数据。"
-sidebar: sidebar_flink
 
 chapter-name: 状态、检查点和保存点
 chapter-url: /flink/chapter-state-checkpoint/index.html

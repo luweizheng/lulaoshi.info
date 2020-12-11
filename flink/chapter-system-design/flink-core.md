@@ -2,7 +2,6 @@
 title: Flink架构与核心组件 
 keywords: Flink, DataStream, JobManager, TaskManager, Dispatcher, ResourceManager
 summary: "本节将介绍Flink的主从架构和核心组件。通过一个作业提交案例，我们可以了解Flink是如何工作的。"
-sidebar: sidebar_flink
 
 chapter-name: Flink的设计和运行原理
 chapter-url: /flink/chapter-system-design/index.html

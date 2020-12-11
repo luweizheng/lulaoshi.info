@@ -2,7 +2,6 @@
 title: ProcessFunction系列函数
 keywords: Flink, DataStream, ProcessFunction
 summary: "本节将介绍Flink的ProcessFunction系列函数的使用方法，主要为Timer的使用方法。"
-sidebar: sidebar_flink
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

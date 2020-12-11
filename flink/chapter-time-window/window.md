@@ -2,7 +2,6 @@
 title: 窗口算子的使用
 keywords: Flink, DataStream, 窗口, window, trigger, evictor, reduce, aggregate, process
 summary: "本节将介绍如何在窗口上进行计算，包括如何使用窗口算子，如何使用Trigger等。"
-sidebar: sidebar_flink
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

@@ -2,7 +2,6 @@
 title: Flink程序的骨架结构
 keywords: Flink, DataStream
 summary: "本节将主要介绍Flink DataStream API的骨架结构。"
-sidebar: sidebar_flink
 
 chapter-name: DataStream API的介绍和使用
 chapter-url: /flink/chapter-datastream-api/index.html

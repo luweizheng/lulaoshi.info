@@ -2,7 +2,6 @@
 title: 用户自定义函数
 keywords: Flink, Table API, Flink SQL, Catalog Function, UDTF, 用户自定义函数
 summary: ""
-sidebar: sidebar_flink
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html
