@@ -84,7 +84,7 @@ Scala的API相对更加灵活，可以使用下划线来构造Lambda表达式：
 val lambda2 = dataStream.map { _.toDouble * 2 }
 ```
 
-{: .note}
+{: .notice--info}
 使用Scala时，Lambda表达式可以可以放在圆括号()中，也可以使用花括号{}中。使用Java时，只能使用圆括号。
 
 对上面的几种方式比较可见，Lambda表达式更为简洁。重写函数的方式代码更为臃肿，但定义更清晰。
@@ -183,7 +183,7 @@ DataStream<String> longSentenceWords = dataStream.flatMap(new FlatMapFunction<St
 });
 ```
 
-{: .tip}
+{: .notice--primary}
 虽然`flatMap`可以完全替代`map`和`filter`，但Flink仍然保留了这三个API，主要因为`map`和`filter`的语义更明确：`map`可以表示一对一的转换，代码阅读者能够确认对于一个输入，肯定能得到一个输出；`filter`则明确表示发生了过滤操作。更明确的语义有助于提高代码的可读性。
 
 Scala的API相对更简单一些：
@@ -252,7 +252,7 @@ public class Word {
 DataStream<Word> fieldNameStream = wordStream.keyBy("word").sum("count");
 ```
 
-{: .note}
+{: .notice--info}
 这种方法只适用于[数据类型和序列化](./data-types.html#复合类型)章节中提到的Scala case class或Java POJO类型的数据。
 
 指定Key本质上是实现一个`KeySelector`，在Flink源码中，它是这么定义的：
@@ -339,7 +339,7 @@ DataStream<Tuple3<Integer, Integer, Integer>> maxByStream = tupleStream.keyBy(0)
 
 其实，这些聚合操作里已经使用了状态数据，比如，`sum`算子内部记录了当前的和，`max`算子内部记录了当前的最大值。算子的计算过程其实就是不断更新状态数据的过程。由于内部使用了状态数据，而且状态数据并不会被清理，因此一定要慎重地在一个无限数据流上使用这些聚合操作。
 
-{: .note}
+{: .notice--info}
 对于一个`KeyedStream`,一次只能使用一个Aggregation聚合操作，无法链式使用多个。
 
 ### reduce

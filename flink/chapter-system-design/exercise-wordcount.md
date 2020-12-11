@@ -33,7 +33,7 @@ The slings and arrows of outrageous fortune,
 
 Or to take arms against a sea of troubles,
 
-{: .tip}
+{: .notice--primary}
 我们可以在IntelliJ Idea的本地环境上进行本实验，无需启动一个Flink集群，执行环境的配置如下所示，打开相应链接也可以查看Flink Web UI。如果输入依赖了Kafka，需要提前启动Kafka集群，并向对应Topic里填充数据。
 
 ```java

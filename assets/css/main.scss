@@ -1,5 +1,12 @@
 ---
 # Only the main Sass file needs front matter (the dashes are enough)
+# The base style are define in the original theme
+# theme folders include:
+#   /assets
+#   /_layouts
+#   /_includes
+#   /_sass
+#   override them in this file
 ---
 
 @charset "utf-8";
@@ -34,5 +41,57 @@ $type-size-6: 0.75em !default; // ~12px
 $type-size-7: 0.6875em !default; // ~11px
 $type-size-8: 0.625em !default; // ~10px
 
+/* image captain */
+img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: light-grey;
+}
+
+/* sidebar */
+.sidebar {
+
+    p,
+    li {
+        font-size: $type-size-7;
+    }
+}
+
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
+
+/* header */
+h1 {
+  margin-top: 0;
+  font-size: $h-size-2;
+}
+
+h2 {
+  font-size: $h-size-3;
+}
+
+h3 {
+  font-size: $h-size-4;
+}
+
+h4 {
+  font-size: $h-size-5;
+}
+
+h5 {
+  font-size: $h-size-6;
+}
+
+h6 {
+  font-size: $h-size-6;
+}
+
+/* main content*/
+.page__content {
+    p,
+    li,
+    dl {
+        font-size: $type-size-6;
+    }
+}

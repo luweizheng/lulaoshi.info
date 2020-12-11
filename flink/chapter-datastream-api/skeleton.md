@@ -34,7 +34,7 @@ StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironm
 
 这行代码可以获取一个Flink流处理执行环境。Flink一般运行在一个集群上，执行环境是Flink程序运行的上下文，它提供了一系列作业与集群交互的方法，比如作业如何与外部世界交互。当调用`getExecutionEnvironment()`方法时，假如我们是在一个集群上提交作业，则返回集群的上下文，假如我们是在本地执行，则返回本地的上下文。本例中我们是进行流处理，在批处理场景则要获取DataSet API中批处理执行环境。
 
-{: .note}
+{: .notice--info}
 本例中我们是进行流处理，在批处理场景则要获取DataSet API中批处理执行环境。流处理和批处理的执行环境不同，流处理的执行环境名为`org.apache.flink.streaming.api.environment.StreamExecutionEnvironment`，批处理的执行环境名为`org.apache.flink.api.java.ExecutionEnvironment`。
 
 Scala和Java所需要引用的包也不相同，Scala需要调用`org.apache.flink.streaming.api.scala.StreamExecutionEnvironment`和`org.apache.flink.api.scala.ExecutionEnvironment`。

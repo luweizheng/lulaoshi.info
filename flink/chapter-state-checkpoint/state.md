@@ -100,7 +100,7 @@ Operator State可以用在所有算子上，每个算子子任务或者说每个
 * `ListState<T>`存储了一个由T类型数据组成的列表。我们可以使用`void add(T value)`或`void addAll(List<T> values)`向状态中添加元素，使用`Iterable<T> get()`获取整个列表，使用`void update(List<T> values)`来更新列表，新的列表将替换旧的列表。
 * `ReducingState<T>`和`AggregatingState<IN, OUT>`与`ListState<T>`同属于`MergingState<IN, OUT>`。与`ListState<T>`不同的是，`ReducingState<T>`只有一个元素，而不是一个列表。它的原理是：新元素通过`void add(T value)`加入后，与已有的状态元素使用`ReduceFunction`合并为一个元素，并更新到状态里。`AggregatingState<IN, OUT>`与`ReducingState<T>`类似，也只有一个元素，只不过`AggregatingState<IN, OUT>`的输入和输出类型可以不一样。`ReducingState<T>`和`AggregatingState<IN, OUT>`与窗口上进行`ReduceFunction`和`AggregateFunction`很像，都是将新元素与已有元素做聚合。
 
-{: .note}
+{: .notice--info}
 Flink的核心代码目前使用Java实现的，而Java的很多类型与Scala的类型不太相同，比如`List`和`Map`。这里不再详细解释Java和Scala的数据类型的异同，但是开发者在使用Scala调用这些接口，比如状态的接口，需要注意两种语言间的转换。对于`List`和`Map`的转换，只需要引用`import scala.collection.JavaConversions._`，并在必要的地方添加后缀`asScala`或`asJava`来进行转换。此外，Scala和Java的空对象使用习惯不太相同，Java一般使用`null`表示空，Scala一般使用`None`。
 
 ### Keyed State的使用方法
@@ -379,7 +379,7 @@ checkpointedState = context.getOperatorStateStore().getListState(descriptor);
 
 在之前代码的`initializeState`方法里，我们进行了状态的初始化逻辑，我们用`context.isRestored()`来判断是否为重启作业，然后从之前的Checkpoint中恢复并写到本地缓存中。
 
-{: .note}
+{: .notice--info}
 `CheckpointedFunction`接口类的`initializeState`方法的参数为`FunctionInitializationContext`，基于这个上下文对象我们不仅可以通过`getOperatorStateStore`获取`OperatorStateStore`，也可以通过`getKeyedStateStore`来获取`KeyedStateStore`，进而通过`getState`、`getMapState`等方法获取Keyed State，比如：`context.getKeyedStateStore().getState(stateDescriptor)`。这与在RichFunction函数类中使用Keyed State的方式并不矛盾，因为`CheckpointedFunction`是Flink有状态计算的最底层接口，它提供了最丰富的状态接口。
 
 `ListCheckpointed`接口类是`CheckpointedFunction`接口类的一种简写，`ListCheckpointed`提供的功能有限，只支持均匀分布的ListState，不支持全量广播的UnionListState。

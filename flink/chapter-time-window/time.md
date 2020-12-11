@@ -51,7 +51,7 @@ env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 
 如果想用另外两种时间语义，需要替换为：`TimeCharacteristic.ProcessingTime`和`TimeCharacteristic.IngestionTime`。
 
-{: .note}
+{: .notice--info}
 首次进行时间相关计算的读者可能因为没有正确设置数据流时间相关属性而得不到正确的结果。包括本书前序章节的示例代码在内，一些测试或演示代码常常使用`StreamExecutionEnvironment.fromElements()`或`StreamExecutionEnvironment.fromCollection()`方法来创建一个`DataStream`，用这种方法生成的`DataStream`没有时序性，如果不对元素设置时间戳，无法进行时间相关的计算。或者说，在一个没有时序性的数据流上进行时间相关计算，无法得到正确的结果。想要建立数据之间的时序性，一种方法是继续用`StreamExecutionEnvironment.fromElements()`或`StreamExecutionEnvironment.fromCollection()`方法，使用Event Time时间语义，对数据流中每个元素的Event Time进行赋值。另一种方法是使用其他的Source，比如`StreamExecutionEnvironment.socketTextStream()`或Kafka，这些Source的输入数据本身带有时序性，支持Processinng Time时间语义。
 
 ## Event Time和Watermark
@@ -261,7 +261,7 @@ public static class MyPunctuatedGenerator implements WatermarkGenerator<Tuple3<S
 }
 ```
 
-{: .tip}
+{: .notice--primary}
 假如每个元素都带有Watermark标记，Flink是允许为每个元素都生成一个Watermark的，但这种策略非常激进，大量的Watermark会增大下游计算的延迟，拖累整个Flink作业的性能。
 
 ## 平衡延迟和准确性

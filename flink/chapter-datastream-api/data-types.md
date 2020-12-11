@@ -118,7 +118,7 @@ System.out.println(TypeInformation.of(StockPrice.class).createSerializer(new Exe
 
 Tuple可被翻译为元组，比如我们可以将刚刚定义的股票价格抽象为一个三元组。Scala用括号来定义元组，比如一个三元组：`(String, Long, Double)`。
 
-{: .note}
+{: .notice--info}
 Scala访问元组中的元素时，要使用下划线。与其他地方从0开始计数不同，这里是从1开始计数，_1为元组中的第一个元素。下面的代码是一个Scala Tuple的例子。
 
 ```scala

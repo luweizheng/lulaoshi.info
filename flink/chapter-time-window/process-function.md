@@ -47,7 +47,7 @@ public void onTimer(long timestamp, OnTimerContext ctx, Collector<O> out)
 
 从`Context`中，我们可以获取一个`TimerService`，这是一个访问时间戳和Timer的接口。我们可以通过`Context.timerService.registerProcessingTimeTimer()`或`Context.timerService.registerEventTimeTimer()`这两个方法来注册Timer，只需要传入一个时间戳即可。我们可以通过`Context.timerService.deleteProcessingTimeTimer`和`Context.timerService.deleteEventTimeTimer`来删除之前注册的Timer。此外，还可以从中获取当前的时间戳：`Context.timerService.currentProcessingTime`和`Context.timerService.currentWatermark`。这些方法中，名字带有“ProcessingTime”的方法表示该方法基于Processing Time语义；名字带有“EventTime”或“Watermark”的方法表示该方法基于Event Time语义。
 
-{: .note}
+{: .notice--info}
 我们只能在`KeyedStream`上注册Timer。每个Key下可以使用不同的时间戳注册不同的Timer，但是每个Key的每个时间戳只能注册一个Timer。如果想在一个`DataStream`上应用Timer，可以将所有数据映射到一个伪造的Key上，但这样所有数据会流入一个算子子任务。
 
 我们再次以[股票交易](/flink/chapter-datastream-api/exercise-stock-basic.html)场景来解释如何使用Timer。一次股票交易包括：股票代号、时间戳、股票价格、成交量。我们现在想看一支股票未来是否一直连续上涨，如果一直上涨，则发送出一个提示。如果新数据比上次数据价格更高且目前没有注册Timer，则注册一个未来的Timer，如果在这期间价格降低则把刚才注册的Timer删除，如果在这期间价格没有降低，Timer时间到达后触发`onTimer()`，发送一个提示。下面的代码中，`intervalMills`表示一个毫秒精度的时间段，如果这个时间段内一支股票价格一直上涨，则会输出文字提示。
@@ -243,5 +243,5 @@ public static class JoinStockMediaProcessFunction extends KeyedCoProcessFunction
 
 很多互联网APP的机器学习样本拼接都可能依赖这个函数来实现：服务端的机器学习特征是实时生成的，用户在APP上的行为是交互后产生的，两者属于两个不同的数据流，用户行为是机器学习所需要标注的正负样本，因此可以按照这个逻辑来将两个数据流拼接起来，通过拼接更快得到下一轮机器学习的样本数据。
 
-{: .note}
+{: .notice--info}
 使用Event Time时，两个数据流必须都设置好Watermark，只设置一个流的Event Time和Watermark，无法在`CoProcessFunction`和`KeyedCoProcessFunction`中使用Timer功能，因为`process`算子无法确定自己应该以怎样的时间来处理数据。

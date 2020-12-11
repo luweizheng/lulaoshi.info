@@ -544,7 +544,7 @@ DataStream<Tuple2<String, Double>> average = stockStream
 
 在自定义Trigger时，如果使用了状态，一定要使用`clear`方法将状态数据清理，否则随着窗口越来越多，状态数据会越积越多。
 
-{: .note}
+{: .notice--info}
 假如我们使用了自定义的Trigger，那原来默认的触发逻辑会被自定义的逻辑覆盖。
 
 ### Evictor

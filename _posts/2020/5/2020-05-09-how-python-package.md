@@ -29,7 +29,7 @@ categories: [Python]
 
 GPU部分最底层是操作系统和驱动，再往上是提供给程序员的开发接口CUDA。英伟达在CUDA之上提供了cuBLAS、cuDNN等库，cuBLAS是运行在英伟达GPU上的线性代数库（Basic Linear Algebra Subprograms，简称BLAS），cuDNN是英伟达为优化深度神经网络，在CUDA上包装的库，里面包含了Tensor计算、卷积、池化等常见DNN操作。cuBLAS和cuDNN代码会最终编译成英伟达GPU可运行的机器码。
 
-{: .note}
+{: .notice--info}
 cuDNN对英伟达硬件、驱动和CUDA版本有依赖要求，由于版本迭代，新版本的cuDNN只能运行在高版本的驱动和CUDA上。[英伟达官方](https://docs.nvidia.com/deeplearning/sdk/cudnn-support-matrix/index.html)提供了版本依赖表。对于使用英伟达GPU的朋友，第一件事是基于自己的硬件安装最新的驱动。如果驱动、CUDA和cuDNN版本与上层应用不匹配，容易出现各类问题。很多时候，我们按照网上的教程安装了驱动、CUDA，并用`pip`安装了TensorFlow，最后发现有99%的概率依然用不了。因为，TensorFlow提供的`pip`安装包主要基于下面的版本进行构建的。
 
 ![TensorFlow官方提供的经过测试的版本依赖关系](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123501.png)

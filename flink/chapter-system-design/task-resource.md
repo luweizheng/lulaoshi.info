@@ -49,7 +49,7 @@ chapter-url: /flink/chapter-system-design/index.html
 
 回到Flink的槽位分配机制上，一个TaskManager是一个进程，TaskManager可以管理一至多个Task，每个Task是一个线程，占用一个Slot。每个Slot的资源是整个TaskManager资源的子集，比如下图里的TaskManager下有3个Slot，每个Slot占用TaskManager 1/3的内存，第一个Slot中的Task不会与第二个Slot中的Task互相争抢内存资源。
 
-{: .note}
+{: .notice--info}
 在分配资源时，Flink并没有将CPU资源明确分配给各个槽位。
 
 ![Task Slot与Task Manager](./img/task-slot.png)

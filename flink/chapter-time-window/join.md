@@ -95,7 +95,7 @@ input1.element1.ts + lowerBound \le input2.elementX.ts \le input1.element1.ts + 
 $$
 上下界可以是正数也可以是负数。
 
-{: .note}
+{: .notice--info}
 Flink（1.10）的Interval Join只支持Event Time语义。
 
 ![Interval Join](./img/interval-join.png)

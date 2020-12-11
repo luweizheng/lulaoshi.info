@@ -45,7 +45,7 @@ DataStream<T> lateStream = result.getSideOutput(lateOutputTag);
 
 `allowedLateness()`的参数是一个整数值，表示要等待多长时间。如果不明确调用`allowedLateness()`方法，`allowedLateness()`默认的参数是0。
 
-{: .note}
+{: .notice--info}
 这个功能只针对Event Time，如果对一个Processing Time下的程序使用`allowedLateness()`，将引发异常。
 
 ```java
@@ -94,5 +94,5 @@ DataStream<Tuple4<String, String, Integer, String>> allowedLatenessStream = inpu
 
 在上面的代码中，我们设置的窗口为5秒，5秒结束后，窗口计算会被触发，生成第一个计算结果。`allowedLateness()`设置窗口结束后还要等待长为lateness的时间，某个迟到元素的Event Time大于窗口结束时间但是小于窗口结束时间+lateness，该元素仍然会被加入到该窗口中。每新到一个迟到数据，迟到数据被加入`ProcessWindowFunction`的缓存中，窗口的Trigger会触发一次FIRE，窗口函数被重新调用一次，计算结果得到一次更新。
 
-{: .note}
+{: .notice--info}
 会话窗口依赖Session Gap来切分窗口，使用了`allowedLateness()`可能会导致两个窗口合并成一个窗口。

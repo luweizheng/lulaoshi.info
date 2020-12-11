@@ -43,7 +43,7 @@ chapter-url: /machine-learning/linear-model/index.html
 
 在房价预测的例子中，想要预测的目标值房价是连续的，我们称这类问题为回归（Regression）问题。与之相对应，当目标值只能在一个有限的离散集合里选择，比如预测房价是否大于100万，结果只有“是”和“否”两种选项，我们称这类问题为分类（Classification）问题。
 
-{: .tip}
+{: .notice--primary}
 ISO国际标准推荐使用小写字母加粗或者上标箭头来表示向量。向量一般默认为列向量（Column Vector）。
 {% katexmm %}
 例如，$\boldsymbol{v}$表示一个名为$v$的向量，因为手写时加粗字体并不现实，一般使用$\overrightarrow{v}$来表示向量。绝大多数教材和资料中会以列向量作为默认的表示形式。假如$\boldsymbol{v}$是一个$n$维向量，一般会以$n \times 1$的形式表示，即$n$行1列，如下所示。
@@ -141,7 +141,7 @@ $$
 L(w) = \frac {1}{2} \cdot \frac{1}{m} \sum^m_{i=1}(f(\boldsymbol{x}^{(i)})-y^{(i)})^2 = \frac {1}{2} \cdot \frac{1}{m} \sum^m_{i=1}(\boldsymbol{w}^T\boldsymbol{x}^{(i)}-y^{(i)})^2\tag{7}
 $$
 
-{: .tip}
+{: .notice--primary}
 在上面的公式里，$\frac {1}{m}$表示取平均，这里是否取平均其实对于求解损失函数的最小值没有影响，因此有些资料里为了表示方便，不取平均。另外一些资料中，为了方便对$L(\boldsymbol{w})$求导，会在外层添加一个$\frac {1}{2}$。
 
 同样，针对这个损失函数可以：
