@@ -97,7 +97,7 @@ defaults:
 
 # Site Author
 author:
-  name             : "鲁蔚征"
+  name             : "皮皮鲁"
   avatar           : "/assets/img/avatar.svg"
   bio              : "中国人民大学计算平台老师，主要研究领域为大数据和高性能计算。曾在小米大数据等一线互联网公司工作。"
   location         : "北京"

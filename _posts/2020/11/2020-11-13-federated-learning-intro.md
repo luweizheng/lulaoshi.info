@@ -103,5 +103,5 @@ categories: [机器学习]
 
 **参考资料**
 
-1. https://medium.com/@kshi/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A2%86%E5%9F%9F%E7%9A%84%E6%98%8E%E6%97%A5%E4%B9%8B%E6%98%9F-e890abe717da
+1. [联邦学习：机器学习领域的明日之星](https://medium.com/@kshi/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%A2%86%E5%9F%9F%E7%9A%84%E6%98%8E%E6%97%A5%E4%B9%8B%E6%98%9F-e890abe717da)
 2. https://cn.fedai.org/
