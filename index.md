@@ -5,8 +5,7 @@ hidden: true
 header:
   overlay_color: "#5e616c"
   overlay_image: /assets/img/home-page-feature.png
-excerpt: >
-  高性能计算、大数据和机器学习。<br />
+excerpt: "高性能计算、大数据和机器学习。"
 feature_row:
   - # image_path: /assets/img/mm-customizable-feature.png
     alt: "customizable"
@@ -32,8 +31,6 @@ feature_row:
 ---
 
 {% include feature_row %}
-
-{{ content }}
 
 ## 最新文章
 

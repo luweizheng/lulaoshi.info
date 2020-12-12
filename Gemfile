@@ -17,6 +17,7 @@ gem "minimal-mistakes-jekyll"
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"
   gem 'jekyll-katex'
+  gem 'html-proofer'
 end
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -33,4 +34,6 @@ group :jekyll_plugins do
     gem 'jekyll-sitemap'
     gem 'html-proofer'
     gem 'jekyll-katex'
+    gem 'liquid-c'  # speed-up site generation
+    gem 'sassc'     # speed-up site generation
 end

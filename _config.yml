@@ -21,18 +21,23 @@
 title: 皮皮鲁的科技星球
 email: luweizheng36@hotmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  皮皮鲁的技术分享
+  皮皮鲁的科技星球
 baseurl: ""
 url: "https://lulaoshi.info"
 
 theme: minimal-mistakes-jekyll
 locale: zh-CN
 
+# logo: "/assets/img/favicon.ico"
+baidu_site_verification: Lsxugw73ju
+
 # set permalink globally
 permalink: /blog/:year/:month/:day/:title:output_ext
 
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
+
+# head_scripts:
 
 # Build settings
 plugins:
