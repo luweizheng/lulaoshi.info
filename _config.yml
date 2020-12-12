@@ -21,7 +21,7 @@
 title: 皮皮鲁的科技星球
 email: luweizheng36@hotmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  皮皮鲁的科技星球
+  中文领域通俗易懂的Flink、GPU、机器学习教程，专注于高性能计算、大数据、机器学习。
 baseurl: ""
 url: "https://lulaoshi.info"
 
@@ -30,6 +30,7 @@ locale: zh-CN
 
 # logo: "/assets/img/favicon.ico"
 baidu_site_verification: Lsxugw73ju
+google_site_verification: eHE1bxyapx0KKbqTqt5f6R4ihsMct0bgdbmhGggIEuE
 
 # set permalink globally
 permalink: /blog/:year/:month/:day/:title:output_ext
@@ -45,7 +46,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-katex
   - jekyll-paginate
-  - jekyll-sitemap
 
 defaults:
   # _pages
