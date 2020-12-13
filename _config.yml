@@ -44,6 +44,18 @@ paginate_path: /page:num/
 footer_scripts:
 #  - "/assets/js/tabs.js"
 
+footer:
+  links:
+    - label: "微信"
+      icon: "fab fa-fw fa-weixin"
+      url: "https://mp.weixin.qq.com/s/8IHwxfSecV8L8GscD9ro-A"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/luweizheng"
+    - label: "知乎"
+      icon: "fab fa-fw fa-zhihu"
+      url: "https://www.zhihu.com/people/steven-lu-08"
+
 # Build settings
 plugins:
   - jekyll-feed
@@ -121,7 +133,7 @@ author:
       url: "https://lulaoshi.info"
     - label: "微信"
       icon: "fab fa-fw fa-weixin"
-      # url: "https://twitter.com/"
+      url: "https://mp.weixin.qq.com/s/8IHwxfSecV8L8GscD9ro-A"
     - label: "知乎"
       icon: "fab fa-fw fa-zhihu"
       url: "https://www.zhihu.com/people/steven-lu-08"
