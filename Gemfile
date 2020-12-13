@@ -7,8 +7,8 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll"
-# This is the default theme for new Jekyll sites. You may change this to anything you like.
+gem "jekyll", "~> 4.0.0"
+# theme
 gem "minimal-mistakes-jekyll"
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
@@ -30,7 +30,7 @@ group :jekyll_plugins do
     gem 'jekyll-katex'
     gem 'html-proofer'
     gem 'jekyll-sitemap'
-    gem 'jekyll-code-tabs' # multiple code languages tabs
     gem 'liquid-c'  # speed-up site generation
     gem 'sassc'     # speed-up site generation
+    gem "jekyll-tabs"  # multiple tabs
 end

@@ -40,12 +40,17 @@ paginate_path: /page:num/
 
 # head_scripts:
 
+# footer_scripts:
+footer_scripts:
+#  - "/assets/js/tabs.js"
+
 # Build settings
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-katex
   - jekyll-paginate
+  - jekyll-tabs
 
 defaults:
   # _pages
