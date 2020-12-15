@@ -190,6 +190,13 @@ if __name__ == '__main__':
 
 我将源代码上传到了[GitHub](https://github.com/luweizheng/machine-learning-notes/tree/master/neural-network/cnn)上，并提供了PyTorch和TensorFlow两个版本。
 
+## 小结
+
+* AlexNet跟LeNet结构类似，但使用了更多的卷积层和更大的参数空间来拟合大规模数据集ImageNet。它是浅层神经网络和深度神经网络的分界线。
+* AlexNet现在已经被各种新的模型超越，但仍然是一个里程碑。
+* 虽然看上去AlexNet的实现比LeNet的实现也就多了几行代码而已，但这个观念上的转变和真正优秀实验结果的产生令学术界付出了很多年。究其原因，数据、算力曾是深度学习的瓶颈。
+* Dropout、ReLU等技术的引入也提升了计算机视觉的性能。
+
 **参考资料**
 
 1. Krizhevsky, A., Sutskever, I., & Hinton, G. E. (2012). Imagenet classification with deep convolutional neural networks. In Advances in neural information processing systems (pp. 1097-1105).

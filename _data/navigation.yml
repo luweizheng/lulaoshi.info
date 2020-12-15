@@ -146,62 +146,65 @@ ml:
     url: /machine-learning/linear-model/index.html
     children:
 
-      - title: 线性回归的数学表示
+      - title: 1.1 线性回归的数学表示
         url: /machine-learning/linear-model/linear-regression.html
 
-      - title: 线性回归的求解：矩阵方程和梯度下降、数学推导及NumPy实现
+      - title: 1.2 线性回归的求解：矩阵方程和梯度下降、数学推导及NumPy实现
         url: /machine-learning/linear-model/minimise-loss-function.html
 
-      - title: 最大似然估计：从概率角度理解线性回归的优化目标
+      - title: 1.3 最大似然估计：从概率角度理解线性回归的优化目标
         url: /machine-learning/linear-model/maximum-likelihood-estimation.html
 
-      - title: 模型容量、欠拟合和过拟合
+      - title: 1.4 模型容量、欠拟合和过拟合
         url: /machine-learning/linear-model/underfit-overfit.html
 
-      - title: 正则化：防止模型过拟合
+      - title: 1.5 正则化：防止模型过拟合
         url: /machine-learning/linear-model/regularization.html
 
-      - title: Logistic Regression：互联网领域应用最广的模型
+      - title: 1.6 Logistic Regression：互联网领域应用最广的模型
         url: /machine-learning/linear-model/logistic-regression.html
 
   - title: "2. 神经网络"
     url: /machine-learning/neural-network/index.html
     children:
 
-      - title: 前馈神经网络
+      - title: 2.1 前馈神经网络
         url: /machine-learning/neural-network/feedforward-neural-network.html
 
-      - title: Softmax
+      - title: 2.2 Softmax
         url: /machine-learning/neural-network/softmax.html
 
-      - title: PyTorch的Tensor和自动求导
+      - title: 2.3 PyTorch的Tensor和自动求导
         url: /machine-learning/neural-network/pytorch-tensor-autograd.html
 
-      - title: 实战：使用PyTorch构建神经网络进行房价预测
+      - title: 2.4 实战：使用PyTorch构建神经网络进行房价预测
         url: /machine-learning/neural-network/pytorch-kaggle-house-prices.html
 
   - title: "3. 卷积神经网络"
     url: /machine-learning/convolutional/index.html
     children:
 
-      - title: 二维卷积层入门：卷积运算、填充与步幅、输入输出通道
+      - title: 3.1 二维卷积层入门：卷积运算、填充与步幅、输入输出通道
         url: /machine-learning/convolutional/two-dimension-convolution-layer.html
 
-      - title: 池化层：缓解卷积层对图像位置的敏感性
+      - title: 3.2 池化层：缓解卷积层对图像位置的敏感性
         url: /machine-learning/convolutional/pooling.html
 
-      - title: LeNet：一个简单的卷积神经网络
+      - title: 3.3 LeNet：一个简单的卷积神经网络
         url: /machine-learning/convolutional/lenet.html
 
-      - title: AlexNet：深度卷积神经网络开始兴起
+      - title: 3.4 AlexNet：深度卷积神经网络开始兴起
         url: /machine-learning/convolutional/alexnet.html
 
-      - title: VGG：使用基础卷积块的网络
+      - title: 3.5 VGG：使用基础卷积块的网络
         url: /machine-learning/convolutional/vgg.html
+
+      - title: 3.6 NiN：使用1×1卷积层替代全连接层
+        url: /machine-learning/convolutional/nin.html
 
   - title: "4. 分布式机器学习"
     url: /machine-learning/distributed/index.html
     children:
 
-      - title: 分布式深度学习简介：数据并行和模型并行
+      - title: 4.1 分布式深度学习简介：数据并行和模型并行
         url: /machine-learning/distributed/distributed-deep-learning-model-data-parallelism.html
