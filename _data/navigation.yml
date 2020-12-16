@@ -202,6 +202,9 @@ ml:
       - title: 3.6 NiN：使用1×1卷积层替代全连接层
         url: /machine-learning/convolutional/nin.html
 
+      - title: 3.7 GoogLeNet：并行连接的网络
+        url: /machine-learning/convolutional/googlenet.html
+
   - title: "4. 分布式机器学习"
     url: /machine-learning/distributed/index.html
     children:

@@ -10,7 +10,7 @@ zh: &DEFAULT_ZH_HANS
   pagination_next            : "下一页"
   breadcrumb_home_label      : "首页"
   breadcrumb_separator       : "/"
-  menu_label                 : "切换菜单"
+  menu_label                 : "切换章节"
   search_label               : "切换搜索"
   toc_label                  : "本页内容"
   ext_link_label             : "直接链接"
