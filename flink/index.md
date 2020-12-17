@@ -1,6 +1,7 @@
 ---
-title: 关于本教程
+title: 《Flink原理与实践》：中文领域最详细的Flink入门教程
 keywords: Flink, 学习, 教程, Flink例子, Flink教程
+description: "《Flink原理与实践》开源版，中文领域最详细的Flink入门教程。"
 
 ---
 

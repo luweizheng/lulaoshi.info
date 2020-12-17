@@ -1,7 +1,7 @@
 ---
 title: 分布式深度学习简介：数据并行和模型并行
 keywords: 神经网络, 分布式机器学习, 深度神经网络, 深度学习, 数据并行, 模型并行
-summary: ""
+description: "分布式深度学习常常采用两种方式，数据并行和模型并行。"
 
 chapter-name: 分布式深度学习
 chapter-url: /machine-learning/distributed/index.html
@@ -21,6 +21,9 @@ chapter-url: /machine-learning/distributed/index.html
 
 在现代深度学习中，数据集越来越大，以至于我们很难将所有数据集都加载到内存中，我们通常使用随机梯度下降法，对数据集的每个批次(batch)进行损失函数的求导，获得各个参数的梯度。如果我们的数据集有25600个样本数据，每次我们只从中取出256个样本数据去计算梯度，此时，batch_size为256，但是要把整个数据集都迭代一遍需要100次。如果我们尝试一次性去计算所有样本数据的梯度，我们的GPU显存可能无法容纳那么大的数据。比如，ImageNet等图形图像数据集大约有100+GB的数据，一个SOTA（state of the art）模型本身也有GB级的参数，单张GPU卡大约有10至40GB显存，如果只在单张GPU卡上进行计算，我们可以适当调整batch_size，以满足GPU卡显存的限制。但是仅凭单张GPU卡进行计算，数据集迭代一遍需要更多次循环，时间更长。
 
+![数据并行](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-17-054300.jpg)
+*数据并行*
+
 为了加快模型的训练，我们可以使用分布式计算的思路，把这个大批次分割为很多小批次，使用多个节点进行计算，在每个节点上计算一个小批次，对若干个节点的梯度进行汇总后再加权平均，最终求和就得到了最终的大批次的梯度结果。
 
 $$
@@ -28,7 +31,7 @@ $$
 \frac{\partial L}{\partial w} 
 &= \frac{\partial \Big[ \frac{1}{n} \sum_{i=1}^{n} f(x^{(i)}, y^{(i)}) \Big] }{\partial w} \\
 &= \frac{1}{n} \sum_{i=1}^{n}  \frac{\partial f(x^{(i)}, y^{(i)}) }{\partial w} \\
-&= \frac{m_1}{n} \frac{\partial \Big[ \frac{1}{m_1} \sum_{i=1}^{m_1} f(x^{(i)}, y^{(i)}) \Big] }{\partial w} + \frac{m_2}{n} \frac{\partial \Big[ \frac{1}{m_2} \sum_{i=m_1 + 1}^{m_1 + m_2} f(x^{(i)}, y^{(i)}) \Big] }{\partial w}  + \cdots + \frac{m_k}{n}  \frac{\partial \Big[ \frac{1}{m_k} \sum_{i=m_{k-1} + 1}^{m_{k-1} + m_k} f(x^{(i)}, y^{(i)}) \Big] }{\partial w} \\
+&= \frac{m_1}{n} \frac{\partial \Big[ \frac{1}{m_1} \sum_{i=1}^{m_1} f(x^{(i)}, y^{(i)}) \Big] }{\partial w} + \cdots + \frac{m_k}{n}  \frac{\partial \Big[ \frac{1}{m_k} \sum_{i=m_{k-1} + 1}^{m_{k-1} + m_k} f(x^{(i)}, y^{(i)}) \Big] }{\partial w} \\
 &= \frac{m_1}{n} \frac{\partial l_1}{\partial w} + \frac{m_2}{n} \frac{\partial l_2}{\partial w} + \cdots + \frac{m_k}{n} \frac{\partial l_k}{\partial w}
 \end{aligned}
 $$
@@ -52,6 +55,9 @@ $$
 
 模型并行乍一听挺唬人的，但是其实和令人生畏的数学没太大关系。模型并行更多的是一种对计算机资源的分配问题。有时候我们的模型可能太大了，大到不能把整个模型加载到一个节点的内存（或者GPU显存）中，因为其中有着太多的层，太多的参数。因此，我们可以考虑把整个模型按层分解成若干份，把连续的几层加载到一个节点。系统中不同的节点计算着整个模型的不同的层。
 
+![模型并行](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-17-054241.jpg)
+*模型并行*
+
 假如我们有10个GPU节点，我们想要训练一个ResNet-50网络（模型共有50层）。我们可以将前5层分配给GPU#1， 第二个5层分给GPU#2，如此类推，最后的5层分配给了GPU#10。实际训练过程中，在每次迭代中，前向传播首先在GPU#1进行，接下来是GPU#2，#3等等。这个过程是串行的，后面的节点必须等待前面的节点运算完之后才能接着运算，但是，反过来说，后面节点在进行运算的时候，并不妨碍前面的节点进行下一个批次的运算，这就组成了一个流水线（pipeline）。当涉及到反向传播时，我们首先计算GPU#10的梯度，更新网络参数。然后我们继续计算前一节点GPU#9的梯度，并更新网络参数，以此类推。每个节点就像是一个工厂流水线上的一小部分，所有节点组成了一个流水线。
 
 ## 一些思考
@@ -72,3 +78,4 @@ $$
 
 1. [https://leimao.github.io/blog/Data-Parallelism-vs-Model-Paralelism/](https://leimao.github.io/blog/Data-Parallelism-vs-Model-Paralelism/)
 2. [https://xiandong79.github.io/Intro-Distributed-Deep-Learning](https://xiandong79.github.io/Intro-Distributed-Deep-Learning)
+3. [【深度学习】— 分布式训练常用技术简介](https://zhuanlan.zhihu.com/p/276122469)
