@@ -256,7 +256,7 @@ CREATE TABLE my_table (
 
 根据某个字段进行分区。如果这个表中的数据实际存储在一个文件系统上，Flink会为每个分区创建一个文件夹。例如，以日期为分区，那么每天的数据被放在一个文件夹中。`PARTITIONED BY`经常被用在批处理中。
 
-{: note}
+{: .notice--primary}
 这里是`PARTITIONED BY`，与`OVER WINDOW`中的`PARTITON BY`语法和含义均不同。
 
 #### ALTER TABLE

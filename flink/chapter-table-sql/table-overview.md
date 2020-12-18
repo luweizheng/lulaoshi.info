@@ -346,7 +346,7 @@ DataStream<UserBehavior> userBehaviorDataStream = ...
 tEnv.createTemporaryView("user_behavior", userBehaviorDataStream);
 ```
 
-{: note}
+{: .notice--primary}
 Flink 1.10的`TableEnvironment`不支持将`DataStream`或`DataSet`转换为`Table`，使用此功能需要使用`StreamTableEnvironment`或者`BatchTableEnvironment`。
 
 ### 声明式方式

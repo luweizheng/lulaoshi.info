@@ -184,7 +184,7 @@ Flink的流处理和批处理都支持上述三种窗口函数的。批处理没
 |    TUMBLE_ROWTIME(time_attr, interval)    | 返回窗口的结束时间（不包含边界）。如 `[00:00, 00:20]` 的窗口，返回 `00:19:59.999` 。返回值是一个rowtime，可以基于该字段做时间属性的操作，如内联视图子查询或时间窗口上的JOIN。只能用在Event Time时间语义的作业上。 |
 | TUMBLE_PROCTIME(time-attr, size-interval) | 返回窗口的结束时间（不包含边界）。如 `[00:00, 00:20]` 的窗口，返回 `00:19:59.999` 。返回值是一个proctime，可以基于该字段做时间属性的操作，如内联视图子查询或时间窗口上的JOIN。 只能用在Processing Time时间语义的作业上。 |
 
-{: note}
+{: .notice--primary}
 同一个SQL查询中，`TUMBLE(time_attr, interval)`函数中的`interval`和`TUMBLE_START(time_attr, interval)`函数中的`interval`要保持一致。确切地说，`INTERVAL 'duration' timeUnit`中的`duration`时间长度和`timeUnit`时间单位都要前后保持一致。
 
 我们已经在前面的例子中展示了`TUMBLE_END`的例子，这里不再过多解释。`TUMBLE_START`或`TUMBLE_END`返回的是展示的结果，已经不再是一个时间属性，无法被后续其他查询用来作为时间属性做进一步查询。假如我们想基于窗口时间戳做进一步的查询，比如内联视图子查询或Join等操作，我们需要使用`TUMBLE_ROWTIME`和`TUMBLE_PROCTIME`。比如下面的例子：
@@ -263,14 +263,14 @@ WINDOW w AS (
 
 `ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW`定义了窗口的起始和结束，窗口的起始点为`UNBOUNDED PRECEDING`，这两个SQL关键词组合在一起表示窗口起始点是数据流的最开始的行，`CURRENT ROW`表示结束点是当前行。`ROWS BETWEEN ... AND ...`这样的语句定义了窗口的起始和结束。结合分组和排序策略，这就意味着，这个窗口从数据流的第一行开始到当前行结束，按照`user_id`分组，按照`ts`排序。
 
-{: note}
+{: .notice--primary}
 目前`OVER WINDOW`上，Flink只支持基于时间属性的`ORDER BY`排序，无法基于其他字段进行排序。
 
 ![ROWS：按行划分窗口](./img/rows-over-window.png)
 
 上图展示了按行划分窗口的基本原理，图中上半部分使用`UNBOUNDED PRECEDING`表示起始位置，那么窗口是从数据流的第一个元素开始一直到当前元素；下半部分使用`1 PRECEDING`表示起始位置，窗口的起始点是本元素的前一个元素，我们可以把1换成其他我们想要的数字。
 
-{: note}
+{: .notice--primary}
 图中最后两行数据从时间上虽然同时到达，但由于窗口是按行划分的，这两行数据被划分为两个窗口，这与后文提到的按时间段划分有所区别。
 
 如果输入数据流如下表：

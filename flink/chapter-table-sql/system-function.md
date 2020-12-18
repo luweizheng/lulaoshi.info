@@ -75,7 +75,7 @@ FROM tab
 WHERE a IN (SELECT c FROM r)
   ```
 
-{: note}
+{: .notice--primary}
 在流处理模式下，`EXISTS(sub-query)`和`value IN (sub-query)`都需要使用状态进行计算，我们必须确保配置了状态过期时间，否则状态可能会无限增大。
 
 ### 逻辑函数

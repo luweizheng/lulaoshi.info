@@ -205,6 +205,9 @@ ml:
       - title: 3.7 GoogLeNet：并行连接的网络
         url: /machine-learning/convolutional/googlenet.html
 
+      - title: 3.8 BatchNorm：批量归一化
+        url: /machine-learning/convolutional/batch-normalization.html
+
   - title: "4. 分布式机器学习"
     url: /machine-learning/distributed/index.html
     children:

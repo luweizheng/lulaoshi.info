@@ -132,5 +132,5 @@ tEnv.getConfig.setIdleStateRetentionTime(Time.hours(1), Time.hours(2));
 
 空闲状态数据是指该数据长时间没有更新，仍然保留在状态中。上面的方法有两个参数：`minTime`和`maxTime`，空闲状态至少会保留`minTime`的时间，这个时间内数据不会被清理；超过`maxTime`的时间后，空闲状态会被清除。一旦这个数据被清除，那意味着后续数据流入，会被认为是一个新数据重新添加到状态中。基于这样的数据，得到的计算结果是近似准确的。可见，这是一个在结果准确度和计算性能之间的平衡。
 
-{: note}
+{: .notice--primary}
 如果将`minTime`和`maxTime`设置为0，表示不作过期时间设置，状态永远不会清除。`maxTime`至少要比`minTime`大5分钟。

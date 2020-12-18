@@ -73,7 +73,7 @@ WHERE A.id = B.id
 
 除了使用`BETWEEN ... AND ...`来确定窗口起始结束点外，Flink也支持比较符号 `>, <, >=, <=`，所以，一个时间窗口也可以被写为`A.ts >= B.ts - lowBound AND A.ts <= B.ts + upperBound`这样的语法。
 
-{: note}
+{: .notice--primary}
 A表和B表必须是Append-only模式的表，即只可以追加，不可以更新。
 
 在实现上，Flink使用状态来存储一些时间窗口相关数据。时间一般接近单调递增（Event Time模式不可能保证百分百的单调递增）。过期后，这些状态数据会被清除。当然，使用Event Time意味着窗口要等待更长的时间才能关闭，状态数据会更大。
@@ -220,5 +220,5 @@ A和B可以是Append-only的追加表，也可以是可更新的Update表，A、
 
 目前，Flink可以支持`INNER JOIN`、`LEFT JOIN`、`RIGHT JOIN`和`FULL OUTER JOIN`，只支持等于谓词匹配：`ON A.id = B.id`。使用Regular Join时，尽量避免出现笛卡尔积式的连接。
 
-{: note}
+{: .notice--primary}
 在Regular Join中，我们无法`SELECT`时间属性，因为Flink SQL无法严格保证数据按照时间属性排序。如果我们想要`SELECT`时间字段，一个办法是在定义Schema时，不明确指定该字段为时间属性，比如使用SQL DDL定义时，不设置`WATERMARK FOR rowtime_column AS watermark_strategy_expression`。
