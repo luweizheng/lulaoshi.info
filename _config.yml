@@ -92,6 +92,7 @@ defaults:
       share: false
       comments: false
       toc: true
+      github: "https://github.com/luweizheng/flink-tutorials"
       sidebar:
         nav: "flink"
   - scope:
@@ -114,6 +115,7 @@ defaults:
       share: false
       comments: false
       toc: true
+      github: "https://github.com/luweizheng/machine-learning-notes"
       sidebar:
         nav: "ml"
 

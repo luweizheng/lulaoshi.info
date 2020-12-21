@@ -48,5 +48,6 @@ zh: &DEFAULT_ZH_HANS
   search_algolia_no_results  : "无结果"
   results_found              : "条记录匹配"
   back_to_top                : "返回顶部"
+  source_code_repo           : "配套源码"
 zh-CN:
   <<: *DEFAULT_ZH_HANS
