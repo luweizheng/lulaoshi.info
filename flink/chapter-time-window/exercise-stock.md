@@ -1,7 +1,7 @@
 ---
 title: 习题 股票价格数据进阶分析
 keywords: Flink,DataStream,股票,数据流
-summary: "本节将继续使用Flink的DataStream API来处理股票数据流，这里增加了时间和窗口相关的概念。"
+description: "本节将继续使用Flink的DataStream API来处理股票数据流，这里增加了时间和窗口相关的概念。"
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

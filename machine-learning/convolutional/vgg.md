@@ -1,7 +1,7 @@
 ---
 title: VGG：使用基础卷积块的网络
 keywords: 神经网络, 深度学习, 卷积神经网络, 卷积, 二维卷积层, 卷积核, 池化层
-summary: ""
+description: ""
 
 chapter-name: 卷积神经网络
 chapter-url: /machine-learning/neural-network/index.html

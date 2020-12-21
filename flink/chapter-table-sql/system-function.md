@@ -1,7 +1,7 @@
 ---
 title: 系统函数
 keywords: Flink, Table API, Flink SQL, System Function, 系统函数
-summary: ""
+description: ""
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

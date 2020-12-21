@@ -1,7 +1,7 @@
 ---
 title: Flink的时间语义
 keywords: Flink, DataStream, 时间, EventTime, ProcessingTime
-summary: "本节将主要介绍Flink提供的三种时间语义以及如何使用Event Time和Watermark。"
+description: "本节将主要介绍Flink提供的三种时间语义以及如何使用Event Time和Watermark。"
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

@@ -1,7 +1,7 @@
 ---
 title: 双流关联
 keywords: Flink, DataStream, Join, window
-summary: "本节将介绍如何对两个数据流进行Join关联。"
+description: "本节将介绍如何对两个数据流进行Join关联。"
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

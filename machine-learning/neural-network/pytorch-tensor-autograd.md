@@ -1,7 +1,7 @@
 ---
 title: PyTorch的Tensor和自动求导
 keywords: 神经网络, 深度学习, PyTorch
-summary: ""
+description: ""
 
 chapter-name: 神经网络
 chapter-url: /machine-learning/neural-network/index.html

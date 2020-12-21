@@ -1,7 +1,7 @@
 ---
 title: 实战：使用PyTorch构建神经网络进行房价预测
 keywords: 神经网络, 深度学习, PyTorch, 房价预测, Kaggle
-summary: ""
+description: ""
 
 chapter-name: 神经网络
 chapter-url: /machine-learning/neural-network/index.html

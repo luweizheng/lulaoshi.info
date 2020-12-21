@@ -1,7 +1,7 @@
 ---
 title: Softmax
 keywords: 神经网络, 深度学习, 深度神经网络, Softmax
-summary: ""
+description: "Softmax入门教程。"
 
 chapter-name: 神经网络
 chapter-url: /machine-learning/neural-network/index.html

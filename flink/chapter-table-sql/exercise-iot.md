@@ -1,7 +1,7 @@
 ---
 title: 习题 使用Flink SQL处理物联网数据
 keywords: Flink, Table API, Flink SQL, IoT
-summary: ""
+description: ""
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

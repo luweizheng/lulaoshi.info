@@ -1,7 +1,7 @@
 ---
 title: LeNet：一个简单的卷积神经网络
 keywords: 神经网络, 深度学习, 卷积神经网络, 卷积, 二维卷积层, 卷积核, 池化层
-summary: ""
+description: "LeNet是一个最简单的卷积神经网络，卷积神经网络包含卷积块部分和全连接层部分。卷积块包括一个卷积层和一个池化层。"
 
 chapter-name: 卷积神经网络
 chapter-url: /machine-learning/neural-network/index.html

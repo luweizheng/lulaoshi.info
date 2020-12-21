@@ -1,7 +1,7 @@
 ---
 title: AlexNet：深度卷积神经网络开始兴起
 keywords: 神经网络, 深度学习, 卷积神经网络, 卷积, 卷积核, 池化层, ImageNet, AlexNet
-summary: ""
+description: "AlexNet跟LeNet结构类似，但使用了更多的卷积层和更大的参数空间来拟合大规模数据集ImageNet。它是浅层神经网络和深度神经网络的分界线。"
 
 chapter-name: 卷积神经网络
 chapter-url: /machine-learning/neural-network/index.html

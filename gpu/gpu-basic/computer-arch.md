@@ -1,7 +1,7 @@
 ---
 title: 计算机体系结构回顾
 keywords: 计算机, 冯诺依曼, 硬件, CPU
-summary: ""
+description: ""
 
 chapter-name: GPU基础知识
 chapter-url: /gpu/gpu-basic/index.html

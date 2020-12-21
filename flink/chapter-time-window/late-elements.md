@@ -1,7 +1,7 @@
 ---
 title: 处理迟到数据
 keywords: Flink, DataStream, ProcessFunction
-summary: "本节将介绍如何处理迟到数据。"
+description: "本节将介绍如何处理迟到数据。"
 
 chapter-name: 时间和窗口
 chapter-url: /flink/chapter-time-window/index.html

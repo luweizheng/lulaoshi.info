@@ -1,7 +1,7 @@
 ---
 title: 线性回归的求解：矩阵方程和梯度下降、数学推导及NumPy实现
 keywords: 线性模型, 线性回归, 梯度下降法, 随机梯度下降法, 随机梯度下降, SGD,
-summary: ""
+description: ""
 
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html

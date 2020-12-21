@@ -1,7 +1,7 @@
 ---
 title: 时间和窗口
 keywords: Flink, Table API, Flink SQL, 窗口, 时间
-summary: ""
+description: ""
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

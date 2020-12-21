@@ -1,7 +1,7 @@
 ---
 title: 前馈神经网络
 keywords: 神经网络, 深度学习, 深度神经网络, BP算法, 反向传播, BP
-summary: ""
+description: "申请网络入门教程。"
 
 chapter-name: 神经网络
 chapter-url: /machine-learning/neural-network/index.html

@@ -1,7 +1,7 @@
 ---
 title: SQL DDL
 keywords: Flink, Table API, Flink SQL, Join
-summary: ""
+description: ""
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

@@ -1,7 +1,7 @@
 ---
 title: 线性回归的数学表示
 keywords: 线性模型, 线性回归
-summary: ""
+description: "线性回归对已有数据进行建模，预测未来数据的。整个模型是一个线性变换。本文是一个入门的线性回归教程。"
 
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html

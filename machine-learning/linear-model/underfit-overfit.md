@@ -1,7 +1,7 @@
 ---
 title: 模型容量、欠拟合和过拟合
 keywords: 线性模型, 线性回归, 过拟合, 欠拟合
-summary: ""
+description: ""
 
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html

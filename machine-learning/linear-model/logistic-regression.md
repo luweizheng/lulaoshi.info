@@ -1,7 +1,7 @@
 ---
 title: Logistic Regression：互联网领域应用最广的模型
 keywords: Logistic Regression, 最大似然估计, 逻辑回归, 逻辑斯蒂回归
-summary: ""
+description: "逻辑回归Logistic Regression在线性回归的基础上使用了一个Softmax函数，用来进行二元分类。本文是一个入门的逻辑回归教程。"
 
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html

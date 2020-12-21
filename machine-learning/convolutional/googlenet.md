@@ -1,6 +1,7 @@
 ---
 title: GoogLeNet：并行连接的网络
 keywords: 神经网络, 深度学习, 卷积神经网络, 卷积, 二维卷积层, 卷积核, 池化层
+description: "GoogLeNet提出使用Inception块，Inception块相当于一个有4条路径的子网络。4条路径中有不同窗口大小的卷积层和最大池化层，4条路径并行抽取信息。"
 ---
 
 在2014年的ImageNet图像识别挑战赛中，Google提出的GoogLeNet夺得头筹。GoogLeNet的名字在向LeNet致敬，但在网络结构上已经很难看到LeNet的影子。GoogLeNet吸收了NiN中1×1卷积层的思想，并在此基础上做了很大改进。在随后的几年里，研究人员对GoogLeNet进行了数次改进，本节将介绍这个模型系列的第一个版本。

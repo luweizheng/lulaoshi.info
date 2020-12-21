@@ -1,7 +1,7 @@
 ---
 title: Table API & SQL综述
 keywords: Flink, Table API, Flink SQL, Blink Planner, Flink Planner
-summary: ""
+description: ""
 
 chapter-name: Table API & SQL
 chapter-url: /flink/chapter-table-sql/index.html

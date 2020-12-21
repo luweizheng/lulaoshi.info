@@ -1,7 +1,7 @@
 ---
 title: 二维卷积层入门：卷积运算、填充与步幅、输入输出通道
 keywords: 神经网络, 深度学习, 卷积神经网络, 卷积, 二维卷积层, 卷积核, 输入通道, 输出通道
-summary: ""
+description: "卷积层是一种对图像抽取特征的运算，在深度学习中，对输入矩阵进行卷积一般是使用一个卷积核进行互相关运算。"
 
 chapter-name: 卷积神经网络
 chapter-url: /machine-learning/neural-network/index.html
@@ -163,7 +163,6 @@ Padding是指在输入高和宽的两侧填充元素（通常是0）。我们在
 **参考资料**
 
 1. [https://www.deeplearningbook.org/contents/convnets.html](https://www.deeplearningbook.org/contents/convnets.html)
-
 2. [https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html](https://d2l.ai/chapter_convolutional-neural-networks/why-conv.html)
 3. [https://zh.d2l.ai/chapter_convolutional-neural-networks/conv-layer.html](https://zh.d2l.ai/chapter_convolutional-neural-networks/conv-layer.html)
 4. [https://en.wikipedia.org/wiki/Kernel_(image_processing)](https://en.wikipedia.org/wiki/Kernel_(image_processing))

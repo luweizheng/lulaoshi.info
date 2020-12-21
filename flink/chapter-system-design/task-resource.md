@@ -1,7 +1,7 @@
 ---
 title: 任务执行与资源划分
 keywords: Flink, DataStream, JobGraph, StreamGraph, ExecutionGraph, Operator Chain, Slot Sharing, 物理执行图
-summary: "本节将介绍Flink如何将一个逻辑的JobGraph转化为可物理执行的物理执行图，以及如何进行算子链和槽位共享等优化。"
+description: "本节将介绍Flink如何将一个逻辑的JobGraph转化为可物理执行的物理执行图，以及如何进行算子链和槽位共享等优化。"
 
 chapter-name: Flink的设计和运行原理
 chapter-url: /flink/chapter-system-design/index.html

@@ -1,7 +1,7 @@
 ---
 title: 正则化：防止模型过拟合
 keywords: 岭回归, Ridge, Lasso, 线性回归, 正则化, L1正则化, L2正则化, 范数, 稀疏特征, 稀疏解
-summary: ""
+description: "正则化可以有效防止模型过拟合。"
 
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html

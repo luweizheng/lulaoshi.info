@@ -1,7 +1,7 @@
 ---
 title: 习题 股票数据流处理
 keywords: Flink,DataStream,股票,数据流
-summary: "本节将总结如何使用Flink的DataStream API来处理股票数据流。"
+description: "本节将总结如何使用Flink的DataStream API来处理股票数据流。"
 
 chapter-name: DataStream API的介绍和使用
 chapter-url: /flink/chapter-datastream-api/index.html

@@ -1,7 +1,7 @@
 ---
 title: 习题 电商平台用户行为分析
 keywords: Flink, DataStream, State, 状态, Keyed State, Checkpoint
-summary: "本节将练习使用Keyed State完成对电商平台用户的行为分析，并设置Checkpoint。"
+description: "本节将练习使用Keyed State完成对电商平台用户的行为分析，并设置Checkpoint。"
 
 chapter-name: 状态、检查点和保存点
 chapter-url: /flink/chapter-state-checkpoint/index.html

@@ -13,3 +13,6 @@ chapter-url: /machine-learning/convolutional/index.html
 3. [LeNet：一个简单的卷积神经网络](./lenet.html)
 4. [AlexNet：深度卷积神经网络开始兴起](./alexnet.html)
 5. [VGG：使用基础卷积块的网络](./vgg.html)
+6. [NiN： 使用1×1卷积层替代全连接层](./nin.html)
+7. [GoogLeNet：并行连接的网络](./googlenet.html)
+8. [BatchNorm：批量归一化](./batch-normalization.html)

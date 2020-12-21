@@ -1,7 +1,7 @@
 ---
 title: GPU软硬件基础知识
 keywords: CUDA, GPU, 硬件, CPU, OpenCL
-summary: ""
+description: ""
 
 chapter-name: GPU基础知识
 chapter-url: /gpu/gpu-basic/index.html

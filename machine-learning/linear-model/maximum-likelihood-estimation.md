@@ -1,7 +1,7 @@
 ---
 title: 最大似然估计：从概率角度理解线性回归的优化目标
 keywords: 最大似然估计, 线性回归, MSE
-summary: ""
+description: "最大似然估计就是寻找最优参数，使得观测数据发生的概率最大、统计模型与真实数据最相似。本文是一个入门的最大似然估计教程。"
 
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html
