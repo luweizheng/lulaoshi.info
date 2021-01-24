@@ -42,7 +42,6 @@ paginate_path: /page:num/
 
 # footer_scripts:
 footer_scripts:
-#  - "/assets/js/tabs.js"
 
 footer:
   links:
@@ -62,7 +61,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-katex
   - jekyll-paginate
-  - jekyll-tabs
 
 defaults:
   # _pages
@@ -87,6 +85,7 @@ defaults:
       path: "flink"
     values:
       layout: single
+      classes: wide
       read_time: false
       author_profile: false
       share: false
@@ -99,6 +98,7 @@ defaults:
       path: "gpu"
     values:
       layout: single
+      classes: wide
       read_time: false
       author_profile: false
       share: false
@@ -110,6 +110,7 @@ defaults:
       path: "machine-learning"
     values:
       layout: single
+      classes: wide
       read_time: false
       author_profile: false
       share: false
