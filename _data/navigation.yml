@@ -208,6 +208,9 @@ ml:
       - title: 3.8 BatchNorm：批量归一化
         url: /machine-learning/convolutional/batch-normalization.html
 
+      - title: 3.9 ResNet：残差神经网络
+        url: /machine-learning/convolutional/resnet.html
+
   - title: "4. 分布式机器学习"
     url: /machine-learning/distributed/index.html
     children:
