@@ -92,6 +92,15 @@ ResNet-34中残差基础块的数量是`[3, 4, 6, 3]`，如果改变这个列表
 | ResNet-101 | [3, 4, 23, 3]  | Bottleneck |
 | ResNet-152 | [3, 8, 36, 3]  | Bottleneck |
 
+以最常用来作为各类Benchmark的ResNet-50为例，残差基础块的数量为：3 + 4 + 6 + 3 = 16，每个残差基础块都使用Bottleneck，Bottleneck里共3个卷积层（2个1×1卷积层+1个3×3卷积层），16 × 3 = 48，加上一开始的7×7卷积层和最后的全连接层，共50层。
+
+## pre-activation
+
+前面介绍的是何恺明等人提出的第一版ResNet，后来他们又在第一版基础上做了一些改进，其中一个重要的方向对BatchNorm、ReLU和卷积层的位置进行调整。图6中a/b/c/d/e是几种残差基础块的构成方式，这几种残差块包含的模块是一样的，都是权重层（卷积层）、BN（BatchNorm）、ReLU以及加法运算。根据作者们的证明和分析，图6中的e能获得很大的收益，在CIFAR-10上的表现最好（图6上半部分的表格为CIFAR-10上的表现）。图6中e先进行BatchNorm和ReLU，再进行卷积运算。这种将BatchNorm和ReLU提前的方式被称为pre-activation，意思是激活（activation）提前到卷积层前面。
+
+![图6 BatchNorm、ReLU和卷积层不同位置的比较](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-02-06-111611.png)
+*图6 BatchNorm、ReLU和卷积层不同位置的比较*
+
 ## 小结
 
 1. ResNet由残差基础块组成，残差基础块使用了$F(x) + x$的思想，让模型具有“什么都不做”的能力。
@@ -104,5 +113,6 @@ ResNet-34中残差基础块的数量是`[3, 4, 6, 3]`，如果改变这个列表
 **参考资料**
 
 1. He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. *Proceedings of the IEEE conference on computer vision and pattern recognition* (pp. 770–778).
-2. [http://d2l.ai/chapter_convolutional-modern/resnet.html](http://d2l.ai/chapter_convolutional-modern/resnet.html)
+2. He K., Zhang X., Ren S., Sun J. (2016) Identity Mappings in Deep Residual Networks. ECCV 2016. ECCV 2016. Lecture Notes in Computer Science, vol 9908. Springer, Cham. https://doi.org/10.1007/978-3-319-46493-0_38
+3. [http://d2l.ai/chapter_convolutional-modern/resnet.html](http://d2l.ai/chapter_convolutional-modern/resnet.html)
 
