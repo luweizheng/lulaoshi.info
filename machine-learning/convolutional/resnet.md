@@ -71,14 +71,18 @@ class Residual(nn.Module):
 
 图4最右侧是ResNet-34，命名为ResNet-34，是因为网络中7×7卷积层、3×3卷积层和全连接层共34层。在计算这个34层时，论文作者并没有将BatchNorm、ReLU、AvgPool以及Shortcut中的层考虑进去。图4右侧ResNet-34中的3×3卷积层的颜色不同，共4种颜色。每种颜色表示一个模块，由一组残差基础块组成，只不多残差基础块的数量不同，从上到下依次是`[3, 4, 6, 3]`个残差基础块。另外，图4右侧，残差基础块中用实线Shortcut表示维度没有变化（可以直接相加）；虚线Shortcut表示维度变化了，比如通道数从64变为128，无法直接相加，或者在$x$上填充0，或者使用1×1卷积层改变维度。
 
+![图5 ResNet-34网络和基础块 来源：https://www.alanmartyn.com/](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-02-06-115410.jpg)
+*图5 ResNet-34网络和基础块*
+
+图5的解释更加直观一些，图5右侧是ResNet-34宏观上的网络结构，每个小格子是一个残差基础块（图5左侧）。图5右侧中不同颜色，表示输入的通道数发生了变化。
 ## Bottleneck
 
-ResNet-34核心部分均使用3×3卷积层，总层数相对没那么多，对于更深的网络，作者们提出了另一种残差基础块。图5左侧为ResNet-34所使用的残差基础块，被成为Basic Block；图5右侧为ResNet-50/101/152等深层网络上使用的残差基础块，被称为Bottleneck Block，Bottleneck Block中使用了1×1卷积层。如输入通道数为256，1×1卷积层会将通道数先降为64，经过3×3卷积层后，再将通道数升为256。1×1卷积层的优势是在更深的网络中，用较小的参数量处理通道数很大的输入。
+ResNet-34核心部分均使用3×3卷积层，总层数相对没那么多，对于更深的网络，作者们提出了另一种残差基础块。图6左侧为ResNet-34所使用的残差基础块，被成为Basic Block；图6右侧为ResNet-50/101/152等深层网络上使用的残差基础块，被称为Bottleneck Block，Bottleneck Block中使用了1×1卷积层。如输入通道数为256，1×1卷积层会将通道数先降为64，经过3×3卷积层后，再将通道数升为256。1×1卷积层的优势是在更深的网络中，用较小的参数量处理通道数很大的输入。
 
-图5左侧，输入输出通道数均为64，残差基础块中两个3×3卷积层参数量是：$；3 \times 3 \times 64 \times 64 + 3 \times 3 \times 64 \times 64 = 73728$图5右侧，输入输出通道数均为256，残差基础块中的参数量是：$1 \times 1 \times 64 \times 256 + 3 \times 3 \times 64 \times 64 + 1 \times 1 \times 64 \times 256 = 69632$。两个一比较，使用1×1卷积层，参数量减少了。当然，使用这样的设计，也是因为更深的网络对显存和算力都有更高的要求，在算力有限的情况下，深层网络中的残差基础块应该减少算力消耗。
+图6左侧，输入输出通道数均为64，残差基础块中两个3×3卷积层参数量是：$；3 \times 3 \times 64 \times 64 + 3 \times 3 \times 64 \times 64 = 73728$图6右侧，输入输出通道数均为256，残差基础块中的参数量是：$1 \times 1 \times 64 \times 256 + 3 \times 3 \times 64 \times 64 + 1 \times 1 \times 64 \times 256 = 69632$。两个一比较，使用1×1卷积层，参数量减少了。当然，使用这样的设计，也是因为更深的网络对显存和算力都有更高的要求，在算力有限的情况下，深层网络中的残差基础块应该减少算力消耗。
 
-![图5 Basic Block和Bottleneck Block 来源：何恺明等](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-02-05-160050.png)
-*图5 Basic Block和Bottleneck Block 来源：何恺明等*
+![图6 Basic Block和Bottleneck Block 来源：何恺明等](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-02-05-160050.png)
+*图6 Basic Block和Bottleneck Block 来源：何恺明等*
 
 ## ResNets
 
@@ -96,10 +100,10 @@ ResNet-34中残差基础块的数量是`[3, 4, 6, 3]`，如果改变这个列表
 
 ## pre-activation
 
-前面介绍的是何恺明等人提出的第一版ResNet，后来他们又在第一版基础上做了一些改进，其中一个重要的方向对BatchNorm、ReLU和卷积层的位置进行调整。图6中a/b/c/d/e是几种残差基础块的构成方式，这几种残差块包含的模块是一样的，都是权重层（卷积层）、BN（BatchNorm）、ReLU以及加法运算。根据作者们的证明和分析，图6中的e能获得很大的收益，在CIFAR-10上的表现最好（图6上半部分的表格为CIFAR-10上的表现）。图6中e先进行BatchNorm和ReLU，再进行卷积运算。这种将BatchNorm和ReLU提前的方式被称为pre-activation，意思是激活（activation）提前到卷积层前面。
+前面介绍的是何恺明等人提出的第一版ResNet，后来他们又在第一版基础上做了一些改进，其中一个重要的方向对BatchNorm、ReLU和卷积层的位置进行调整。图7中a/b/c/d/e是几种残差基础块的构成方式，这几种残差块包含的模块是一样的，都是权重层（卷积层）、BN（BatchNorm）、ReLU以及加法运算。根据作者们的证明和分析，图7中的e能获得很大的收益，在CIFAR-10上的表现最好（图7上半部分的表格为CIFAR-10上的表现）。图7中e先进行BatchNorm和ReLU，再进行卷积运算。这种将BatchNorm和ReLU提前的方式被称为pre-activation，意思是激活（activation）提前到卷积层前面。
 
-![图6 BatchNorm、ReLU和卷积层不同位置的比较](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-02-06-111611.png)
-*图6 BatchNorm、ReLU和卷积层不同位置的比较*
+![图7 BatchNorm、ReLU和卷积层不同位置的比较](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-02-06-111611.png)
+*图7 BatchNorm、ReLU和卷积层不同位置的比较*
 
 ## 小结
 
@@ -115,4 +119,4 @@ ResNet-34中残差基础块的数量是`[3, 4, 6, 3]`，如果改变这个列表
 1. He, K., Zhang, X., Ren, S., & Sun, J. (2016). Deep residual learning for image recognition. *Proceedings of the IEEE conference on computer vision and pattern recognition* (pp. 770–778).
 2. He K., Zhang X., Ren S., Sun J. (2016) Identity Mappings in Deep Residual Networks. ECCV 2016. ECCV 2016. Lecture Notes in Computer Science, vol 9908. Springer, Cham. https://doi.org/10.1007/978-3-319-46493-0_38
 3. [http://d2l.ai/chapter_convolutional-modern/resnet.html](http://d2l.ai/chapter_convolutional-modern/resnet.html)
-
+4. [https://www.alanmartyn.com/content/how-residual-shortcuts-speed-up-learning.html](https://www.alanmartyn.com/content/how-residual-shortcuts-speed-up-learning.html)
