@@ -9,7 +9,7 @@ chapter-url: /flink/chapter-time-window/index.html
 
 批处理经常要解决的问题是将两个数据源做关联，或者称为Join。例如，很多手机APP都有一个用户数据源User，同时APP会记录用户的行为，我们称之为Behavior，两个表按照userId来进行Join，如下图所示。Flink支持流处理上的Join，只不过Flink是在一个时间窗口上来进行两个流的Join。
 
-![Join示例图](./img/join.png)
+![Join示例图](./img/join.png){: .align-center}
 
 目前，Flink支持了两种Join：Window Join（窗口连接）和Interval Join（时间间隔连接）。
 
@@ -29,13 +29,13 @@ input1.join(input2)
 
 下图展示了Join的大致过程。两个输入数据流先分别按Key进行分组，然后将元素划分到窗口中。窗口的划分需要使用`WindowAssigner`来定义，这里可以使用Flink提供的滚动窗口、滑动窗口或会话窗口等默认的`WindowAssigner`。随后两个数据流中的元素会被分配到各个窗口上，也就是说一个窗口会包含来自两个数据流的元素。相同窗口内的数据会以内连接（Inner Join）的语义来相互关联，形成一个数据对。当窗口的时间结束，Flink会调用`JoinFunction`来对窗口内的数据对进行处理。当然，我们也可以使用`Trigger`或`Evictor`做一些自定义优化，他们的使用方法和普通窗口的使用方法一样。
 
-![Join的大致流程](./img/join-lifecycle.png)
+![Join的大致流程](./img/join-lifecycle.png){: .align-center}
 
 接下来我们重点分析一下两个数据流是如何进行Inner Join的。
 
 一般滴，Inner Join只对两个数据源同时出现的元素做连接，形成一个数据对，即数据源input1中的某个元素与数据源input2中的所有元素逐个配对。当数据源某个窗口内没数据时，比如图中的第三个窗口，Join的结果也是空的。
 
-![窗口内的数据INNER JOIN](./img/tumbling-window-join.png)
+![窗口内的数据INNER JOIN](./img/tumbling-window-join.png){: .align-center}
 
 下面的代码自定义了`JoinFunction`，并将Join结果打印出来。无论代码中演示的滚动窗口，还是滑动窗口或会话窗口，其原理都是一样的。
 
@@ -98,7 +98,7 @@ $$
 {: .notice--info}
 Flink（1.10）的Interval Join只支持Event Time语义。
 
-![Interval Join](./img/interval-join.png)
+![Interval Join](./img/interval-join.png){: .align-center}
 
 下面的代码展示了如何对两个数据流进行Interval Join：
 

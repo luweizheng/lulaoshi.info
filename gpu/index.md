@@ -14,6 +14,6 @@ topnav: topnav
 
 读者如果发现本系列文章中各类错误，也请邮件联系。
 
-![签名](/assets/img/签名.png)
+![签名](/assets/img/签名.png){: .align-center}
 
 本系列为本人原创，严禁一切商业用途，否则将追究法律责任。

@@ -21,7 +21,7 @@ MacroBase就是DAWN项目中的一个分支，它是一个实时异常点检测�
 
 MacroBase是一个流处理系统，它实时监测数据流，进行异常点检测，并对异常结果进行解释。它是一个实时流处理系统，使用了流处理界领先的Dataflow模型。下图为MacroBase一个数据分析工作流（Pipeline），可以看到，这个图与Spark的有向无环图（DAG）模型、Flink的数据流图模型极其相似。
 
-![MacroBase Dataflow模型](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-26-092534.png)
+![MacroBase Dataflow模型](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-26-092534.png){: .align-center}
 *MacroBase Dataflow模型*
 
 整个Pipeline分为五大部分：
@@ -36,7 +36,7 @@ MacroBase是一个框架，其核心功能是在数据流上进行Classify和Exp
 
 如果用户不进行自定义，MacroBase提供了一个默认的Pipeline，这个Pipeline是基于无监督学习的，数据流图如下所示。
 
-![MacroBase默认的无监督学习Pipeline](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-26-092540.png)
+![MacroBase默认的无监督学习Pipeline](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-26-092540.png){: .align-center}
 *MacroBase默认的无监督学习Pipeline*
 
 这张图省却了Ingest、Transform和Present几个阶段，重点展示了Classify和Explain过程。图中的专有名词缩写较多，下面会逐一进行解释。
@@ -57,7 +57,7 @@ MacroBase对此采用的方案是采样（Sample）。对于采样问题，有�
 
 有了阈值，我们就可以识别出异常点了。对流入数据分类后，进入到下一环节：Explain。假设数据有M维特征，到底哪些特征导致异常点区别于正常点呢？MacroBase使用了一个流行病学的概念：相对风险（Risk Ratio）。举个例子，如果吸烟者发生肺癌的概率是20%，而非吸烟者发生肺癌的概率为1%，从是否吸烟这个特征上来讲，吸烟者相比非吸烟者有20倍的相对风险发生肺癌。可见，Risk Ratio表示某个属性相比其他属性来说更可能导致异常点出现。用原文的话来描述Risk Ratio：
 
-![MacroBase中Risk Ratio的概念](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-26-092548.jpg)
+![MacroBase中Risk Ratio的概念](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-26-092548.jpg){: .align-center}
 
 在数据中心的例子中，我们可以计算特征*机器型号*相比特征*机房房间号*哪个Risk Ratio更高，就说明哪个属性最有可能导致了机器异常。这个问题在数据挖掘中被称为Frequent Patterns Mining，即发现数据集中出现频次比较高的某种模式。MacroBase使用了韩家炜2000年提出的FPGrowth算法。
 

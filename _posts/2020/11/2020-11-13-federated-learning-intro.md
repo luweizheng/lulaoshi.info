@@ -22,7 +22,7 @@ categories: [机器学习]
 * 多个参与者联合数据，建立一个共有的模型，并共同获利
 * 比起将各方数据集中在一起，联邦学习必须要保证效果相差不大
 
-![联邦学习的定义](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085430.png)
+![联邦学习的定义](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085430.png){: .align-center}
 *联邦学习的定义*
 
 数据堂CEO齐红威给出一个更为形象的解释。我们把机器学习比作养羊，羊就是机器学习模型，羊吃的草就是数据。传统的集中式机器学习是将大草原上的草都收割好，送到羊圈里给羊统一吃，羊一直固定在羊圈中。联邦学习不再将羊固定在羊圈中，而是改成游牧，去不同的草场上去吃草。
@@ -39,14 +39,14 @@ categories: [机器学习]
 
 横向（Horizontal）联邦学习，纵向（Vertical）联邦学习和联邦迁移（Transfer）学习这三类分别对应以上三种数据分布。
 
-![联邦学习的分类](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085425.png)
+![联邦学习的分类](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085425.png){: .align-center}
 *联邦学习的分类*
 
 ### 横向联邦学习
 
 横向联邦学习的特点是业务（特征）相似，但是用户（样本）不同。
 
-![横向联邦学习](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085438.png)
+![横向联邦学习](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085438.png){: .align-center}
 *横向联邦学习*
 
 这种情况下的处理过程一般是这样：
@@ -59,19 +59,19 @@ categories: [机器学习]
 
 4. 各参与方更新各自模型。
 
-![横向联邦学习架构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085441.png)
+![横向联邦学习架构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085441.png){: .align-center}
 *横向联邦学习架构*
 
 ### 纵向联邦学习
 
 纵向联邦学习的特点是分布式的数据集中大量的用户，服务器利用这样的数据来训练对应的用户的模型，但是并不获取相关的数据。
 
-![纵向联邦学习](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085444.png)
+![纵向联邦学习](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085444.png){: .align-center}
 *纵向联邦学习*
 
 比如，多家机构，一家是当地的商超，一家是旅行社，最后是微众银行。商超有用户的消费和购买历史，旅行社有用户的商旅消费信息，银行有用户的收支和信用记录。不同机构的用户特征不同，将这些特征联合起来，对于不同机构都有重要的商业价值。
 
-![纵向联邦学习的业务场景](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085453.png)
+![纵向联邦学习的业务场景](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085453.png){: .align-center}
 *纵向联邦学习的业务场景*
 
 纵向联邦学习的架构如下：
@@ -81,7 +81,7 @@ categories: [机器学习]
 3. 加密汇总后的梯度与损失数据
 4. 更新模型
 
-![纵向联邦学习架构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085457.png)
+![纵向联邦学习架构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085457.png){: .align-center}
 *纵向联邦学习架构*
 
 ### 联邦迁移学习
@@ -90,7 +90,7 @@ categories: [机器学习]
 
 迁移学习是指利用数据、任务、或模型之间的相似性，在源领域训练过的模型，应用于目标领域的一种学习过程。说白了就是照猫画虎。我们都知道在中国大陆开车时，驾驶员坐在左边，靠马路右侧行驶。这是基本的规则。然而，如果在英国、香港等地区开车，驾驶员是坐在右边，需要靠马路左侧行驶。那么，如果我们从中国大陆到了香港，应该如何快速地适应 他们的开车方式呢？诀窍就是找到这里的不变量：不论在哪个地区，驾驶员都是紧靠马路中间。这就是我们这个开车问题中的不变量。 找到相似性 (不变量)，是进行迁移学习的核心。
 
-![联邦迁移学习架构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085502.png)
+![联邦迁移学习架构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-13-085502.png){: .align-center}
 *联邦迁移学习架构*
 
 联邦迁移学习的基本步骤为：

@@ -33,7 +33,7 @@ chapter-url: /flink/chapter-table-sql/index.html
 
 从上面的对比看到，流处理中没有静态的物理表，Flink提出了动态表（Dynamic Table）的概念，旨在解决如何在数据流上进行关系型查询。Dynamic Table用来表示不断流入的数据表，数据流是源源不断流入的，Dynamic Table也是随着新数据的流入而不断更新的。在Dynamic Table上进行查询，被称为持续查询（Continuous Query），因为底层的计算是持续不断的。一个Continuous Query的结果也是一个Dynamic Table，它会根据新流入的数据不断更新结果。在Dynamic Table上进行Continuous Query与物化视图不断更新缓存中的数据非常相似。
 
-![Dynamic Table与Continuous Query](./img/dynamic-table.png)
+![Dynamic Table与Continuous Query](./img/dynamic-table.png){: .align-center}
 
 上面这张图展示了数据流、Dynamic Table和Continuous Query之间的关系：
 
@@ -43,7 +43,7 @@ chapter-url: /flink/chapter-table-sql/index.html
 
 我们继续以电商用户行为分析为例来看看数据流和动态表之间的转换。
 
-![用户行为数据流转换为动态表](./img/data-to-table.png)
+![用户行为数据流转换为动态表](./img/data-to-table.png){: .align-center}
 
 如图中左侧所示，一个数据流包含用户行为，可以转化成图中右侧的一个动态表，实际上这个动态表是不断更新的。我们在这个动态表上进行下面的查询：
 
@@ -57,7 +57,7 @@ GROUP BY user_id
 
 这个SQL语句对`user_id`字段分组，统计每个`user_id`所产生的行为。在批处理时，这样的一个SQL查询会在一个静态的数据集上生成一个确定的结果。但对于流处理来说，每当新数据流入时，查询的结果也要随之更新，下图展示了动态表查询的一个过程。
 
-![一个Continuous Query示例：统计用户行为](./img/continuous-query.png)
+![一个Continuous Query示例：统计用户行为](./img/continuous-query.png){: .align-center}
 
 当第一条数据`(1, pv, 00:00:00)`插入到源表时，整个源表只有这一条数据，生成的结果为`(1, 1)`。当第二条数据`(2, fav, 00:00:00)`进入源表时，SQL引擎在结果表中插入结果`(2, 1)`。接着，ID为1的用户再次产生了行为，新数据插入会导致原来的统计结果`(1, 1)`发生变化，变成了`(1, 2)`。这里不再是往结果表中插入新数据，而是更改原来的结果数据。
 
@@ -74,7 +74,7 @@ GROUP BY user_id, TUMBLE(ts, INTERVAL '1' MINUTE)
 
 这个查询与第一个查询非常相似，只不过数据是按照滚动时间窗口来分组的。下图展示了这个查询的执行过程，相当于数据按照时间进行了切分，在这个时间窗口内进行用户行为的统计。我们将在本章[窗口](window.html)部分详细介绍时间窗口的分组方法。
 
-![统计用户在一个窗口内的行为](./img/tumble-append.png)
+![统计用户在一个窗口内的行为](./img/tumble-append.png){: .align-center}
 
 我们以第一个时间窗口为例，数据在00:00:00和00:00:59之间有5条数据，对这5条数据统计得到一个结果，结果表的最后一列`end_ts`为窗口结束时间戳。下一个一分钟数据到达后，对00:01:00和00:01:59之间的数据进行统计，由于`end_ts`字段发生了变化，新结果并不是直接在老结果上做的更新，而是在结果表中插入新数据。
 
@@ -102,7 +102,7 @@ DataStream<Row> dsRow = tEnv.toAppendStream(table, Row.class);
 
 我们仍然以第一个查询为例，讨论一下Retract和Upsert两种模式。如果使用Retract模式，除了原有的结果，还需要增加一个类型`Boolean`的标志位列，这个标志位列用来确定当前这行数据是新加入的，还是需要撤回的。
 
-![Retract模式下对数据的更新](./img/retract.png)
+![Retract模式下对数据的更新](./img/retract.png){: .align-center}
 
 如上图所示，结果共有三列：`(flag, user_id, behavior_cnt)`，其中第一列为标志位，表示本行数据是加入还是撤回，后两行是查询结果。对于前两行输入，数据经过SQL引擎后，生成的结果追加到结尾，因此，标志位都为`true`。第三行输入进入，我们需要对结果进行更新，这时SQL引擎先将原来的老数据置为`false`：`(false, 1, 1)`，然后将新数据追加进来：`(true, 1, 2)`。
 

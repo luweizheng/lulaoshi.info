@@ -49,7 +49,7 @@ $$
 
 正则项来源于于线性代数中范数（Norm）的概念。范数是一个函数，对于函数$N$，有$V \rarr [0, +\infty)$，其中，$V$是一个向量空间。也就是说，范数将向量转换为一个非负数标量。常见的范数有：
 
-![范数](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-024121.png)
+![范数](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-024121.png){: .align-center}
 
 ## 稀疏解与L1正则化
 
@@ -57,14 +57,14 @@ $$
 
 正则化正好可以解决上述问题。一种方法是使用一个惩罚项来统计模型中非零参数的个数，即希望模型$\boldsymbol{w}$的零分量尽可能多，非零分量尽可能少。这种方法比较直观，它实际上是L0范数，但在求解时，这种方法会将一个凸优化问题变成非凸优化问题，不方便求解。L2正则化增加平方惩罚项，会让参数尽可能小，但不会强制参数为零。L1正则化也会惩罚非零参数，能在一定程度上让一些接近零的参数最终为零，近似起到L0的作用。从梯度下降的角度来讲，L2是平方项$w^2$，其导数是$2w$，按照导数的方向进行梯度下降，可能不会降到绝对值零；L1是绝对值项$|w|$，绝对值项能够迫使那些接近零的参数最终为零。
 
-![L1和L2正则化的区别 来源：Google Developers](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-012006.png)
+![L1和L2正则化的区别 来源：Google Developers](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-012006.png){: .align-center}
 *L1和L2正则化的区别 来源：Google Developers*
 
 上图是一个8维参数模型，经过训练后可以看到，L1正则化更容易让接近零的参数最终归为零。
 
 我们再从可视化的角度来理解L1和L2正则化。假定我们的线性回归模型只有两维特征，确切地说，$\boldsymbol{w}$只有两个分量$w_1$和$w_2$，我们将其作为两个坐标轴，绘制平方误差项与正则项的等值线，如下图所示。
 
-![L1正则化比L2正则化更容易使得参数为零 来源：《机器学习》](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-012012.png)
+![L1正则化比L2正则化更容易使得参数为零 来源：《机器学习》](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-012012.png){: .align-center}
 *L1正则化比L2正则化更容易使得参数为零 来源：《机器学习》*
 
 其中，右上角为平方误差项的等值线，是平方误差项取值相同的点的连线；坐标轴中心为正则项的等值线，是在$(w_1, w_2)$空间中正则项取值相同的点的连线。如果没有正则项，那么最优解应该是平方误差项等值线的中心，即平方误差项最小的点。有了正则项，最优解是平方误差项和正则项的折中，即图中的相交处。从图中可以看出，L1正则的交点在坐标轴上，即$w_1$或$w_2$为0，而L2正则的交点不容易在坐标轴上。
@@ -85,7 +85,7 @@ $$
 
 关于正则化的不同选项和参数，可以在TensorFlow Playground里做一些尝试，观察不同选项对结果造成的差异。网址：http://playground.tensorflow.org/
 
-![TensorFlow Playground](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-021516.png)
+![TensorFlow Playground](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-06-06-021516.png){: .align-center}
 *TensorFlow Playground*
 
 {% endkatexmm %}

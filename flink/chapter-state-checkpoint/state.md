@@ -19,7 +19,7 @@ chapter-url: /flink/chapter-state-checkpoint/index.html
 
 我们知道，Flink的一个算子有多个子任务，每个子任务分布在不同实例上，我们可以把状态理解为某个算子子任务在其当前实例上的一个变量，变量记录了数据流的历史信息。当新数据流入时，我们可以结合历史信息来进行计算。实际上，Flink的状态是由算子的子任务来创建和管理的。一个状态更新和获取的流程如下图所示，一个算子子任务接收输入流，获取对应的状态，根据新的计算结果更新状态。一个简单的例子是对一个时间窗口内输入流的某个整数字段求和，那么当算子子任务接收到新元素时，会获取已经存储在状态中的数值，然后将新元素加到状态上，并将状态数据更新。
 
-![状态获取和更新示意图](./img/状态获取和更新.png)
+![状态获取和更新示意图](./img/状态获取和更新.png){: .align-center}
 
 获取和更新状态的逻辑其实并不复杂，但流处理框架还需要解决以下几类问题：
 
@@ -57,11 +57,11 @@ Flink有两种基本类型的状态：托管状态（Managed State）和原生�
 
 Keyed State是`KeyedStream`上的状态。假如输入流按照id为Key进行了`keyBy`分组，形成一个`KeyedStream`，数据流中所有id为1的数据共享一个状态，可以访问和更新这个状态，以此类推，每个Key对应一个自己的状态。下图展示了Keyed State，因为一个算子子任务可以处理一到多个Key，算子子任务1处理了两种Key，两种Key分别对应自己的状态。
 
-![Keyed State示意图](./img/keyedstate.png)
+![Keyed State示意图](./img/keyedstate.png){: .align-center}
 
 Operator State可以用在所有算子上，每个算子子任务或者说每个算子实例共享一个状态，流入这个算子子任务的所有数据都可以访问和更新这个状态。下图展示了Operator State，算子子任务1上的所有数据可以共享第一个Operator State，以此类推，每个算子子任务上的数据共享自己的状态。
 
-![Operator State示意图](./img/operatorstate.png)
+![Operator State示意图](./img/operatorstate.png){: .align-center}
 
 无论是Keyed State还是Operator State，Flink的状态都是基于本地的，即每个算子子任务维护着自身的状态，不能访问其他算子子任务的状态。
 
@@ -81,7 +81,7 @@ Operator State可以用在所有算子上，每个算子子任务或者说每个
 
 状态的横向扩展问题主要是指修改Flink应用的并行度，每个算子的并行实例数或算子子任务数发生了变化，应用需要关停或启动一些算子子任务，某份在原来某个算子子任务上的状态数据需要平滑更新到新的算子子任务上。Flink的Checkpoint可以辅助迁移状态数据。算子的本地状态将数据生成快照（Snapshot），保存到分布式存储（如HDFS）上。横向伸缩后，算子子任务个数变化，子任务重启，相应的状态从分布式存储上重建（Restore）。下图展示了一个算子扩容的状态迁移过程。
 
-![Flink算子扩容示意图](./img/rescale.png)
+![Flink算子扩容示意图](./img/rescale.png){: .align-center}
 
 对于Keyed State和Operator State这两种状态，他们的横向伸缩机制不太相同。由于每个Keyed State总是与某个Key相对应，当横向伸缩时，Key总会被自动分配到某个算子子任务上，因此Keyed State会自动在多个并行子任务之间迁移。对于一个非`KeyedStream`，流入算子子任务的数据可能会随着并行度的改变而改变。如上图所示，假如一个应用的并行度原来为2，那么数据会被分成两份并行地流入两个算子子任务，每个算子子任务有一份自己的状态，当并行度改为3时，数据流被拆成3支，此时状态的存储也相应发生了变化。对于横向伸缩问题，Operator State有两种状态分配方式：一种是均匀分配，另一种是将所有状态合并，再分发给每个实例上。
 
@@ -91,7 +91,7 @@ Operator State可以用在所有算子上，每个算子子任务或者说每个
 
 对于Keyed State，Flink提供了几种现成的数据结构供我们使用，包括`ValueState`、`ListState`等，他们的继承关系如下图所示。首先，`State`主要有三种实现，分别为`ValueState`、`MapState`和`AppendingState`，`AppendingState`又可以细分为`ListState`、`ReducingState`和`AggregatingState`。
 
-![Keyed State继承关系](./img/keyedstate继承关系.png)
+![Keyed State继承关系](./img/keyedstate继承关系.png){: .align-center}
 
 这几个状态的具体区别在于：
 
@@ -405,7 +405,7 @@ BroadcastState是Flink 1.5引入的功能，本节将跟大家分享BroadcastSta
 
 无论是分布式批处理还是流处理，将部分数据同步到所有实例上是一个十分常见的需求。例如，我们需要依赖一个不断变化的控制规则来处理主数据流的数据，主数据流数据量比较大，只能分散到多个算子实例上，控制规则数据相对比较小，可以分发到所有的算子实例上。BroadcastState与直接在时间窗口进行两个数据流的Join的不同点在于，控制规则数据量较小，可以直接放到每个算子实例里，这样可以大大提高主数据流的处理速度。下图为BroadcastState工作原理示意图。
 
-![BroadcastState](./img/broadcast-state.png)
+![BroadcastState](./img/broadcast-state.png){: .align-center}
 
 我们继续使用电商平台用户行为分析为例，不同类型的用户往往有特定的行为模式，有些用户购买欲望强烈，有些用户反复犹豫才下单，有些用户频繁爬取数据，有盗刷数据的嫌疑，电商平台运营人员为了提升商品的购买转化率，保证平台的使用体验，经常会进行一些用户行为模式分析。基于这个场景，我们可以构建一个Flink作业，实时监控识别不同模式的用户。为了避免每次更新规则模式后重启部署，我们可以将规则模式作为一个数据流与用户行为数据流`connect`在一起，并将规则模式以BroadcastState的形式广播到每个算子实例上。
 

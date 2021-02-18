@@ -13,7 +13,7 @@ chapter-url: /flink/chapter-time-window/index.html
 
 ## Flink的三种时间语义
 
-![Flink中三种时间语义](./img/三种时间.png)
+![Flink中三种时间语义](./img/三种时间.png){: .align-center}
 
 如上图所示，Flink支持三种时间语义。
 
@@ -62,7 +62,7 @@ Flink的三种时间语义中，Processing Time和Ingestion Time都可以不用�
 
 有了Event Time时间戳，我们还必须生成Watermark。Watermark是Flink插入到数据流中的一种特殊的数据结构，它包含一个时间戳，并假设后续不会有小于该时间戳的数据。下图展示了一个乱序数据流，其中方框是单个事件，方框中的数字是其对应的Event Time时间戳，圆圈为Watermark，圆圈中的数字为Watermark对应的时间戳。
 
-![一个包含Watermark的乱序数据流](./img/event-time-watermark.png)
+![一个包含Watermark的乱序数据流](./img/event-time-watermark.png){: .align-center}
 
 Watermark的生成有以下几点需要注意：
 
@@ -75,7 +75,7 @@ Watermark的生成有以下几点需要注意：
 
 在实际计算过程中，Flink的算子一般分布在多个并行的算子子任务（或者称为实例、分区）上，Flink需要将Watermark在并行环境下向前传播。如下图中第一步所示，Flink的每个并行算子子任务会维护针对该子任务的Event Time时钟，这个时钟记录了这个算子子任务Watermark处理进度，随着上游Watermark数据不断向下发送，算子子任务的Event Time时钟也要不断向前更新。由于上游各分区的处理速度不同，到达当前算子的Watermark也会有先后快慢之分，每个算子子任务会维护来自上游不同分区的Watermark信息，这是一个列表，列表内对应上游算子各分区的Watermark时间戳等信息。
 
-![并行环境下Watermark的前向传播过程](./img/parallel-watermark.png)
+![并行环境下Watermark的前向传播过程](./img/parallel-watermark.png){: .align-center}
 
 当上游某分区有Watermark进入该算子子任务后，Flink先判断新流入的Watermark时间戳是否大于Partition Watermark列表内记录的该分区的历史Watermark时间戳，如果新流入的更大，则更新该分区的Watermark。如上图中第二步所示，某个分区新流入的Watermark时间戳为4，算子子任务维护的该分区Watermark为1，那么Flink会更新Partition Watermark列表为最新的时间戳4。接着，Flink会遍历Partition Watermark列表中的所有时间戳，选择最小的一个作为该算子子任务的Event Time。同时，Flink会将更新的Event Time作为Watermark发送给下游所有算子子任务。算子子任务Event Time的更新意味着该子任务将时间推进到了这个时间，该时间之前的事件已经被处理并发送到下游。上图中第二步和第三步均执行了这个过程。Partition Watermark列表更新后，导致列表中最小时间戳发生了变化，算子子任务的Event Time时钟也相应进行了更新。整个过程可以理解为：数据流中的Watermark推动算子子任务的Watermark更新。Watermark像一个幕后推动者，不断将流处理系统的Event Time向前推进。我们可以将这种机制总结为：
 

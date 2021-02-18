@@ -144,7 +144,7 @@ tEnv.createTemporaryView("user_behavior", userBehaviorDataStream, "userId as use
 
 `GROUP BY`是很多SQL用户经常使用的窗口聚合函数，在流处理的一个时间窗口上进行`GROUP BY`与批处理中的非常相似，在之前的例子中我们已经开始使用了`GROUP BY`。以`GROUP BY field1, time_attr_window`语句为例，所有含有相同`field1 + time_attr_window`的行会被分到一组中，再对这组数据中的其他字段`field2`进行聚合操作，常见的聚合操作有`COUNT`、`SUM`、`AVG`、`MAX`等。可见，时间窗口`time_attr_window`被作当做整个表的一个字段，用来做分组，下图展示了这个过程。
 
-![时间窗口上的GROUP BY](./img/group-by.png)
+![时间窗口上的GROUP BY](./img/group-by.png){: .align-center}
 
 下面的SQL语句是我们之前使用的例子：
 
@@ -215,7 +215,7 @@ GROUP BY TUMBLE(rowtime, INTERVAL '20' MINUTE), user_id
 
 传统SQL中专门进行窗口处理的函数为`OVER WINDOW`。`OVER WINDOW`与`GROUP BY`有些不同，它对每一行数据都生成窗口，在窗口上进行聚合，聚合的结果会生成一个新字段。或者说，`OVER WINDOW`一般是一行变一行。
 
-![OVER WINDOW示意图](./img/over-window.png)
+![OVER WINDOW示意图](./img/over-window.png){: .align-center}
 
 上图展示了`OVER WINDOW`的工作示意图，窗口确定的方式为：先对`field1`做分组，相同`field1`的数据被分到一起，按照时间属性排序，即上图中的`PARTITION BY`和`ORDER BY`部分；然后每行数据都建立一个窗口，窗口起始点是`field1`分组的第一行数据，结束点是当前行；窗口划分好后，再对窗口内的`field2`字段做各类聚合操作，生成`field2_agg`的新字段，常见的聚合操作有`COUNT`、`SUM`、`AVG`或`MAX`等。从图中可以看出，每一行都有一个窗口，当前行是这个窗口的最后一行，窗口的聚合结果生成一个新的字段。具体的实现逻辑上，Flink为每一个元素维护一个窗口，为每一个元素执行一次窗口计算，完成计算后会清除过期数据。
 
@@ -266,7 +266,7 @@ WINDOW w AS (
 {: .notice--primary}
 目前`OVER WINDOW`上，Flink只支持基于时间属性的`ORDER BY`排序，无法基于其他字段进行排序。
 
-![ROWS：按行划分窗口](./img/rows-over-window.png)
+![ROWS：按行划分窗口](./img/rows-over-window.png){: .align-center}
 
 上图展示了按行划分窗口的基本原理，图中上半部分使用`UNBOUNDED PRECEDING`表示起始位置，那么窗口是从数据流的第一个元素开始一直到当前元素；下半部分使用`1 PRECEDING`表示起始位置，窗口的起始点是本元素的前一个元素，我们可以把1换成其他我们想要的数字。
 
@@ -343,7 +343,7 @@ WINDOW w AS (
 
 可以看到，与`ROWS`的区别在于，`RANGE`后面使用的是一个时间段，根据当前行的时间减去这个时间段，可以得到起始时间。
 
-![RANGE：按时间段划分窗口](./img/range-over-window.png)
+![RANGE：按时间段划分窗口](./img/range-over-window.png){: .align-center}
 
 上图展示了按时间段划分窗口的基本原理，图中上半部分使用`UNBOUNDED PRECEDING`表示起始位置，与`ROWS`按行划分不同的是，最后两个元素虽然同时到达，但是他们被划分为一个窗口（图上半部分中的w4）；下半部分使用`INTERVAL '2' SECOND`表示起始位置，窗口的起始点是当前元素减去2秒，最后两个元素也被划分到了一个窗口（图下半部分中的w4）。
 

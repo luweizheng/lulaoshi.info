@@ -19,29 +19,29 @@ chapter-url: /flink/chapter-state-checkpoint/index.html
 
 Flink是在Chandy–Lamport算法[^1]的基础上实现了一种分布式快照算法。在介绍Flink的快照详细流程前，我们先要了解一下检查点分界线（Checkpoint Barrier）的概念。如下图所示，Checkpoint Barrier被插入到数据流中，它将数据流切分成段。Flink的Checkpoint逻辑是，一段新数据流入导致状态发生了变化，Flink的算子接收到Checpoint Barrier后，对状态进行快照。每个Checkpoint Barrier有一个ID，表示该段数据属于哪次Checkpoint。如下图所示，当ID为n的Checkpoint Barrier到达每个算子后，表示要对n-1和n之间状态更新做快照。Checkpoint Barrier有点像Event Time中的Watermark，它被插入到数据流中，但并不影响数据流原有的处理顺序。
 
-![Checkpoint Barrier](./img/checkpoint-barrier.png)
+![Checkpoint Barrier](./img/checkpoint-barrier.png){: .align-center}
 
 接下来，我们构建一个并行数据流图，用这个并行数据流图来演示Flink的分布式快照机制。这个数据流图的并行度为2，数据流会在这些并行算子上从Source流动到Sink。
 
 首先，Flink的检查点协调器（Checkpoint Coordinator）触发一次Checkpoint（Trigger Checkpoint），这个请求会发送给Source的各个子任务。
 
-![JobManager触发一次Checkpoint](./img/checkpoint-1.png)
+![JobManager触发一次Checkpoint](./img/checkpoint-1.png){: .align-center}
 
 
 
 各Source算子子任务接收到这个Checkpoint请求之后，会将自己的状态写入到状态后端，生成一次快照，并且会向下游广播Checkpoint Barrier。
 
-![Source将自身状态写入状态后端，向下游发送Checkpoint Barrier](./img/checkpoint-2.png)
+![Source将自身状态写入状态后端，向下游发送Checkpoint Barrier](./img/checkpoint-2.png){: .align-center}
 
 
 
 Source算子做完快照后，还会给Checkpoint Coodinator发送一个确认，告知自己已经做完了相应的工作。这个确认中包括了一些元数据，其中就包括刚才备份到State Backend的状态句柄，或者说是指向状态的指针。至此，Source完成了一次Checkpoint。跟Watermark的传播一样，一个算子子任务要把Checkpoint Barrier发送给所连接的所有下游子任务。
 
-![Snapshot之后发送ACK给JobManager](./img/checkpoint-3.png)
+![Snapshot之后发送ACK给JobManager](./img/checkpoint-3.png){: .align-center}
 
 对于下游算子来说，可能有多个与之相连的上游输入，我们将算子之间的边称为通道。Source要将一个ID为n的Checkpoint Barrier向所有下游算子广播，这也意味着下游算子的多个输入通道里都会收到ID为n的Checkpoint Barrier，而且不同输入通道里Checkpoint Barrier的流入速度不同，ID为n的Checkpoint Barrier到达的时间不同。Checkpoint Barrier传播的过程需要进行对齐（Barrier Alignment），我们从数据流图中截取一小部分，以下图为例，来分析Checkpoint Barrier是如何在算子间传播和对齐的。
 
-![Barrier在算子间传播过程](./img/barrier-alignment.png)
+![Barrier在算子间传播过程](./img/barrier-alignment.png){: .align-center}
 
 
 
@@ -56,7 +56,7 @@ Source算子做完快照后，还会给Checkpoint Coodinator发送一个确认�
 
 数据流图中的每个算子子任务都要完成一遍上述的对齐、快照、确认的工作，当最后所有Sink算子确认完成快照之后，说明ID为n的Checkpoint执行结束，Checkpoint Coordinator向State Backend写入一些本次Checkpoint的元数据。
 
-![Sink算子向JobManager发送ACK，一次Checkpoint完成](./img/checkpoint-4.png)
+![Sink算子向JobManager发送ACK，一次Checkpoint完成](./img/checkpoint-4.png){: .align-center}
 
 之所以要进行对齐，主要是为了保证一个Flink作业所有算子的状态是一致的，也就是说，一个Flink作业前前后后所有算子写入State Backend的状态都是基于同样的数据。
 

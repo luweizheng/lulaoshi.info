@@ -100,7 +100,7 @@ tableEnv.execute("table");
 
 在Flink社区对未来的规划中，`TableEnvironment`将统一流批处理，兼容Java和Scala两种语言。我们在第四章Flink的骨架结构中曾提到，在Flink 1.10中，针对流处理和批处理分别使用了`StreamExecutionEnvironment`和`ExecutionEnvironment`两套执行环境，底层有些逻辑还没完全统一，加上Java和Scala两种语言的区别，仅执行环境就四种之多。在Table API & SQL中，`TableEnvironment`也没有完全将上述问题统一，再加上Blink Planner与原有老Planner的区别，读者在编程时一定要注意如何初始化的`TableEnvironment`。
 
-![Flink 1.10中保留了5个TableEnvironment](./img/environment.png)
+![Flink 1.10中保留了5个TableEnvironment](./img/environment.png){: .align-center}
 
 从上图中可以看到，Flink 1.10保留了5个`TableEnvironment`。其中，`TableEnvironment`是最顶级的接口，`StreamTableEnvironment`和`BatchTableEnvironment`都提供了Java和Scala两个实现：
 
@@ -248,7 +248,7 @@ result.insertInto("CsvSinkTable");
 
 以上部分是一个Table API & SQL作业的核心代码编写阶段，但千万不要忘记调用`execute`方法来执行这个作业，否则作业无法被真正执行。
 
-![Table API & SQL从调用到执行的大致流程](./img/table-internal.png)
+![Table API & SQL从调用到执行的大致流程](./img/table-internal.png){: .align-center}
 
 上图为Table API & SQL从调用到执行的大致流程。一个Table API或者SQL调用经过Planner最终转化为一个`JobGraph`，Planner在中间起到一个转换和优化的作用。对于流作业和批作业，Blink Planner分别有相应的优化规则。
 

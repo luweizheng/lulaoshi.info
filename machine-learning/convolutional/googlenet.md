@@ -10,7 +10,7 @@ description: "GoogLeNet提出使用Inception块，Inception块相当于一个有
 
 GoogLeNet中的基础卷积块叫作Inception块，得名于电影《盗梦空间》（Inception）。在电影中，主角在梦境与真实之间穿梭，并一直在强调：“We need to go deeper”。与NiN块相比，这个基础块在结构上更加复杂，如下图所示。
 
-![Inception块](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-16-090602.png)
+![Inception块](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-16-090602.png){: .align-center}
 *Inception块*
 
 Inception块里有4条并行的路径（Path）。前3条路径使用窗口大小分别是1 × 1、3 × 3和5 × 5的卷积层来抽取不同空间尺寸下的信息，其中中间2个路径会对输入先做1 × 1卷积来减少输入通道数，以降低模型复杂度。第四条路径则使用3 × 3最大池化层，后接1 × 1卷积层来改变通道数。4条路径都使用了合适的填充来使输入与输出的高和宽一致，或者说，假如输入图像为12 × 12，那么四条路径输出尺寸均为 12 × 12，只不过输出通道数不同。每个最后我们将每条路径的输出在通道维上连结。比如，路径1的输出为 64 × 12 × 12，路径2的输出为128 × 12 × 12，路径3的输出为32 × 12 × 12，路径4的输出为32× 12 × 12，整个Inception块输出为(64 + 128 + 32 + 32) × 12 × 12。因此，Inception块一个可调的超参数是不同路径的输出通道数。
@@ -53,7 +53,7 @@ Inception块使用不同的卷积层对输入进行探索，我们可以将不�
 
 比起AlexNet/VGG/NiN，GoogLeNet模型看起来更加复杂，涉及到众多精心设计的模块。
 
-![GoogLeNet网络结构，输入在最下方](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-16-090608.png)
+![GoogLeNet网络结构，输入在最下方](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-16-090608.png){: .align-center}
 *GoogLeNet网络结构，输入在最下方*
 
 我们用96×96大小的输入来演示各个步骤后数据尺寸的变化。

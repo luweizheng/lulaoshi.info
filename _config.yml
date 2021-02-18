@@ -88,17 +88,19 @@ defaults:
       related: true
       show_date: true
       toc: true
+      toc_sticky: true
       comments: true
   - scope:
       path: "flink"
     values:
       layout: single
-      classes: wide
+      # classes: wide
       read_time: false
       author_profile: false
       share: false
       comments: true
       toc: true
+      toc_sticky: true
       github: "https://github.com/luweizheng/flink-tutorials"
       sidebar:
         nav: "flink"
@@ -106,24 +108,26 @@ defaults:
       path: "gpu"
     values:
       layout: single
-      classes: wide
+      # classes: wide
       read_time: false
       author_profile: false
       share: false
       comments: true
       toc: true
+      toc_sticky: true
       sidebar:
         nav: "gpu"
   - scope:
       path: "machine-learning"
     values:
       layout: single
-      classes: wide
+      # classes: wide
       read_time: false
       author_profile: false
       share: false
       comments: true
       toc: true
+      toc_sticky: true
       github: "https://github.com/luweizheng/machine-learning-notes"
       sidebar:
         nav: "ml"

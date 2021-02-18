@@ -15,7 +15,7 @@ chapter-url: /machine-learning/neural-network/index.html
 
 LeNet的网络结构如下图所示。
 
-![LetNet网络结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-23-075905.png)
+![LetNet网络结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-11-23-075905.png){: .align-center}
 *LetNet网络结构*
 
 LeNet分为卷积层块和全连接层块两个部分。

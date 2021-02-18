@@ -19,7 +19,7 @@ chapter-url: /flink/chapter-system-design/index.html
 
 * 物理执行图：JobManager根据`ExecutionGraph`对作业进行调度后，在各个TaskManager上部署具体的任务，物理执行图并不是一个具体的数据结构。
 
-![数据流图的转化过程](./img/图转化.png)
+![数据流图的转化过程](./img/图转化.png){: .align-center}
 
 可以看到，Flink在数据流图上可谓煞费苦心，仅各类图就有四种之多。对于新人来说，可以不用太关心这些非常细节的底层实现，只需要了解以下几个核心概念：
 
@@ -31,7 +31,7 @@ chapter-url: /flink/chapter-system-design/index.html
 
 在构造物理执行图的过程中，Flink会将一些算子子任务链接在一起，组成算子链。链接后以任务（Task）的形式被TaskManager调度执行。使用算子链是一个非常有效的优化，它可以有效降低算子子任务之间的传输开销。链接之后形成的Task是TaskManager中的一个线程。下图展示了任务、子任务和算子链之间的关系。
 
-![任务、子任务与算子链](./img/operator-chain.png)
+![任务、子任务与算子链](./img/operator-chain.png){: .align-center}
 
 例如，数据从Source前向传播到FlatMap，这中间没有发生跨分区的数据交换，因此，我们完全可以将Source、FlatMap这两个子任务组合在一起，形成一个Task。数据经过`keyBy()`发生了数据交换，数据会跨越分区，因此无法将`keyBy()`以及其后面的窗口聚合链接到一起。由于WindowAggregation的并行度是2，Sink的并行度为1，数据再次发生了交换，我们不能把WindowAggregation和Sink两部分链接到一起。本章第一节中提到，Sink的并行度被人为设置为1，如果我们把Sink的并行度也设置为2，那么是可以让这两个算子链接到一起的。
 
@@ -52,7 +52,7 @@ chapter-url: /flink/chapter-system-design/index.html
 {: .notice--info}
 在分配资源时，Flink并没有将CPU资源明确分配给各个槽位。
 
-![Task Slot与Task Manager](./img/task-slot.png)
+![Task Slot与Task Manager](./img/task-slot.png){: .align-center}
 
 假设我们给WordCount程序分配两个TaskManager，每个TaskManager又分配3个槽位，所以共有6个槽位。结合之前图中对这个作业的并行度设置，整个作业被划分为5个Task，使用5个线程，这5个线程可以按照上图所示的方式分配到6个槽位中。
 
@@ -62,11 +62,11 @@ Flink允许用户设置TaskManager中槽位的数目，这样用户就可以确�
 
 之前的图展示了任务的一种资源分配方式，默认情况下， Flink还提供了一种槽位共享（Slot Sharing）的优化机制，进一步优化数据传输开销，充分利用计算资源。将之前图中的任务做槽位共享优化后，结果如下图所示。
 
-![槽位共享示意图](./img/slot-sharing.png)
+![槽位共享示意图](./img/slot-sharing.png){: .align-center}
 
 开启槽位共享后，Flink允许多个Task共享一个槽位。如上图中最左侧的数据流，一个作业从Source到Sink的所有子任务都可以放置在一个槽位中，这样数据交换成本更低。而且，对于一个数据流图来说，Source、FlatMap等算子的计算量相对不大，WindowAggregation算子的计算量比较大，计算量较大的算子子任务与计算量较小的算子子任务可以互补，腾出更多的槽位，分配给更多Task，这样可以更好地利用资源。如果不开启槽位共享，如之前图所示，计算量小的Source、FlatMap算子子任务独占槽位，造成一定的资源浪费。
 
-![槽位共享后，增大并行度，可以部署更多算子实例](./img/slot-parallelism.png)
+![槽位共享后，增大并行度，可以部署更多算子实例](./img/slot-parallelism.png){: .align-center}
 
 最初图中的方式共占用5个槽位，支持槽位共享后，上上图只占用2个槽位。为了充分利用空槽位，剩余的4个空槽位可以分配给别的作业，也可以通过修改并行度来分配给这个作业。例如，这个作业的输入数据量非常大，我们可以把并行度设为6，更多的算子实例会将这些槽位填充，如上图所示。
 

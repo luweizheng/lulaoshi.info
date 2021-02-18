@@ -37,7 +37,7 @@ g(z)= \frac 1 {1+e^{-z}}
 $$
 这个函数的形状如下所示，它被称为对数几率函数、Logistic函数或者Sigmoid函数，后文将称之为Logistic函数。
 
-![Logistic Function](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-29-135914.png)
+![Logistic Function](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-29-135914.png){: .align-center}
 
 从图形可以看出，Logistic函数有一些性质：
 

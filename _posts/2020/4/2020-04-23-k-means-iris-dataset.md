@@ -7,11 +7,11 @@ categories: [机器学习]
 
 “聚类”（Clustering）试图将数据集中的样本划分为若干个不相交的子集，每个子集被称为一个“簇”或者“类”，英文名为Cluster。比如鸢尾花数据集（Iris Dataset）中有多个不同的子品种：Setosa、Versicolor、Virginica，不同品种的一些观测数据是具有明显差异的，我们希望根据这些观测数据将其进行聚类。
 
-![Clustering](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023745.png)
+![Clustering](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023745.png){: .align-center}
 
 下图可以看到，不同品种的鸢尾花的花萼（Sepal）和花瓣（Petal）长度和宽度存在明显的差异。花萼长度（Sepal Length）、花萼宽度（Sepal Width）等观测数据可以作为样本的特征，用来进行聚类分析。
 
-![不同鸢尾花的花萼长度和宽度不同](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023755.png)
+![不同鸢尾花的花萼长度和宽度不同](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023755.png){: .align-center}
 *不同鸢尾花的花萼长度和宽度不同*
 
 形式化地说，一个样本集D包含m个样本，每个样本有n维特征，聚类算法根据n维特征数据中的一些潜在数据分布，将样本集D分为k个不相交的簇。需要注意的是：**聚类过程是机器算法自动确定分类的过程，机器所确定的分类与真实分类之间的语义联系需要使用者把握。**总之，聚类是一种非监督学习（Unsupervised Learning），我们可以不用事先确定一个样本到底分到哪一类，机器会从样本的特征数据中发现一些潜在模式，最终将相似样本归结到一起。
@@ -20,7 +20,7 @@ categories: [机器学习]
 
 K均值（K-Means）算法是最常用的聚类算法。
 
-![K-Means算法的伪代码 来源：周志华《机器学习》](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023759.png)
+![K-Means算法的伪代码 来源：周志华《机器学习》](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023759.png){: .align-center}
 *K-Means算法的伪代码 来源：周志华《机器学习》*
 
 上图为周志华老师《机器学习》一书给出的伪代码，用数学语言表示这个算法，看起来有些缭乱，但其算法思想很简单。假如我们想把数据集D划分为K个簇，大致需要以下几步：
@@ -32,7 +32,7 @@ K均值（K-Means）算法是最常用的聚类算法。
 
 K-Means算法是一种采用贪心思想的迭代算法。下图展示了从初始状态开始进行的4次迭代，每次迭代，簇的中心点和簇内数据点也在变化。
 
-![将数据集分为3个簇，四轮迭代的结果，样本点为“·”，簇中心点为“+” 来源：周志华《机器学习》](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023803.png)
+![将数据集分为3个簇，四轮迭代的结果，样本点为“·”，簇中心点为“+” 来源：周志华《机器学习》](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023803.png){: .align-center}
 *将数据集分为3个簇，四轮迭代的结果，样本点为“·”，簇中心点为“+” 来源：周志华《机器学习》*
 
 ## 使用scikit-learn对Iris数据集进行聚类
@@ -81,7 +81,7 @@ plt.xlabel('Spea1 Length', fontsize=12)
 plt.ylabel('Sepal Width', fontsize=12)
 ```
 
-![花萼长度和宽度散点图可视化](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023812.png)
+![花萼长度和宽度散点图可视化](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023812.png){: .align-center}
 *花萼长度和宽度散点图可视化*
 
 ```python
@@ -100,7 +100,7 @@ ax.set_zlabel("3rd eigenvector")
 ax.w_zaxis.set_ticklabels([])
 ```
 
-![PCA 3D数据分布](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023816.png)
+![PCA 3D数据分布](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023816.png){: .align-center}
 *PCA 3D数据分布*
 
 通过图表中可以看到：数据集共有三个品种，不同品种的特征分布有一定的模式。
@@ -146,7 +146,7 @@ axes[0].set_title('Actual', fontsize=18)
 axes[1].set_title('Predicted', fontsize=18)
 ```
 
-![K-Means聚类后，聚类结果和实际样本之间的差别图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023820.png)
+![K-Means聚类后，聚类结果和实际样本之间的差别图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-23-023820.png){: .align-center}
 *K-Means聚类后，聚类结果和实际样本之间的差别图*
 
 左侧是实际情况，右侧是聚类结果，实际结果中橘黄色和灰色类别的两种鸢尾花的数据表现上有一些交叉，聚类算法无法智能到将这些交叉在一起的点区分开来。

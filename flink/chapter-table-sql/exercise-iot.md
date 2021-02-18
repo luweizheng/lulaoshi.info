@@ -20,7 +20,7 @@ chapter-url: /flink/chapter-table-sql/index.html
 假设我们有多个房间（A、B、C等），每个房间内部署有传感器，传感器可以收集温度、相对湿度、光照等数据。下图展示了房间A的布局，其中A1至A4为传感器。
 
 
-![室内数据收集示意图](./img/iot-room-a.png)
+![室内数据收集示意图](./img/iot-room-a.png){: .align-center}
 
 传感器收集上来的数据集名为`sensor.csv`，包括以下字段：`room,node_id,temp,humidity,light,ts`，各字段含义如下：
 

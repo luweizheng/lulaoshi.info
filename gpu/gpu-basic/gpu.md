@@ -24,26 +24,26 @@ GPU全名为Graphics Processing Unit，又称视觉处理器、图形显示卡�
 
 无论是CPU还是GPU，在进行计算时，都需要用核心（Core）来做算术逻辑运算，比如加减乘与或非等。核心中有ALU（逻辑运算单元）和寄存器等电路。在进行计算时，一个核心只能顺序执行某项任务。不可能“吃着火锅唱着歌”，因为吃饭唱歌都占着嘴呢。所以为了同时并行地处理更多任务，芯片公司开发出了多核架构，只要相互之间没有依赖，每个核心做自己的事情，多核之间互不干扰，就可以达到**并行计算**的效果，极大缩短计算时间。
 
-![CPU vs GPU](./img/cpu_vs_gpu.jpg)
+![CPU vs GPU](./img/cpu_vs_gpu.jpg){: .align-center}
 *CPU和GPU之间的对比*
 
 个人桌面电脑CPU只有2到8个CPU核心，数据中心的服务器上也只有20到40个左右CPU核心，GPU却有上千个核心。与CPU的核心不同，GPU的核心只能专注于某些特定的任务。知乎上有人把CPU比作大学数学教授，把GPU比作一个学校几千个小学生：同样是做加减法，几千个小学生所能做的计算，远比几十个大学教授要多得多。俗话说，三个臭皮匠，顶一个诸葛亮。另一方面，大学教授的知识结构和个人能力远强于小学生，能独立解决复杂问题，小学生的知识有限，只能进行简单的计算。目前来看GPU在处理简单计算任务上有更大的优势，但是主要还是靠人海战术，并不能像CPU那样可以独当一面，短时间内也无法替换掉CPU。如下图所示，在整个计算机系统中，CPU起到协调管理的作用，管理计算机的主存、硬盘、网络以及GPU等各类元件。
 
-![计算机体系示意图](./img/comp-arch.png)
+![计算机体系示意图](./img/comp-arch.png){: .align-center}
 *计算机体系结构示意图*
 
 如果只关注CPU和GPU，那么计算结构将如下图所示。CPU主要从主存（Main Memory）中读写数据，并通过总线（Bus）与GPU交互。GPU除了有超多计算核心外，也有自己独立的存储，被称之为显存。一台服务器上可以安装多块GPU卡，但GPU卡的发热量极大，普通的空调系统难以给大量GPU卡降温，所以大型数据中心通常使用水冷散热，并且选址在温度较低的地方。
 
-![CPU与GPU](./img/cpu-and-gpu.png)
+![CPU与GPU](./img/cpu-and-gpu.png){: .align-center}
 *CPU与GPU*
 
 GPU核心在做计算时，只能直接从显存中读写数据，程序员需要在代码中指明哪些数据需要从主存和显存之间相互拷贝。这些数据传输都是在总线上，因此总线的传输速度和带宽成了部分计算任务的瓶颈。也因为这个瓶颈，很多计算任务并不适合放在GPU上，比如笔者前两年一直关注的推荐系统虽然也在使用深度学习，但因为模型输入是大规模稀疏特征，GPU加速获得的收益小于数据互相拷贝的时间损失。
 
-![nvlink](./img/nvlink.png)
+![nvlink](./img/nvlink.png){: .align-center}
 
 CPU和GPU之间的数据通信必须依托总线。当前传输速度最快的总线技术是NVLink，IBM的Power CPU和英伟达的高端显卡可以通过NVLink直接通信。同时，单台机器上的多张英伟达显卡也可以使用NVLink相互通信。Intel的CPU目前不支持NVLink，只能使用PCI-E技术。NVLink和PCI-E都是总线技术的一种，NVLink的传输速度远高于PCI-E。
 
-![高性能计算硬件设计拓扑图](./img/block-diagram-Tesla-V100.jpg)
+![高性能计算硬件设计拓扑图](./img/block-diagram-Tesla-V100.jpg){: .align-center}
 *高性能计算场景硬件设计拓扑图：单台机器共有8张英伟达显卡，每张显卡之间通过NVLink互联，显卡和Intel CPU之间使用PCI-E总线相连，多台机器之间通过InfiniBand高速互联网络互联。*
 
 由于CPU和GPU是分开的，在英伟达的设计理念里，CPU和主存被称为**主机（Host）**，GPU被称为**设备（Device）**。Host和Device概念会贯穿整个英伟达GPU编程，甚至包括OpenCL等其他平台。
@@ -56,7 +56,7 @@ CPU和GPU之间的数据通信必须依托总线。当前传输速度最快的�
 
 在英伟达的设计里，多个核心组成一个Streaming Multiprocessor（**SM**），一张GPU卡有多个SM。从“Multiprocessor”这个名字上也可以看出SM包含了多个处理器。实际上，英伟达主要以SM为运算和调度的基本单元。
 
-![Pascal微架构示意图](./img/pascal-microarch.png)
+![Pascal微架构示意图](./img/pascal-microarch.png){: .align-center}
 *Pascal微架构示意图：一个GPU中有多个SM，每个SM里有计算核心、Shared Memory和L1 Cache*
 
 英伟达不同时代产品的芯片设计不同，每代产品背后有一个微架构代号，微架构均以著名的物理学家为名，以向先贤致敬。当前比较火热的架构有：
@@ -77,12 +77,12 @@ CPU和GPU之间的数据通信必须依托总线。当前传输速度最快的�
   * 2016年发布
   * 专业显卡：Telsa P100(12或16GB显存 3584个CUDA核心)
 
-![Telsa微架构](./img/v100-84SM.png)
+![Telsa微架构](./img/v100-84SM.png){: .align-center}
 *Telsa V100共有84个Streaming Multiprocessor*
 
 上图为Tesla V100的设计，它共有84个SM。图中密密麻麻的绿色小格子就是GPU计算核心，多个计算核心一起组成了一个SM。将SM放大，单个SM如下图所示。
 
-![V100 SM](./img/v100-sm.png)
+![V100 SM](./img/v100-sm.png){: .align-center}
 *单个SM有各种不同类型的计算核心，包括浮点运算、整型运算以及专门为深度学习设计的Tensor Core*
 
 可以看到一个SM中包含了计算核心、存储等部分：
@@ -103,7 +103,7 @@ CPU和GPU之间的数据通信必须依托总线。当前传输速度最快的�
 
 {% endkatexmm %}
 
-![Tensor Core是一种为优化深度学习计算核心](./img/tensor-core.png)
+![Tensor Core是一种为优化深度学习计算核心](./img/tensor-core.png){: .align-center}
 *Tensor Core是一种为优化深度学习计算核心*
 
 前面提到的以物理学家命名的名称是英伟达各代GPU的微架构代号，微架构表示英伟达不同时代的芯片设计。不同微架构里各类计算核心和显卡存储的设计不同。2020年，比较流行的微架构为Volta和Turing。
@@ -121,7 +121,7 @@ CPU和GPU之间的数据通信必须依托总线。当前传输速度最快的�
 
 英伟达能够在人工智能时代成功，除了他们在长期深耕显卡芯片领域，更重要的是他们率先提供了可编程的软件架构，确切地说，软硬件一体方案帮他们赢得了市场。2007年，英伟达发布了CUDA（Compute Unified Device Architecture）编程模型，软件开发人员从此可以使用CUDA在英伟达的GPU上进行并行编程。在此之前，GPU编程并不友好。CUDA简单到什么程度？有经验的程序员经过半天的培训，掌握一些基础概念后，能在半小时内将一份CPU程序修改成为GPU并行程序。
 
-![英伟达软件栈](./img/GPU-software-stack.png)
+![英伟达软件栈](./img/GPU-software-stack.png){: .align-center}
 
 继CUDA之后，英伟达不断丰富其软件技术栈，提供了科学计算所必需的cuBLAS线性代数库，cuFFT快速傅里叶变换库等，当深度学习大潮到来时，英伟达提供了cuDNN深度神经网络加速库，目前常用的TensorFlow、PyTorch深度学习框架的底层大多基于cuDNN库。关于英伟达的软件栈，可以总结为：
 

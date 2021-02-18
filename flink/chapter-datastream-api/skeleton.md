@@ -41,7 +41,7 @@ Scala和Java所需要引用的包也不相同，Scala需要调用`org.apache.fli
 
 下图是批处理和流处理两种场景下，Java和Scala两种编程语言所需要引用的包。刚刚接触Flink的朋友很可能因为错误地引用导致出现莫名其妙的错误，一定要注意是否引用正确的包。
 
-![流处理和批处理不同场景下，相关API的引用](./img/batch-streaming-api-import.png)
+![流处理和批处理不同场景下，相关API的引用](./img/batch-streaming-api-import.png){: .align-center}
 
 另外，使用Scala API时，应该按照下面的方式引用，否则会出现一些问题。
 

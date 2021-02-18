@@ -200,7 +200,7 @@ Table joinTableFunc = tEnv.sqlQuery("SELECT id, s FROM input_table LEFT JOIN LAT
 
 假设我们的表中有下列字段：`id`、数值`v`、权重`w`，我们对`id`进行`GROUP BY`，计算`v`的加权平均值。计算的过程如下表所示。
 
-![用户自定义聚合函数：求加权平均](./img/aggregate.png)
+![用户自定义聚合函数：求加权平均](./img/aggregate.png){: .align-center}
 
 下面的代码实现了一个加权平均函数`WeightedAvg`，这个函数接收两个`Long`类型的输入，返回一个`Double`类型的输出。计算过程基于累加器`WeightedAvgAccum`，它记录了当前加权和`sum`以及权重`weight`。
 

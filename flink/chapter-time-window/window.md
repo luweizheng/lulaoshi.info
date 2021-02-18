@@ -43,11 +43,11 @@ Flink窗口的骨架程序中有两个必须的两个操作：
 
 下图是窗口的生命周期示意图，假如我们设置的是一个10分钟的滚动窗口，第一个窗口的起始时间是0:00，结束时间是0:10，后面以此类推。当数据流中的元素流入后，窗口分配器会根据时间（Event Time或Processing Time）分配给相应的窗口。相应窗口满足了触发条件，比如已经到了窗口的结束时间，会触发相应的Window Function进行计算。注意，本图只是一个大致示意图，不同的Window Function的处理方式略有不同。
 
-![窗口的生命周期](./img/窗口的生命周期.png)
+![窗口的生命周期](./img/窗口的生命周期.png){: .align-center}
 
 如下图所示，从数据类型上来看，一个`DataStream`经过`keyBy()`转换成`KeyedStream`，再经过`window()`转换成`WindowedStream`，我们要在之上进行`reduce()`、`aggregate()`或`process()`等Window Function，对数据进行必要的聚合操作。
 
-![DataStream、KeyedStream和WindowedStream之间如何相互转换](./img/data-stream-window-stream.png)
+![DataStream、KeyedStream和WindowedStream之间如何相互转换](./img/data-stream-window-stream.png){: .align-center}
 
 ## 内置的三种窗口划分方法
 
@@ -59,7 +59,7 @@ Count-based Window根据元素到达窗口的先后顺序管理窗口，到达�
 
 滚动窗口模式下窗口之间不重叠，且窗口长度（Size）是固定的。我们可以用`TumblingEventTimeWindows`和`TumblingProcessingTimeWindows`创建一个基于Event Time或Processing Time的滚动时间窗口。窗口的长度可以用`org.apache.flink.streaming.api.windowing.time.Time`中的`seconds`、`minutes`、`hours`和`days`来设置。
 
-![滚动窗口](./img/tumbling-window.png)
+![滚动窗口](./img/tumbling-window.png){: .align-center}
 
 下面的代码展示了如何使用滚动窗口。代码中最后一个例子，我们在固定长度的基础上设置了偏移（Offset）。默认情况下，时间窗口会做一个对齐，比如设置一个一小时的窗口，那么窗口的起止时间是[0:00:00.000 - 0:59:59.999)。如果设置了Offset，那么窗口的起止时间将变为[0:15:00.000 - 1:14:59.999)。Offset可以用在全球不同时区设置上，如果系统时间基于格林威治标准时间（UTC-0），中国的当地时间可以设置offset为`Time.hours(-8)`。
 
@@ -91,7 +91,7 @@ input
 
 滑动窗口以一个步长（Slide）不断向前滑动，窗口的长度固定。使用时，我们要设置Slide和Size。Slide的大小决定了Flink以多快的速度来创建新的窗口，Slide较小，窗口的个数会很多。Slide小于窗口的Size时，相邻窗口会重叠，一个元素会被分配到多个窗口；Slide大于Size，有些元素可能被丢掉。
 
-![滑动窗口](./img/sliding-window.png)
+![滑动窗口](./img/sliding-window.png){: .align-center}
 
 跟前面介绍的一样，我们使用`Time`类中的时间单位来定义Slide和Size，也可以设置offset。同样，`timeWindow()`是一种缩写，根据执行环境中设置的时间语义来选择相应的方法设置窗口。
 
@@ -121,7 +121,7 @@ input
 
 会话窗口模式下，两个窗口之间有一个间隙，被称为Session Gap。当一个窗口在大于Session Gap的时间内没有接收到新数据时，窗口将关闭。在这种模式下，窗口的长度是可变的，每个窗口的开始和结束时间并不是确定的。我们可以设置定长的Session Gap，也可以使用`SessionWindowTimeGapExtractor`动态地确定Session Gap的长度。
 
-![会话窗口](./img/session-window.png)
+![会话窗口](./img/session-window.png){: .align-center}
 
 下面的代码展示了如何使用定长和变长的Session Gap来建立会话窗口，第二个和第四个例子展示了如何动态生成Session Gap。
 
@@ -254,7 +254,7 @@ DataStream<Tuple2<String, Double>> average = stockStream
 
 `AggregateFunction`里`createAccumulator`、`add`、`merge`这几个函数的工作流程如下图所示。在计算之前要创建一个新的ACC，ACC是中间状态数据，此时ACC里还未统计任何数据。当有新数据流入时，Flink会调用`add()`方法，更新ACC中的数据。当满足窗口结束条件时，Flink会调用`getResult()`方法，将ACC转换为最终结果。此外，还有一些跨窗口的ACC融合情况，比如，会话窗口模式下，窗口长短是不断变化的，多个窗口有可能合并为一个窗口，多个窗口内的ACC也需要合并为一个。窗口融合时，Flink会调用`merge()`，将多个ACC合并在一起，生成新的ACC。
 
-![aggregate的工作流程](./img/aggregate.png)
+![aggregate的工作流程](./img/aggregate.png){: .align-center}
 
 ### ProcessWindowFunction
 

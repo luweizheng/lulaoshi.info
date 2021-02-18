@@ -41,7 +41,7 @@ end
 
 在电商平台，我们作为客户一般会先和卖家聊天沟通，经过一些对话之后才会下单购买。这里我们做一个简单的数据模型，假设一个关于聊天对话的数据流`chat`表记录了买家首次和卖家的聊天信息，它包括以下字段：买家ID（buyer_id），商品ID（item_id），时间戳（ts）。如果买家从开启聊天到最后下单的速度比较快，说明这个商品的转化率比较高，非常值得进一步分析。我们想统计这些具有较高转化率的商品，比如统计从首次聊天到用户下单购买的时间小于1分钟。
 
-![Time-windowed Join：聊天对话和用户行为的Join](./img/time-window-join.png)
+![Time-windowed Join：聊天对话和用户行为的Join](./img/time-window-join.png){: .align-center}
 
 图中，左侧为记录用户首次聊天的数据流`chat`表，它有两个字段：`buyer_id`、`item_id`和`ts`,右侧为我们之前一直使用的`user_behavior`。我们以`item_id`字段来对两个数据流进行Join，同时还增加一个时间窗口的限制，即首次聊天发生之后1分钟内用户有购买行为。相应的SQL语句如下：
 
@@ -57,7 +57,7 @@ WHERE chat.item_id = user_behavior.item_id
 
 Time-windowed Join其实和第五章中的Interval Join比较相似，可以用下图来解释其原理。我们对A和B两个表做Join，需要对B设置一个上下限，A表中所有界限内的数据都要与B表中的数据做连接。
 
-![Time-windowed Join时间线](./img/time-window-join-timeline.png)
+![Time-windowed Join时间线](./img/time-window-join-timeline.png){: .align-center}
 
 一个更加通用的模板为：
 
@@ -82,7 +82,7 @@ A表和B表必须是Append-only模式的表，即只可以追加，不可以更�
 
 电商平台的商品价格有可能发生变化，假如我们有一个商品数据源，里面有各个商品的价格变动，它由`item_id`、`price`和`version_ts`组成，其中，`price`为当前的价格，`version_ts`为价格改动的时间戳。一旦一件商品的价格有改动，数据都会追加到这个表中，这个表保存了价格变动的日志。如果我们想获取一件被购买的商品最近的价格，需要从这个表中找到最新的数据。这个表可以根据时间戳拆分为临时表（Temporal Table），Temporal Table如下图所示：
 
-![将item_log拆解为临时表](./img/temporal-table.png)
+![将item_log拆解为临时表](./img/temporal-table.png){: .align-center}
 
 从图中可以看到，由于商品价格在更新，不同时间点的各商品价格不同。假如我们想获取00:00:07时刻各商品价格，得到的结果为右侧上表，如果获取00:01:00时刻各商品的价格，得到的结果为右侧下表。从图中拆解的过程可以看到，Temporal Table可以让我们获得某个时间点的信息，就像整个数据的一个子版本，版本之间通过时间属性来区分。
 
@@ -120,7 +120,7 @@ WHERE user_behavior.item_id = latest_item.item_id
 
 这个SQL语句筛选购买行为:`user_behavior.behavior = 'buy'`，Temporal Table `item(user_behavior.ts)`按照`user_behavior`表中的时间`ts`来获取该时间点上对应的`item`的版本，将这个表重命名为`latest_item`。这个SQL语句的计算过程如下图所示：
 
-![Temporal Table Join：对user_behavior和item_log进行Join](./img/temporal-table-join.png)
+![Temporal Table Join：对user_behavior和item_log进行Join](./img/temporal-table-join.png){: .align-center}
 
 整个程序的Java实现如下：
 
@@ -172,7 +172,7 @@ DataStream<Row> result = tEnv.toAppendStream(joinResult, Row.class);
 
 从时间维度上来看，Temporal Table Join的效果如下图所示。
 
-![Append-only Table与Temporal Table进行Join操作](./img/temporal-join-timeline.png)
+![Append-only Table与Temporal Table进行Join操作](./img/temporal-join-timeline.png){: .align-center}
 
 将这个场景推广，如果想在其他地方使用Temporal Table Join，需要按照下面的模板编写SQL：
 
@@ -194,7 +194,7 @@ WHERE A.id = B.id
 
 基于前面列举的两种时间维度上的Join，我们可以更好地理解传统意义上的Regular Join。对于刚刚的例子，如果商品表不是把所有改动历史都记录下来，而是只保存了某一时刻的最新值，那么我们应该使用Regular Join。如下图所示，`item`表用来存储当前最新的商品信息数据，00:02:00时刻，`item`表有了改动，Join结果如图中的`result`表。
 
-![Regular Join](./img/regular-join.png)
+![Regular Join](./img/regular-join.png){: .align-center}
 
 实际上，大部分数据库都如图中左侧所示，只保存数据的最新值，而数据库的改动历史日志不会呈现给用户，仅用来做故障恢复。那么，对于这种类型的表，具体的SQL语句为：
 

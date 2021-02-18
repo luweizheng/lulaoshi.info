@@ -19,12 +19,12 @@ categories: [Python]
 
 以TensorFlow为例，它提供了Python的调用接口，用户一般用Python来调用TensorFlow。实际上，其底层代码绝大多数是用C/C++编写的。Python只是TensorFlow的一个前端（Front End），Python需要通过调用C语言的API，进而调用底层的TensorFlow核心库。它的架构图如下所示：
 
-![TensorFlow架构图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123444.png)
+![TensorFlow架构图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123444.png){: .align-center}
 *TensorFlow架构图 来源：TensorFlow Internals*
 
 上图中，最底层是硬件，包括了网络和计算设备，这里先只关注计算设备。由于CPU、GPU等硬件设计的区别，一些矩阵运算在不同硬件上的机器码有质的区别。线性代数部分一般基于Eigen库，这是一个专注于向量和矩阵运算的C++库；Eigen::Tensor是一个使用C++模板技术，它可以为多核 CPU/GPU 生成高效的并发代码。
 
-![GPU软硬件依赖栈](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123453.png)
+![GPU软硬件依赖栈](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123453.png){: .align-center}
 *英伟达GPU软硬件依赖栈*
 
 GPU部分最底层是操作系统和驱动，再往上是提供给程序员的开发接口CUDA。英伟达在CUDA之上提供了cuBLAS、cuDNN等库，cuBLAS是运行在英伟达GPU上的线性代数库（Basic Linear Algebra Subprograms，简称BLAS），cuDNN是英伟达为优化深度神经网络，在CUDA上包装的库，里面包含了Tensor计算、卷积、池化等常见DNN操作。cuBLAS和cuDNN代码会最终编译成英伟达GPU可运行的机器码。
@@ -32,7 +32,7 @@ GPU部分最底层是操作系统和驱动，再往上是提供给程序员的�
 {: .notice--info}
 cuDNN对英伟达硬件、驱动和CUDA版本有依赖要求，由于版本迭代，新版本的cuDNN只能运行在高版本的驱动和CUDA上。[英伟达官方](https://docs.nvidia.com/deeplearning/sdk/cudnn-support-matrix/index.html)提供了版本依赖表。对于使用英伟达GPU的朋友，第一件事是基于自己的硬件安装最新的驱动。如果驱动、CUDA和cuDNN版本与上层应用不匹配，容易出现各类问题。很多时候，我们按照网上的教程安装了驱动、CUDA，并用`pip`安装了TensorFlow，最后发现有99%的概率依然用不了。因为，TensorFlow提供的`pip`安装包主要基于下面的版本进行构建的。
 
-![TensorFlow官方提供的经过测试的版本依赖关系](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123501.png)
+![TensorFlow官方提供的经过测试的版本依赖关系](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123501.png){: .align-center}
 *TensorFlow官方提供的经过测试的版本依赖关系*
 
 ## 到底什么是包
@@ -118,7 +118,7 @@ conda create --name tf_gpu tensorflow-gpu
 
 安装过程中显示除了TensorFlow本身，`conda`还将安装包括CUDA、cuDNN在内的依赖包：
 
-![conda安装TensorFlow时会安装相关依赖](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123512.png)
+![conda安装TensorFlow时会安装相关依赖](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-09-123512.png){: .align-center}
 *conda安装TensorFlow时会安装相关依赖，包括CUDA、cuDNN、BLAS等*
 
 ### LightGBM

@@ -10,7 +10,7 @@ chapter-url: /flink/chapter-datastream-api/index.html
 
 Flink的Transformation转换主要包括四种：单数据流基本转换、基于Key的分组转换、多数据流转换和数据重分布转换。Transformation各算子可以对Flink数据流进行处理和转化，多个Transformation算子共同组成一个数据流图，DataStream Transformation是Flink流处理非常核心的API。下图展示了数据流上的几类操作，本章主要介绍四种Transformation：单数据流转换、基于Key的分组转换、多数据流转换和数据重分布转换，时间窗口部分将在第五章介绍。
 
-![DataStream上的Transformaton操作分类](./img/transformations.png)
+![DataStream上的Transformaton操作分类](./img/transformations.png){: .align-center}
 
 Flink的Transformation是对数据流进行操作，其中数据流涉及到的最常用数据结构是`DataStream`，`DataStream`由多个相同的元素组成，每个元素是一个单独的事件。在Java中，我们使用泛型`DataStream<T>`来定义这种组成关系，在Scala中，这种泛型对应的数据结构为`DataStream[T]`，`T`是数据流中每个元素的数据类型。在WordCount的例子中，数据流中每个元素的类型是字符串`String`，整个数据流的数据类型为`DataStream<String>`。
 
@@ -24,7 +24,7 @@ Flink的Transformation是对数据流进行操作，其中数据流涉及到的�
 
 `map`算子对一个`DataStream`中的每个元素使用用户自定义的Mapper函数进行处理，每个输入元素对应一个输出元素，最终整个数据流被转换成一个新的`DataStream`。输出的数据流`DataStream<OUT>`类型可能和输入的数据流`DataStream<IN>`不同。
 
-![map](./img/map.png)
+![map](./img/map.png){: .align-center}
 
 我们可以重写`MapFunction`或`RichMapFunction`来自定义map函数，`MapFunction`在源码的定义为：`MapFunction<T, O>`，其内部有一个`map`虚函数，我们需要对这个虚函数重写。下面的代码重写了`MapFunction`中的`map`函数，将输入结果乘以2，转化为字符串后输出。
 
@@ -95,7 +95,7 @@ val lambda2 = dataStream.map { _.toDouble * 2 }
 
 `filter`算子对每个元素进行过滤，过滤的过程使用一个Filter函数进行逻辑判断。对于输入的每个元素，如果filter函数返回True，则保留，如果返回False，则丢弃，如下图所示。
 
-![filter](./img/filter.png)
+![filter](./img/filter.png){: .align-center}
 
 我们可以使用Lambda表达式过滤掉小于等于0的元素：
 
@@ -132,7 +132,7 @@ DataStream<Integer> richFunctionDataStream = dataStream.filter(new MyFilterFunct
 
 `flatMap`算子和`map`有些相似，输入都是数据流中的每个元素，与之不同的是，`flatMap`的输出可以是零个、一个或多个元素，当输出元素是一个列表时，`flatMap`会将列表展平。如下图所示，输入是包含圆形或正方形的列表，`flatMap`过滤掉圆形，正方形列表被展平，以单个元素的形式输出。
 
-![flatMap](./img/flatmap.png)
+![flatMap](./img/flatmap.png){: .align-center}
 
 我们可以用切水果的例子来理解map和flatMap的区别。map会对每个输入元素生成一个对应的输出元素：
 
@@ -201,7 +201,7 @@ val words2 = dataStream.map { _.split(" ") }
 
 对数据分组主要是为了进行后续的聚合操作，即对同组数据进行聚合分析。如下图所示，`keyBy`会将一个`DataStream`转化为一个`KeyedStream`，聚合操作会将`KeyedStream`转化为`DataStream`。如果聚合前每个元素数据类型是T，聚合后的数据类型仍为T。
 
-![DataStream和KeyedStream的转换关系](./img/keyedstream-datastream.png)
+![DataStream和KeyedStream的转换关系](./img/keyedstream-datastream.png){: .align-center}
 
 ### keyBy
 
@@ -209,7 +209,7 @@ val words2 = dataStream.map { _.split(" ") }
 
 `keyBy`算子将`DataStream`转换成一个`KeyedStream`。`KeyedStream`是一种特殊的`DataStream`，事实上，`KeyedStream`继承了`DataStream`，`DataStream`的各元素随机分布在各算子实例中，`KeyedStream`的各元素按照Key分组，相同Key的数据会被分配到同一算子实例中。我们需要向`keyBy`算子传递一个参数，以告知Flink以什么作为Key进行分组。
 
-![keyBy](./img/keyBy.png)
+![keyBy](./img/keyBy.png){: .align-center}
 
 我们可以使用数字位置来指定Key：
 
@@ -346,7 +346,7 @@ DataStream<Tuple3<Integer, Integer, Integer>> maxByStream = tupleStream.keyBy(0)
 
 前面几个Aggregation是几个较为常用的操作，对分组数据进行处理更为通用的方法是使用`reduce`算子。
 
-![reduce](./img/reduce.png)
+![reduce](./img/reduce.png){: .align-center}
 
 上图展示了`reduce`算子的原理：`reduce`在分组的数据流上生效，它接受两个输入，生成一个输出，即两两合一地进行汇总操作，生成一个同类型的新元素。
 
@@ -419,7 +419,7 @@ DataStream<Score> sumLambdaStream = dataStream
 
 在`DataStream`上使用`union`算子可以合并多个同类型的数据流，或者说，可以将多个`DataStream<T>`合并为一个新的`DataStream<T>`。数据将按照先进先出（First In First Out）的模式合并，且不去重。下图中，`union`对白色和深色两个数据流进行合并，生成一个数据流。
 
-![union示意图](./img/union.png)
+![union示意图](./img/union.png){: .align-center}
 
 假设股票价格数据流来自不同的交易所，我们将其合并成一个数据流：
 
@@ -440,7 +440,7 @@ DataStream<StockPrice> unionStockStream = shenzhenStockStream.union(hongkongStoc
 
 如下图所示，`connect`经常被应用在使用控制流对数据流进行控制处理的场景上。控制流可以是阈值、规则、机器学习模型或其他参数。
 
-![对一个数据流进行控制处理](./img/connect_control.png)
+![对一个数据流进行控制处理](./img/connect_control.png){: .align-center}
 
 两个`DataStream`经过`connect`之后被转化为`ConnectedStreams`。对于`ConnectedStreams`，我们需要重写`CoMapFunction`或`CoFlatMapFunction`。这两个接口都提供了三个泛型，这三个泛型分别对应第一个输入流的数据类型、第二个输入流的数据类型和输出流的数据类型。在重写函数时，对于`CoMapFunction`，`map1`处理第一个流的数据，`map2`处理第二个流的数据；对于`CoFlatMapFunction`，`flatMap1`处理第一个流的数据，`flatMap2`处理第二个流的数据。下面是`CoFlatMapFunction`在源码中的签名。
 
@@ -528,7 +528,7 @@ dataStream.shuffle();
 
 `rebalance`使用Round-ribon思想将数据均匀分配到各实例上。Round-ribon是负载均衡领域经常使用的均匀分配的方法，上游的数据会轮询式地分配到下游的所有的实例上。如下图所示，上游的算子会将数据依次发送给下游所有算子实例。
 
-![rebalance将数据轮询式地分配到下游实例上](./img/rebalance.png)
+![rebalance将数据轮询式地分配到下游实例上](./img/rebalance.png){: .align-center}
 
 ```java
 dataStream.rebalance();
@@ -540,11 +540,11 @@ dataStream.rebalance();
 dataStream.rescale();
 ```
 
-![上游两个实例下游四个实例时进行rescale](./img/rescale1.png)
+![上游两个实例下游四个实例时进行rescale](./img/rescale1.png){: .align-center}
 
 如上图所示，当上游有两个实例时，上游第一个实例将数据发送给下游第一个和第二个实例，上游第二个实例将数据发送给下游第三个和第四个实例，相比`rebalance`将数据发送给下游每个实例，`rescale`的传输开销更小。下图则展示了当上游有四个实例，下游有两个实例，上游前两个实例将数据发送给下游第一个实例，上游后两个实例将数据发送给下游第二个实例。
 
-![上游四个实例下游两个实例时进行rescale](./img/rescale2.png)
+![上游四个实例下游两个实例时进行rescale](./img/rescale2.png){: .align-center}
 
 #### broadcast
 

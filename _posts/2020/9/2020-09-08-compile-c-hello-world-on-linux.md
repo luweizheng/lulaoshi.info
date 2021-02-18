@@ -36,7 +36,7 @@ Hello World程序比较简单，现实中我们用到的很多软件都由成百
 
 构建大型软件确实非常麻烦，一般都会有一些工具辅助完成上述工作。我们把上述这些过程拆解，只关注编译的过程。编译一般分为四步：预处理（Preprocess）、编译（Compile）、汇编（Assembly）和链接（Link）。
 
-![编译HelloWorld需要经过预处理、编译、汇编和链接四个步骤](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-09-08-074147.png)
+![编译HelloWorld需要经过预处理、编译、汇编和链接四个步骤](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-09-08-074147.png){: .align-center}
 *编译HelloWorld需要经过预处理、编译、汇编和链接四个步骤*
 
 下面以Linux下的GCC编译过程为例做一些拆解。在介绍编译前，我们先简单介绍一下GCC。

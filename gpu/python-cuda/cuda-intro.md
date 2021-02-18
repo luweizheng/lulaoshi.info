@@ -12,7 +12,7 @@ chapter-url: /gpu/python-cuda/index.html
 
 在CUDA中，CPU和主存被称为**主机（Host）**，GPU和显存（显卡内存）被称为**设备（Device）**，CPU无法直接读取显存数据，GPU无法直接读取主存数据，主机与设备必须通过总线（Bus）相互通信。
 
-![GPU和CPU架构](./img/cpu-and-gpu.png)
+![GPU和CPU架构](./img/cpu-and-gpu.png){: .align-center}
 *GPU和CPU*
 
 在进行GPU编程前，需要先确认是否安装了CUDA工具箱，可以使用`echo $CUDA_HOME`检查CUDA环境变量，返回值不为空说明已经安装好CUDA。也可以直接用Anaconda里的`conda`命令安装CUDA：
@@ -23,7 +23,7 @@ $ conda install cudatoolkit
 
 然后可以使用`nvidia-smi`命令查看显卡情况，比如这台机器上几张显卡，CUDA版本，显卡上运行的进程等。我这里是一台32GB显存版的Telsa V100机器。
 
-![nvidia-smi命令返回结果](./img/nvidia-smi.png)
+![nvidia-smi命令返回结果](./img/nvidia-smi.png){: .align-center}
 *nvidia-smi命令返回结果*
 
 安装好CUDA之后，继续安装Numba库：
@@ -67,7 +67,7 @@ SET NUMBA_ENABLE_CUDASIM=1
 
 一个传统的CPU程序的执行顺序如下图所示：
 
-![CPU程序执行流程](./img/cpu-view.png)
+![CPU程序执行流程](./img/cpu-view.png){: .align-center}
 *CPU程序执行流程*
 
 CPU程序是顺序执行的，一般需要：
@@ -80,7 +80,7 @@ CPU程序是顺序执行的，一般需要：
 
 在CUDA编程中，CPU和主存被称为主机（Host），GPU被称为设备（Device）。
 
-![GPU程序执行流程](./img/gpu-view.png)
+![GPU程序执行流程](./img/gpu-view.png){: .align-center}
 *GPU程序执行流程*
 
 当引入GPU后，计算流程变为：
@@ -146,26 +146,26 @@ print by cpu.
 
 在进行GPU并行编程时，需要定义执行配置来告知以怎样的方式去并行执行核函数。比如上面打印的例子中，是并行地执行2次，还是8次，还是并行地执行20万次，或者2000万次。2000万的数字太大，远远多于GPU的核心数，如何将2000万次计算合理分配到所有GPU核心上。解决这些问题就需要弄明白CUDA的Thread层次结构。
 
-![并行执行8次的执行配置](./img/8-thread.png)
+![并行执行8次的执行配置](./img/8-thread.png){: .align-center}
 *并行执行8次的执行配置*
 
 CUDA将核函数所定义的运算称为**线程（Thread）**，多个线程组成一个**块（Block）**，多个块组成**网格（Grid）**。这样一个Grid可以定义成千上万个线程，也就解决了并行执行上万次操作的问题。例如，把前面的程序改为并行执行8次：可以用2个Block，每个Block中有4个Thread。原来的代码可以改为`gpu_print[2, 4]()`，其中方括号中第一个数字表示整个Grid有多少个Block，方括号中第二个数字表示一个Block有多少个Thread。
 
 实际上，线程（Thread）是一个编程上的软件概念。从硬件来看，Thread运行在一个CUDA核心上，多个Thread组成的Block运行在Streaming Multiprocessor（SM），SM的概念详见[GPU软硬件介绍](/gpu/gpu-basic/gpu.html#英伟达gpu硬件架构)，多个Block组成的Grid运行在一个GPU显卡上。
 
-![软硬件对应关系](./img/software-hardware-view.png)
+![软硬件对应关系](./img/software-hardware-view.png){: .align-center}
 *软硬件对应关系：Thread运行在一个核心上，Block运行在SM上，Grid运行在整个GPU卡上*
 
 CUDA提供了一系列内置变量，以记录Thread和Block的大小及索引下标。以`[2, 4]`这样的配置为例：`blockDim.x`变量表示Block的大小是4，即每个Block有4个Thread，`threadIdx.x`变量是一个从0到`blockDim.x - 1`（4-1=3）的索引下标，记录这是第几个Thread；`gridDim.x`变量表示Grid的大小是2，即每个Grid有2个Block，`blockIdx.x`变量是一个从0到`gridDim.x - 1`（2-1=1）的索引下标，记录这是第几个Block。
 
 用刚才小学生进行加法计算为例，我们把问题化简为共8个小学生参加本次计算任务，可以将这8个小学生分为2组，每组4人。整个Grid有2个Block，即`gridDim.x`为2，每组有4人，即`blockDim.x`为4。现在，如果大学教授分配计算任务，他希望让第2个（从0计数，该小学生实际编号为1号）小学生对1和2两个数字执行加法计算，那么大学教授必须要定位到第1号小学生，并通知1号小学生去取数字1和数字2来进行加法计算。如何定位第1号小学生呢？我们刚才定义，我们共有2组，一组有4人，编号为0-3。那么，1号小学生在第0组的1号位置，即`1 + 0 * blockDim.x`。
 
-![CUDA内置变量示意图](./img/8-thread-idx.png)
+![CUDA内置变量示意图](./img/8-thread-idx.png){: .align-center}
 *CUDA内置变量示意图*
 
 某个Thread在整个Grid中的位置编号为：`threadIdx.x + blockIdx.x * blockDim.x`。
 
-![使用内置变量计算某个thread编号](./img/8-thread-idx-2.png)
+![使用内置变量计算某个thread编号](./img/8-thread-idx-2.png){: .align-center}
 *使用内置变量计算某个Thread编号*
 
 利用上述变量，我们可以把之前的代码丰富一下：
@@ -227,7 +227,7 @@ cpu print:
 {: .notice--info}
 当线程数与计算次数不一致时，一定要使用这样的判断语句，以保证某个线程的计算不会影响其他线程的数据。
 
-![线程数与计算次数不匹配](./img/8-thread-N-5.png)
+![线程数与计算次数不匹配](./img/8-thread-N-5.png){: .align-center}
 *线程数与计算次数不匹配时，使用一个界限N做判断*
 
 ## Block大小设置
@@ -244,7 +244,7 @@ cpu print:
 
 以上讨论中，Block和Grid大小均是一维，实际编程使用的执行配置常常更复杂，Block和Grid的大小可以设置为二维甚至三维，如下图所示。这部分内容将在下篇文章中讨论。
 
-![Thread Block Grid](./img/bock-thread.png)
+![Thread Block Grid](./img/bock-thread.png){: .align-center}
 *二维Block和Grid设置*
 
 ## 内存分配
@@ -404,7 +404,7 @@ host_ary = device_ary.copy_to_host()
 
 前文中，我们曾聊过如何使用`threadIdx`和`blockIdx`等参数来描述线程Thread的编号，我们之前使用的` threadIdx` 和`blockIdx`变量都是一维的，实际上，CUDA允许这两个变量最多为三维。一维、二维和三维的大小配置可以适应向量、矩阵和张量等不同的场景。
 
-![二维block size](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2019-11-21-071231.png)
+![二维block size](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2019-11-21-071231.png){: .align-center}
 *二维Thread层次结构执行配置示意图*
 
 一个二维的执行配置如上图所示，其中，每个Block有(3 * 4)个Thread，每个Grid有(2 * 3)个Block。 二维块大小为 *(Dx, Dy)*，某个线程号 *(x, y)* 的公式为 **(x + y Dx)**；三维块大小为 *(Dx, Dy, Dz)*，某个线程号*(x, y, z)* 的公式为 **(x + y Dx + z Dx Dy)**。各个内置变量中`.x` `.y`和`.z`为不同维度下的值。
@@ -438,7 +438,7 @@ gpu_kernel[blocks_per_grid, threads_per_block]
 
 Python Numba库可以调用CUDA进行GPU编程，CPU端被称为主机，GPU端被称为设备，运行在GPU上的函数被称为核函数，调用核函数时需要有执行配置，以告知CUDA以多大的并行粒度来计算。使用GPU编程时要合理地将数据在主机和设备间互相拷贝。
 
-![GPU程序执行流程](./img/cuda-flow.jpg)
+![GPU程序执行流程](./img/cuda-flow.jpg){: .align-center}
 
 CUDA编程的基本流程为：
 

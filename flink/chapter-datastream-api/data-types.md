@@ -13,7 +13,7 @@ chapter-url: /flink/chapter-datastream-api/index.html
 
 ## Flink支持的数据类型
 
-![Flink支持的数据类型](./img/数据类型.png)
+![Flink支持的数据类型](./img/数据类型.png){: .align-center}
 
 Flink支持上图所示的几种数据类型：基础类型、数组、复合类型、辅助类型。其中，Kryo是最后的备选方案，如果能够优化，尽量不要使用Kryo，否则会有大量的性能损失。
 
@@ -182,11 +182,11 @@ Flink还支持Java的`ArrayList`、`HashMap`和`Enum`，Scala的`Either`和`Opti
 
 以上如此多的类型，在Flink中，统一使用`TypeInformation`类表示。比如，POJO在Flink内部使用`PojoTypeInfo`来表示，`PojoTypeInfo`继承自`CompositeType`，`CompositeType`继承自`TypeInformation`。下图展示了`TypeInformation`的继承关系，可以看到，前面提到的诸多数据类型，在Flink中都有对应的类型。`TypeInformation`的一个重要的功能就是创建`TypeSerializer`序列化器，为该类型的数据做序列化。每种类型都有一个对应的序列化器来进行序列化。
 
-![TypeInformation继承关系](./img/typeinformation.png))
+![TypeInformation继承关系](./img/typeinformation.png){: .align-center})
 
 使用前面介绍的各类数据类型时，Flink会自动探测传入的数据类型，生成对应的`TypeInformation`，调用对应的序列化器，因此用户其实无需关心类型推测。比如，Flink的`map`函数Scala签名为：`def map[R: TypeInformation](fun: T => R): DataStream[R]`，传入`map`的数据类型是T，生成的数据类型是R，Flink会推测T和R的数据类型，并使用对应的序列化器进行序列化。
 
-![Flink数据类型推断和序列化](./img/类型推断过程.png)
+![Flink数据类型推断和序列化](./img/类型推断过程.png){: .align-center}
 
 上图展示了Flink的类型推断和序列化过程，以一个字符串`String`类型为例，Flink首先推断出该类型，并生成对应的`TypeInformation`，然后在序列化时调用对应的序列化器，将一个内存对象写入内存块。
 

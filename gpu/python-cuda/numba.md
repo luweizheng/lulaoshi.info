@@ -8,7 +8,7 @@ chapter-url: /gpu/python-cuda/index.html
 
 在[计算机体系结构回顾](/gpu/gpu-basic/computer-arch.html)中，我们提到计算机只能执行二进制的机器码，C、C++等编译型语言依靠编译器将源代码转化为可执行文件后才能运行，Python、Java等解释型语言使用解释器将源代码翻译后在虚拟机上执行。对于Python，由于解释器的存在，其执行效率比C语言慢几倍甚至几十倍。
 
-![以C语言为基准，不同编程语言性能测试比较](./img/benchmarks-languages.png)
+![以C语言为基准，不同编程语言性能测试比较](./img/benchmarks-languages.png){: .align-center}
 *以C语言为基准，不同编程语言性能测试比较*
 
 *图Python解释器工作原理*比较了当前流行的各大编程语言在几个不同任务上的计算速度。C语言经过几十年的发展，优化已经达到了极致。以C语言为基准，大多数解释语言，如Python、R会慢十倍甚至一百倍。Julia这个解释语言是个“奇葩”，因为它采用了JIT编译技术。
@@ -19,7 +19,7 @@ chapter-url: /gpu/python-cuda/index.html
 
 Python是一门解释语言，Python为我们提供了基于硬件和操作系统的一个虚拟机，并使用解释器将源代码转化为虚拟机可执行的字节码。字节码在虚拟机上执行，得到结果。
 
-![Python解释器工作原理](./img/python-intrepretor.jpg)
+![Python解释器工作原理](./img/python-intrepretor.jpg){: .align-center}
 *Python解释器工作原理*
 
 我们使用`python example.py`来执行一份源代码时，Python解释器会在后台启动一个字节码编译器（Bytecode Compiler），将源代码转换为字节码。字节码是一种只能运行在虚拟机上的文件，Python的字节码默认后缀为`.pyc`，Python生成`.pyc`后一般放在内存中继续使用，并不是每次都将`.pyc`文件保存到磁盘上。有时候我们会看到自己Python代码文件夹里有很多`.pyc`文件与`.py`文件同名，但也有很多时候看不到`.pyc`文件。pyc字节码通过Python虚拟机与硬件交互。虚拟机的出现导致程序和硬件之间增加了中间层，运行效率大打折扣。相信使用过虚拟机软件的朋友深有体会:在原生的系统上安装一个虚拟机软件，在虚拟机上再运行一个其他系统，经常感觉速度下降，体验变差，这与Python虚拟机导致程序运行慢是一个原理。
@@ -183,7 +183,7 @@ def f2(x, y):
 
 网上有很多对Numba进行性能评测的文章，在一些计算任务上，Numba结合NumPy，可得到接近C语言的速度。
 
-![Numba性能测试](./img/numba-bench.png)
+![Numba性能测试](./img/numba-bench.png){: .align-center}
 
 ## Numba的更多功能
 
@@ -193,7 +193,7 @@ def f2(x, y):
 
 ## Numba的原理
 
-![Numba编译过程](./img/numba_workflow.png)
+![Numba编译过程](./img/numba_workflow.png){: .align-center}
 *Numba编译过程*
 
 Numba使用了LLVM和NVVM技术。LLVM技术可以将Python、Julia这样的解释语言直接翻译成CPU可执行的机器码。NVVM主要是基于LLVM在GPU上的编译器技术。

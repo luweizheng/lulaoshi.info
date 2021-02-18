@@ -14,7 +14,7 @@ tags: [开源, Google]
 
 近几年，风向似乎变了，一向贪婪的微软似乎开始不相信“资本主义”了，开始搞起了“社会主义”，对外宣布大家可以“免费”升级到Windows 10。不仅微软在大肆宣扬“免费”的概念，其他一些公司更进一步，不仅免费而且还开源。Google在智能手机兴起时就开源了安卓（Android）操作系统。将这些源代码发布到网上，任何人都可以免费下载、修改，然后继续商用，难道资本家不想赚钱了吗？
 
-![Windows由付费走向免费 来源：helpnetsecurity](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141217.jpg)
+![Windows由付费走向免费 来源：helpnetsecurity](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141217.jpg){: .align-center}
 *Windows由付费走向免费 来源：helpnetsecurity*
 
 其实，是竞争更加激烈了，钱不那么好赚了，原来那种卖License的套路不那么好用了。移动互联网用户已经远超桌面电脑，很多事情原本需要在电脑上进行，现在手机也可以操作，如果继续抱残守缺，按照原来卖License的套路，微软很难再占领用户市场了。
@@ -23,12 +23,12 @@ Windows虽然免费了，但是并没有完全开源，也就是说其他人无�
 
 看起来，Google似乎在安卓上没捞到什么钱，实际上，谷歌的商业模式靠卖服务赚钱。安卓系统中最赚钱的服务之一是应用商店Google Play。2019年的数据显示，Google Play营收293亿美元。在应用商店领域，Google虽远逊于苹果，但它占领了七成以上的手机操作系统市场，未来的增长潜力巨大。此外，Google的搜索、邮箱、地图等服务都是欧美人高度依赖的应用，这些服务中一般都会有广告商投放广告，都是Google传统的赚钱机器。
 
-![Google Play全球收入近年增长趋势 来源：statista.com](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141222.png)
+![Google Play全球收入近年增长趋势 来源：statista.com](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141222.png){: .align-center}
 *Google Play全球收入近年增长趋势 来源：statista.com*
 
 更有意思的是，Google不仅开源了手机操作系统，而且还在人工智能和云计算领域开源了众多软件，比较著名的有深度学习框架TensorFlow和云编排系统Kubernetes，这两款软件目前已经成为人工智能和云计算领域绝对的王者。要知道，云计算领域原本的老大是Amazon，其地位似乎不可撼动。面对云计算这块肥肉，Google不能不眼红，但是Amazon在虚拟化领域积累太强，Google干脆照搬当年开源安卓的套路，把Kubernetes这款容器云计算操作系统开源了，而且加大对Kubernetes的宣传和布道。有Google的背书，大大小小的软件公司疯一般地转向Kubernetes，使用Kubernetes改造升级自己的IT系统，假如这些中小公司的Kubernetes服务上云，首选很可能是Google Cloud。Kubernetes虽然免费，但是Google Cloud的云服务是收费的啊！仔细分析会发现，在Kubernetes开源这件事上，除了Amazon，包括微软的Azure、阿里云等厂商都非常积极，因为他们都想接此机会撼动Amazon的霸主地位。同样，TensorFlow也是走一样的套路。人工智能时代，如果有一款软件可以一统天下，那么可以依赖这款软件卖培训、卖专属硬件、卖计算服务。卖服务已经植根于Google的DNA里了。
 
-![Google开源项目有两千个之多 来源：opensource.google](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141227.png)
+![Google开源项目有两千个之多 来源：opensource.google](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141227.png){: .align-center}
 *Google开源项目有两千个之多 来源：opensource.google*
 
 其实，这种卖服务的商业模式就跟互联网时代的媒体行业一样。互联网媒体绝大多数的文章都免费发布到网上，赚取流量和粉丝，有了流量和粉丝，打个广告、带个私货甚至做了粉丝群，钱就这样被赚走了。
@@ -39,7 +39,7 @@ Windows虽然免费了，但是并没有完全开源，也就是说其他人无�
 
 实际上，开源软件的迭代开发并没有想象中那么自由，也不是为所欲为。和很多公司的组织架构一样，开源软件有一个管理决策层，决定着整个软件未来发展方向。下面以大数据领域著名的Apache软件基金会（Apache Software Foundation）为例。Apache基金会有一个董事会（Board），董事会监督和管理整个基金会，基金会下的每个Apache项目都有一个项目管理委员会（Project Management Committee，PMC），PMC负责具体项目的管理工作。与员工在公司晋升类似，开源软件开发者从最简单的问题做起，直到有足够影响力后，可以被提名为PMC成员。PMC有足够的权利决定资源投入到哪些方向上，因此他们在一定程度上可以决定开源软件的发展方向。很多商业公司非常重视开源软件基金会中的席位，这意味着商业公司在基金会里有更多的话语权。因为PMC可以在一定程度影响软件的发展，商业公司非常乐意在这些大型软件基金会中掌握更多话语权。这也是为什么很多大公司会重点培养开源软件工程师，鼓励他们在开源软件基金会发出自己的声音，甚至花重金捐助这些开源社区。
 
-![Kubernetes所在的CNCF基金会白金赞助商](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141231.png)
+![Kubernetes所在的CNCF基金会白金赞助商](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141231.png){: .align-center}
 
 仔细观察Kubernetes所在的CNCF基金会白金赞助商，不难发现，这些公司基本上是当前世界上顶级的云计算服务提供商。每家公司都希望在开源基金会中争取更大话语权，当然，这些公司也会得到一定的回馈。在这场全球的竞争中，没有任何一家公司足够自信，敢另起炉灶，否则很可能在快速的技术变革中被主流所淘汰。
 
@@ -49,7 +49,7 @@ Windows虽然免费了，但是并没有完全开源，也就是说其他人无�
 
 开源在一定程度上对大公司是有商业利益的，国内巨头已经重视在这方面的投入。
 
-![2019年3月中国互联网公司开源情况数据统计 来源：InfoQ](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141235.png)
+![2019年3月中国互联网公司开源情况数据统计 来源：InfoQ](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-04-19-141235.png){: .align-center}
 *2019年3月中国互联网公司开源情况数据统计 来源：InfoQ*
 
 上图为InfoQ 2019年3月统计的国内各大公司开源情况，一个结论是：

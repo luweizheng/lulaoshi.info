@@ -2,7 +2,6 @@
 title: 线性回归的数学表示
 keywords: 线性模型, 线性回归
 description: "线性回归对已有数据进行建模，预测未来数据的。整个模型是一个线性变换。本文是一个入门的线性回归教程。"
-
 chapter-name: 线性模型
 chapter-url: /machine-learning/linear-model/index.html
 ---
@@ -26,7 +25,7 @@ chapter-url: /machine-learning/linear-model/index.html
 
 我们先只关注房屋面积和价格这两维数据，将这两维数据的分布画出来，可以得到下面这张图：
 
-![价格与房屋面积数据散点图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035645.png)
+![价格与房屋面积数据散点图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035645.png){: .align-center}
 *价格与房屋面积数据散点图*
 
 {% katexmm %}
@@ -36,7 +35,7 @@ chapter-url: /machine-learning/linear-model/index.html
 
 我们再用更加规范的方式来描述一下监督学习问题，我们的目标是，给定一个训练集，机器学习能够学习出一个函数 $h: X → Y$，当有新的$\boldsymbol{x}$到达时， $h(\boldsymbol{x})$ 能够得到一个预测值，且预测值与对应的真实 $y$ 值尽可能接近。这个函数 $h$ 就被叫做**假设（Hypothesis）**。监督学习的过程大概就是下图这样。在一些其他机器学习资料中，一般使用符号$f$表示这个函数，本文将使用符号$f$。
 
-![监督学习示意图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035635.png)
+![监督学习示意图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035635.png){: .align-center}
 *监督学习示意图*
 
 {% endkatexmm %}
@@ -66,7 +65,7 @@ $$
 
 中学时，我们经常使用上面的方程来解一些数学问题，方程描述了变量 $y$ 随着变量 $x$ 而变化。方程从图形上来看，是一条直线。如果建立好这样的数学模型，已知 $x$ 我们就可以得到预测的 $\hat{y}$ 了。统计学家给变量带上了一个小帽子，表示这是预测值，以区别于真实观测到的数据。方程只有一个自变量 $x$，且不含平方立方等非一次项，因此被称为**一元线性方程**。
 
-![机器学习是一个选择最优参数的过程](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035625.png)
+![机器学习是一个选择最优参数的过程](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035625.png){: .align-center}
 
 在对数据集进行建模时，我们只关注房屋面积和房价两个维度的数据。我们可以对参数$a$和$b$取不同值来构建不同的直线，这样就形成了一个参数家族。参数家族中有一个最佳组合，可以在统计上以最优的方式描述数据集。那么一元线性回归的监督学习过程就可以被定义为：给定$m$个数据对$ (x, y)$，寻找最佳参数 $a^*$ 和 $b^*$，使模型可以更好地拟合这些数据。
 
@@ -88,10 +87,10 @@ $$
 L(\hat{y}, y) =\frac{1}{m} \sum_{i=1}^m[(ax^{(i)} + b) - y^{(i)}]^2 \tag{3}
 $$
 
-![假设直线如图，误差的平方和非常大](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035618.png)
+![假设直线如图，误差的平方和非常大](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035618.png){: .align-center}
 *假设直线如图，误差的平方和非常大*
 
-![假设直线如图，误差的平方和较小](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035613.png)
+![假设直线如图，误差的平方和较小](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-05-20-035613.png){: .align-center}
 *假设直线如图，误差的平方和较小*
 
 上面两张图直观展示了不同直线（不同模型参数）下损失函数的大小差别。误差的平方是一个正方形，将正方形的面积求和再取平均，就是损失函数。所有的正方形的平均面积越小，损失越小。对于给定数据集，$x$和$y$的值是已知的，参数$a$和$b$是需要求解的，模型求解的过程就是解下面公式的过程。
