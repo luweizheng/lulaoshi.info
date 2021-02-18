@@ -24,6 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   中文领域通俗易懂的Flink、GPU、机器学习教程，专注于高性能计算、大数据、机器学习。
 baseurl: ""
 url: "https://lulaoshi.info"
+repository: luweizheng/lulaoshi.info
 
 theme: minimal-mistakes-jekyll
 locale: zh-CN
@@ -62,6 +63,12 @@ plugins:
   - jekyll-katex
   - jekyll-paginate
 
+comments:
+  provider: "utterances"
+  utterances:
+    theme: "github-light"
+    issue_term: "pathname"
+
 defaults:
   # _pages
   - scope:
@@ -81,6 +88,7 @@ defaults:
       related: true
       show_date: true
       toc: true
+      comments: true
   - scope:
       path: "flink"
     values:
@@ -89,7 +97,7 @@ defaults:
       read_time: false
       author_profile: false
       share: false
-      comments: false
+      comments: true
       toc: true
       github: "https://github.com/luweizheng/flink-tutorials"
       sidebar:
@@ -102,7 +110,7 @@ defaults:
       read_time: false
       author_profile: false
       share: false
-      comments: false
+      comments: true
       toc: true
       sidebar:
         nav: "gpu"
@@ -114,7 +122,7 @@ defaults:
       read_time: false
       author_profile: false
       share: false
-      comments: false
+      comments: true
       toc: true
       github: "https://github.com/luweizheng/machine-learning-notes"
       sidebar:
