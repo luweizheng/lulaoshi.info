@@ -41,6 +41,16 @@ $type-size-6: 0.75em !default; // ~12px
 $type-size-7: 0.6875em !default; // ~11px
 $type-size-8: 0.625em !default; // ~10px
 
+$right-sidebar-width-narrow: 180px;
+$right-sidebar-width: 270px;
+$right-sidebar-width-wide: 360px;
+
+table {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* image captain */
 img + em {
     display: block;
@@ -90,7 +100,8 @@ h6 {
 /* main content*/
 .page__content {
     p,
+    li,
     dl {
-        font-size: $type-size-6;
+        font-size: 0.8em;
     }
 }
