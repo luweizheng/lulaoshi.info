@@ -13,7 +13,7 @@ chapter-url: /gpu/gpu-basic/index.html
 
 GPU全名为Graphics Processing Unit，又称视觉处理器、图形显示卡。GPU负责渲染出2D、3D、VR效果，主要专注于计算机图形图像领域。后来人们发现，GPU非常适合并行计算，可以加速现代科学计算，GPU也因此不再局限于游戏和视频领域。
 
-![游戏](./img/render-car.gif)
+![游戏](./img/render-car.png){: .align-center}
 *GPU原本用于游戏等图形图像的计算*
 
 现代CPU处理数据的速度在纳秒级别，为何还要使用GPU来加速？CPU能被GPU替代吗？
