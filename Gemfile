@@ -32,4 +32,5 @@ group :jekyll_plugins do
     gem 'jekyll-sitemap'
     gem 'liquid-c'  # speed-up site generation
     gem 'sassc'     # speed-up site generation
+    gem 'jekyll-redirect-from' # redirect urls
 end

@@ -4,6 +4,8 @@ keywords: "联邦学习"
 date:   2020-11-13 17:58:41 +0800
 description: "联邦学习本质上是一种加密的分布式机器学习，允许不同机构在本地利用自有数据进行机器学习，共同建立机器学习模型，以应对越来越严格的隐私监管。"
 categories: [机器学习]
+redirect_from:
+  - /blog/2020/11/13/federated-learning-intro.html
 ---
 
 ## 什么是联邦学习

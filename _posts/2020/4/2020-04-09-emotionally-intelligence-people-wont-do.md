@@ -3,6 +3,8 @@ title:  "情商高的人所看透的四种人生真相"
 date:   2020-04-09 14:55:41 +0800
 description: "1. 停止批评他人。2. 不要再担忧未来。3. 不要再担忧未来。4. 放弃对他人近乎完美的期望。"
 categories: [个人成长]
+redirect_from:
+  - /blog/2020/04/09/emotionally-intelligence-people-wont-do.html
 ---
 
 

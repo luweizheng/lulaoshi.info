@@ -3,6 +3,8 @@ title:  "Hello World背后的故事：如何在Linux上编译C语言程序"
 date:   2020-09-08 16:49:41 +0800
 description: "编译一个Hello World需要预处理、编译、汇编和链接四个步骤。很多人最不熟悉链接，链接确是最重要的一步。链接可以将其他人编写好的库函数添加到你自己的程序中来。"
 categories: [编译器]
+redirect_from:
+  - /blog/2020/09/08/compile-c-hello-world-on-linux.html
 ---
 
 C语言的经典程序“Hello World”并不难写，很多朋友都可以闭着眼将它写出来。那么编译一个“Hello World”到底经历了怎样的过程呢？

@@ -3,6 +3,8 @@ title:  "Linux的so文件到底是干嘛的？浅析Linux的动态链接库"
 date:   2020-09-11 16:24:41 +0800
 description: "动态链接与静态链接有什么区别？so文件到底是干嘛的？Linux上的动态链接库如何命名？编程时如何链接？"
 categories: [编译器]
+redirect_from:
+  - /blog/2020/09/11/linux-dynamic-link-library.html
 ---
 
 [上一篇](/blog/2020/09/08/compile-c-hello-world-on-linux.html)我们分析了Hello World是如何编译的，即使一个非常简单的程序，也需要依赖C标准库和系统库，**链接**其实就是把其他第三方库和自己源代码生成的二进制目标文件融合在一起的过程。经过链接之后，那些第三方库中定义的函数就能被调用执行了。早期的一些操作系统一般使用静态链接的方式，现在基本上都在使用动态链接的方式。

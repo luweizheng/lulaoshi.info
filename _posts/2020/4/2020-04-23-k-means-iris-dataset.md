@@ -3,6 +3,8 @@ title:  "K-Means聚类算法原理及Python实践"
 date:   2020-04-23 11:59:41 +0800
 description: "K-Means是一种无监督的聚类算法，将数据集分成多个不相交的子集。本文将解释K-Means的迭代流程，并使用Python SciKit-Learn对Iris数据集进行聚类分析。"
 categories: [机器学习]
+redirect_from:
+  - /blog/2020/04/23/k-means-iris-dataset.html
 ---
 
 “聚类”（Clustering）试图将数据集中的样本划分为若干个不相交的子集，每个子集被称为一个“簇”或者“类”，英文名为Cluster。比如鸢尾花数据集（Iris Dataset）中有多个不同的子品种：Setosa、Versicolor、Virginica，不同品种的一些观测数据是具有明显差异的，我们希望根据这些观测数据将其进行聚类。

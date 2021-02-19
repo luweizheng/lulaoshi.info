@@ -34,7 +34,7 @@ baidu_site_verification: Lsxugw73ju
 google_site_verification: eHE1bxyapx0KKbqTqt5f6R4ihsMct0bgdbmhGggIEuE
 
 # set permalink globally
-permalink: /blog/:year/:month/:day/:title:output_ext
+permalink: /blog/:title:output_ext
 
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
@@ -62,6 +62,7 @@ plugins:
   - jekyll-sitemap
   - jekyll-katex
   - jekyll-paginate
+  - jekyll-redirect-from
 
 comments:
   provider: "utterances"
