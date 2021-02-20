@@ -48,9 +48,9 @@ img + em {
     color: light-grey;
 }
 
-$right-sidebar-width-narrow: 160px;
-$right-sidebar-width: 240px;
-$right-sidebar-width-wide: 320px;
+$right-sidebar-width-narrow: 180px;
+$right-sidebar-width: 270px;
+$right-sidebar-width-wide: 360px;
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
