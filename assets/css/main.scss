@@ -29,7 +29,6 @@ $base0d: #268bd2 !default;
 $base0e: #6c71c4 !default;
 $base0f: #d33682 !default;
 
-
 /* font size */
 /* type scale */
 $type-size-1: 2.441em !default; // ~39.056px
@@ -40,16 +39,6 @@ $type-size-5: 1em !default; // ~16px
 $type-size-6: 0.75em !default; // ~12px
 $type-size-7: 0.6875em !default; // ~11px
 $type-size-8: 0.625em !default; // ~10px
-
-$right-sidebar-width-narrow: 180px;
-$right-sidebar-width: 270px;
-$right-sidebar-width-wide: 360px;
-
-table {
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-}
 
 /* image captain */
 img + em {
@@ -67,6 +56,10 @@ img + em {
         font-size: $type-size-7;
     }
 }
+
+$right-sidebar-width-narrow: 160px;
+$right-sidebar-width: 240px;
+$right-sidebar-width-wide: 320px;
 
 @import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
 @import "minimal-mistakes"; // main partials
@@ -104,4 +97,10 @@ h6 {
     dl {
         font-size: 0.8em;
     }
+}
+
+table {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
