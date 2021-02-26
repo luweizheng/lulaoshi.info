@@ -120,19 +120,19 @@ gpu:
     children:
 
       - title: 2.1 Numba简介
-        jurl: /gpu/python-cuda/numba.html
+        url: /gpu/python-cuda/numba.html
 
       - title: 2.2 初识GPU编程
-        jurl: /gpu/python-cuda/cuda-intro.html
+        url: /gpu/python-cuda/cuda-intro.html
 
       - title: 2.3 网格跨步
-        jurl: /gpu/python-cuda/stride.html
+        url: /gpu/python-cuda/stride.html
 
       - title: 2.4 多流
-        jurl: /gpu/python-cuda/streams.html
+        url: /gpu/python-cuda/streams.html
 
       - title: 2.5 Shared Memory
-        jurl: /gpu/python-cuda/shared-memory.html
+        url: /gpu/python-cuda/shared-memory.html
 
 # machine-learning folder
 ml:

@@ -118,6 +118,7 @@ defaults:
       toc_sticky: true
       sidebar:
         nav: "gpu"
+      github: "https://github.com/luweizheng/gpu-tutorials"
   - scope:
       path: "machine-learning"
     values:
