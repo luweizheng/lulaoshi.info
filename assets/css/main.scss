@@ -61,16 +61,31 @@ $right-sidebar-width-wide: 360px;
 html {
   font-size: 16px;
 
+  @include breakpoint($small) {
+    nav.book {
+      display: none;
+    }
+  }
+
   @include breakpoint($medium) {
     font-size: 16px;
+    nav.book{
+      display: none;
+    }
   }
 
   @include breakpoint($large) {
     font-size: 16px;
+    nav.book{
+      display: block;
+    }
   }
 
   @include breakpoint($x-large) {
     font-size: 18px;
+    nav.book{
+      display: block;
+    }
   }
 }
 
@@ -78,4 +93,18 @@ table {
     display: table;
     margin-left: auto;
     margin-right: auto;
+}
+
+.sidebar {
+    @include breakpoint($medium) {
+        nav.book{
+            display: none;
+        }
+    }
+
+    @include breakpoint($small) {
+        nav.book {
+            display: none;
+        }
+    }
 }

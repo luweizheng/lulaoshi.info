@@ -103,6 +103,10 @@ defaults:
       toc: true
       toc_sticky: true
       github: "https://github.com/luweizheng/flink-tutorials"
+      book:
+        image: "/flink/book.jpeg"
+        title: "本教程出版为《Flink原理与实践》各大网店有售"
+        item_url: "https://search.jd.com/Search?keyword=Flink%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5&enc=utf-8&wq=Flink%E5%8E%9F%E7%90%86%E4%B8%8Eshi%27jian&pvid=ce0498512e9e45288d159"
       sidebar:
         nav: "flink"
   - scope:
