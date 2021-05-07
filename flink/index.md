@@ -9,8 +9,6 @@ description: "《Flink原理与实践》开源版，中文领域最详细的Flin
 
 我现在是一名高校教师，主要研究领域为大数据和高性能计算，毕业于北京邮电大学、北京大学，曾在创业公司Boss直聘和小米从事大数据和机器学习相关工作。
 
-![《Flink原理与实践》](./book.jpeg){: .align-center}
-
 本书最初起源于我的Flink学习笔记，后承蒙人民邮电出版社编辑垂青，最终整理成书。全书共九章，为了和大家免费分享Flink开发相关知识，这里开源了最关键的第三章到第六章，涵盖了几大核心知识：
 
 * [Flink数据流图](./chapter-system-design/dataflow.html)和[分布式运行时介绍](./chapter-system-design/flink-core.html)

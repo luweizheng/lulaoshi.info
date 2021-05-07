@@ -66,7 +66,7 @@ chapter-url: /flink/chapter-system-design/index.html
 
 ##  数据交换策略
 
-下图中出现了数据流动的现象，即数据在不同的算子子任务上进行着数据交换。无论是Hadoop、Spark还是Flink，都都会涉及到数据交换策略。常见的据交换策略有4种，如下图所示。
+下图中出现了数据流动的现象，即数据在不同的算子子任务上进行着数据交换。无论是Hadoop、Spark还是Flink，都会涉及到数据交换策略。常见的据交换策略有4种，如下图所示。
 
 ![Flink数据交换策略](./img/数据交换策略.png){: .align-center}
 

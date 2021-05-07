@@ -39,7 +39,7 @@ TaskManager在执行计算任务过程中可能会与其他TaskManager交换数�
 
 ##  Flink核心组件
 
-有了这个作业提交流程，我们对各组件的功能应该有了更全面的认识你，接下来我们再对涉及到的各个组件进行更为详细的介绍。
+有了这个作业提交流程，我们对各组件的功能应该有了更全面的认识，接下来我们再对涉及到的各个组件进行更为详细的介绍。
 
 ### Client
 
@@ -52,7 +52,7 @@ Dispatcher可以接收多个作业，每接收一个作业，Dispatcher都会为
 ### JobManager
 
 JobManager是单个Flink作业的协调者，一个作业会有一个JobManager来负责。JobManager会将Client提交的JobGraph转化为ExceutionGraph，ExecutionGraph是类似并行的物理执行图。JobManager会向ResourceManager申请必要的资源，当获取足够的资源后，JobManager将ExecutionGraph以及具体的计算任务分发部署到多个TaskManager上。同时，JobManager还负责管理多个TaskManager，这包括：收集作业的状态信息，生成检查点，必要时进行故障恢复等问题。
-早期，Flink Master被命名为JobManager，负责绝大多数Master进程的工作。随着迭代和开发，出现了名为JobMaster的组件，JobMaster负责单个作业的执行。本书中，我们任然使用JobManager的概念，表示负责单个作业的组件。一些Flink文档也可能使用JobMaster的概念，读者可以将JobMaster等同于JobManager看待。
+早期，Flink Master被命名为JobManager，负责绝大多数Master进程的工作。随着迭代和开发，出现了名为JobMaster的组件，JobMaster负责单个作业的执行。本书中，我们仍然使用JobManager的概念，表示负责单个作业的组件。一些Flink文档也可能使用JobMaster的概念，读者可以将JobMaster等同于JobManager看待。
 
 ### ResourceManager
 
