@@ -80,7 +80,7 @@ you enjoyed a pleasant fes@@ tive period .
 
 ## WMT数据集处理
 
-神经机器翻译领域国际上最常用的数据集是WMT，很多机器翻译任务基于这个数据集进行训练，Google的工程师们基于[WMT16 en-de](http://www.statmt.org/wmt16/translation-task.html)准备了一个脚本：[wmt16_en_de.sh](https://github.com/google/seq2seq/blob/master/bin/data/wmt16_en_de.sh)。这个脚本该脚本先下载数据，再使用[Moses Tokenizer](https://github.com/moses-smt/mosesdecoder/blob/master/scripts/tokenizer/tokenizer.perl)，清理训练数据，并使用BPE生成32,000个Subword的词汇表。可以使用梯子直接下载预处理后的文件：
+神经机器翻译领域国际上最常用的数据集是WMT，很多机器翻译任务基于这个数据集进行训练，Google的工程师们基于[WMT16 en-de](http://www.statmt.org/wmt16/translation-task.html)准备了一个脚本：[wmt16_en_de.sh](https://github.com/google/seq2seq/blob/master/bin/data/wmt16_en_de.sh)。这个脚本先下载数据，再使用[Moses Tokenizer](https://github.com/moses-smt/mosesdecoder/blob/master/scripts/tokenizer/tokenizer.perl)，清理训练数据，并使用BPE生成32,000个Subword的词汇表。可以使用梯子直接下载预处理后的文件：
 - [pre-processed WMT'16 EN-DE Data (502MB)](https://drive.google.com/open?id=0B_bZck-ksdkpM25jRUN2X2UxMm8)
 
  将文件解压后，可以获得以下文件：
