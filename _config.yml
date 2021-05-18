@@ -29,6 +29,8 @@ repository: luweizheng/lulaoshi.info
 theme: minimal-mistakes-jekyll
 locale: zh-CN
 
+date_format : "%Y-%m-%d"
+
 logo: "/assets/img/favicon/safari-pinned-tab.svg"
 baidu_site_verification: Lsxugw73ju
 google_site_verification: eHE1bxyapx0KKbqTqt5f6R4ihsMct0bgdbmhGggIEuE
