@@ -142,7 +142,7 @@ OutputTag<StockPrice> highVolumeOutput =
   new OutputTag<StockPrice>("high-volume-trade"){};
 ```
 
-在`ProcessFunction`中，我么可以使用`Context.output`方法将某类数据过滤出来。`OutputTag`是这个方法的第一个参数，用来表示输出到哪个数据流。
+在`ProcessFunction`中，我们可以使用`Context.output`方法将某类数据过滤出来。`OutputTag`是这个方法的第一个参数，用来表示输出到哪个数据流。
 
 ```java
 public static class SideOutputFunction 
