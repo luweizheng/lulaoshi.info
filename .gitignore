@@ -2,8 +2,11 @@
 _site
 log
 .sass-cache
+Gemfile.lock
+Gemfile
 .jekyll-cache
 .jekyll-metadata
+.ruby-version
 vendor
 .DS_Store
 .idea/
