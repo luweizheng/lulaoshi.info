@@ -8,6 +8,7 @@ source "https://rubygems.org"
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
 gem "jekyll", "~> 4.0.0"
+gem "webrick"
 # theme
 gem "minimal-mistakes-jekyll"
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
@@ -30,7 +31,7 @@ group :jekyll_plugins do
     gem 'jekyll-katex'
     gem 'html-proofer'
     gem 'jekyll-sitemap'
-    gem 'liquid-c'  # speed-up site generation
+    # gem 'liquid-c'  # speed-up site generation
     gem 'sassc'     # speed-up site generation
     gem 'jekyll-redirect-from' # redirect urls
 end

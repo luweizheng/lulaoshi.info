@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.8)
@@ -72,8 +72,6 @@ GEM
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
     liquid (4.0.3)
-    liquid-c (4.0.0)
-      liquid (>= 3.0.0)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -124,6 +122,7 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (1.7.0)
     wdm (0.1.1)
+    webrick (1.7.0)
     yell (2.2.2)
 
 PLATFORMS
@@ -136,12 +135,12 @@ DEPENDENCIES
   jekyll-katex
   jekyll-redirect-from
   jekyll-sitemap
-  liquid-c
   minimal-mistakes-jekyll
   sassc
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)
+  webrick
 
 BUNDLED WITH
-   2.1.4
+   2.2.22
