@@ -11,7 +11,7 @@ LeNet、AlexNet、VGG网络的主要模式为：先使用卷积层来抽取图�
 
 我们知道，卷积层一般需要设置高和宽，它会识别卷积窗口内的图片特征。如果卷积层的高和宽恰好是1，那么计算模式如下：
 
-![1×1卷积层](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022434.png){: .align-center}
+![1×1卷积层](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022434.png){:width="600" .align-center}
 *1×1卷积层*
 
 图中，卷积核有3个输入频道，2个输出频道，$（K_{0,0}, K_{0,1}, K_{0,2})$对应输出的第一个通道的参数，$（K_{1,0}, K_{1,1}, K_{1,2})$对应输出的第二个通道的参数。输出由输入的浅色部分与卷积核浅色部分逐一相乘，如下：
@@ -26,7 +26,7 @@ $$
 
 NiN主要使用1×1卷积层来替代全连接层，它与LeNet/AlexNet/VGG等网络区别如下图所示：
 
-![NiN使用1×1卷积层替代全连接层](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022440.png){: .align-center}
+![NiN使用1×1卷积层替代全连接层](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022440.png){:width="600" .align-center}
 *NiN使用1×1卷积层替代全连接层*
 
 与VGG相似，NiN也提出了基础块的概念，一个NiN基础块由普通卷积层和2个1×1卷积层组合而成。
@@ -42,7 +42,7 @@ def nin_block(in_channels, out_channels, kernel_size, strides, padding):
 
 网络的结构如下图所示：
 
-![VGG和NiN网络结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022445.png){: .align-center}
+![VGG和NiN网络结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022445.png){:width="800" .align-center}
 *VGG和NiN网络结构*
 
 我们基于Fashion-MNIST数据集，输入通道数为1，构建一个NiN网络。NiN网络共有四个基础块：

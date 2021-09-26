@@ -53,7 +53,7 @@ def vgg_block(num_convs, in_channels, out_channels):
 
 VGG与AlexNet、LeNet类似，VGG网络分为两大部分，前半部分是卷积层和池化层模块，后半部分是全连接层模块。
 
-![从AlexNet到VGG：使用基础块构建深度神经网络](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-09-090434.png){: .align-center}
+![从AlexNet到VGG：使用基础块构建深度神经网络](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-09-090434.png){:width="800" .align-center}
 *从AlexNet到VGG：使用基础块构建深度神经网络*
 
 卷积层和池化层模块由多个基础块连接组成，即`vgg_block()`方法返回的基础块，我们只需要给`vgg_block()`方法提供：该块中包含的卷积层数，该块的输入和输出通道数。我们定义变量`conv_arch`，该变量是一个列表，列表中每个元素为元组（a list of tuples）。`conv_arch`定了每个VGG块里卷积层个数和输入输出通道数。全连接层模块则跟AlexNet中的一样。下面的`vgg()`方法会返回整个VGG网络，输入参数是`conv_arch`。

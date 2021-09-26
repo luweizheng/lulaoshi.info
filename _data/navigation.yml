@@ -211,9 +211,16 @@ ml:
       - title: 3.9 ResNet：残差神经网络
         url: /machine-learning/convolutional/resnet.html
 
-  - title: "4. 分布式机器学习"
+  - title: "4. Attention机制"
+    url: /machine-learning/attention/index.html
+    children:
+
+      - title: 4.1 Transformer中的Attention机制
+        url: /machine-learning/attention/transformer-attention.html
+
+  - title: "5. 分布式机器学习"
     url: /machine-learning/distributed/index.html
     children:
 
-      - title: 4.1 数据并行和模型并行
+      - title: 5.1 数据并行和模型并行
         url: /machine-learning/distributed/distributed-deep-learning-model-data-parallelism.html

@@ -26,7 +26,7 @@ chapter-url: /machine-learning/neural-network/index.html
 
 AlexNet与LeNet的设计理念非常相似，但也有显著的区别。
 
-![LeNet与AlexNet](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-01-060738.png){: .align-center}
+![LeNet与AlexNet](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-01-060738.png){:width="500" .align-center}
 *LeNet与AlexNet*
 
 第一，与相对较小的LeNet相比，AlexNet包含8层变换，其中有5层卷积和2层全连接隐藏层，以及1个全连接输出层。下面我们来详细描述这些层的设计。

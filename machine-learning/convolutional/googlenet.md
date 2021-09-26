@@ -53,7 +53,7 @@ Inception块使用不同的卷积层对输入进行探索，我们可以将不�
 
 比起AlexNet/VGG/NiN，GoogLeNet模型看起来更加复杂，涉及到众多精心设计的模块。
 
-![GoogLeNet网络结构，输入在最下方](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-16-090608.png){: .align-center}
+![GoogLeNet网络结构，输入在最下方](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-16-090608.png){:width="250" .align-center}
 *GoogLeNet网络结构，输入在最下方*
 
 我们用96×96大小的输入来演示各个步骤后数据尺寸的变化。
