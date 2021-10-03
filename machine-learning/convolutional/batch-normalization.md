@@ -52,6 +52,9 @@ $$
 
 ### 全连接层的批量归一化
 
+{: .notice}
+本文公式中变量加粗表示该变量为向量或矩阵
+
 卷积层的一个批次的数据一般遵循`(batch_size, features)`的模式，第一维是批次中样本数量，第二维是全连接层输入$\boldsymbol{x}$的维度。
 
 原始论文将Batch Normalization放在了仿射变换（$\mathbf{W}\boldsymbol{x} + \mathbf{b}$）的后面，非线性激活函数的前面。后续一些应用也将Batch Normalization放在非线性激活函数的后面。如果按照原始论文，首先经过仿射变换$\mathbf{W}\boldsymbol{x} + \mathbf{b}$，进行批量归一化，再使用非线性激活函数$\mathbf{g}$，输出为$\mathbf{h}$完整的公式为：

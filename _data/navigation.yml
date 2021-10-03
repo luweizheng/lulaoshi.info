@@ -214,8 +214,10 @@ ml:
   - title: "4. Attention机制"
     url: /machine-learning/attention/index.html
     children:
+      - title: 4.1 Attention机制
+        url: /machine-learning/attention/attention.html
 
-      - title: 4.1 Transformer中的Attention机制
+      - title: 4.2 Transformer
         url: /machine-learning/attention/transformer-attention.html
 
   - title: "5. 分布式机器学习"
