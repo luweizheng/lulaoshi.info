@@ -306,11 +306,11 @@ Beam Search对贪心算法进行了改进。在每一个时间步预测时，不
 
 1. Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. 31st Conference on Neural Information Processing Systems 2017(NIPS 2017). Long Beach, CA, USA: 2017: 5998–6008.
 
-2. [https://jalammar.github.io/illustrated-transformer/](https://jalammar.github.io/illustrated-transformer/)
+2. [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
 
-3. [http://nlp.seas.harvard.edu/2018/04/03/attention.html](http://nlp.seas.harvard.edu/2018/04/03/attention.html)
+3. [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)
 
-4. [https://www.jianshu.com/p/9b87b945151e](https://www.jianshu.com/p/9b87b945151e)
+4. [Transformer 模型详解](https://www.jianshu.com/p/9b87b945151e)
 
-5. [https://d2l.ai/chapter_recurrent-modern/beam-search.html](https://d2l.ai/chapter_recurrent-modern/beam-search.html)
+5. [Beam Search](https://d2l.ai/chapter_recurrent-modern/beam-search.html)
 

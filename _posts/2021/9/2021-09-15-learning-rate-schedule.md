@@ -5,9 +5,9 @@ description: "使用Linear+Warmup+Decay方法调整学习率"
 categories: [深度学习]
 ---
 
-{% katexmm %}
-
 学习率（Learning Rate，LR）是深度学习训练中非常重要的超参数。同样的模型和数据下，不同的LR将直接影响模型何时能够收敛到预期的准确率。
+
+{% katexmm %}
 
 随机梯度下降SGD算法中，每次从训练数据中随机选择一批样本，样本数为Batch Size。很多实验都证明了，在LR不变的情况下，Batch Size越大，模型收敛效果越差[1]。
 
