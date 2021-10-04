@@ -6,7 +6,7 @@ description: "Transformer中的注意力机制"
 
 {% katexmm %}
 
-Transformer[^1]论文提出了一种自注意力机制（Self-Attention），Self-Attention的最核心的公式为：
+Transformer[1]论文提出了一种自注意力机制（Self-Attention），Self-Attention的最核心的公式为：
 $$
 Attention(Q, K, V) = Softmax(\frac{QK^\top}{\sqrt{d_{k}}})V
 $$
@@ -144,7 +144,7 @@ Self-Attention的计算过程如下：
 
 在输出到下一层前，我们需要将8个输出拼接到一起（Concat），乘以矩阵$W^O$，进行一次线性变换，将维度降低回我们想要的维度。
 
-![将多组输出拼接后乘以矩阵Wo以降低维度](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-multi-attention-concat.png){: width="800" .align-center}
+![将多组输出拼接后乘以矩阵Wo以降低维度](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-multi-attention-concat.png){: width="700" .align-center}
 *将多组输出拼接后乘以矩阵Wo以降低维度*
 
 再去观察Transformer论文中给出的多头注意力图示，似乎更容易理解了：
@@ -199,13 +199,13 @@ PE公式生成的是$[-1, 1]$区间内的实数。词向量维度为$d$，$d$是
 
 使用这种公式计算 PE 有以下的好处：可以让模型容易地计算出相对位置，对于固定长度的间距$k$，$PE(pos+k)$可以用$PE(pos)$计算得到。因为：
 $$
-\sin(A+B) = \sin(A)\cos(B) + \cos(A)\sin(B) \\
-\cos(A+B) = \cos(A)cos(B) - \sin(A)sin(B)
+\sin(A+B) = \sin A\cos B + \cos A \sin B \\
+\cos(A+B) = \cos A \cos B - \sin A \sin B
 $$
 
 将词向量Embedding和PE相加，就可以得到词的表示向量 $\mathbf{X}$，$\mathbf{X}$就是 Transformer 的输入。
 
-## Encoder
+## Encoder Block
 
 下图红色方框中是 Transformer 的 Encoder Block，可以看到是由 Multi-Head Attention, Add & Norm, Feed Forward, Add & Norm 组成的。整个Endoder由$N = 6$个同样的Encoder Block堆叠而成。
 
@@ -237,7 +237,6 @@ $$
 * 每个Deocder Block包含两个 Multi-Head Attention 层。
 * 第一个 Multi-Head Attention 层采用了 Masked 操作。
 * 第二个 Multi-Head Attention 层的 $\mathbf{K}$ 和 $\mathbf{V}$ 矩阵使用 Encoder 的编码信息矩阵 $\mathbf{C}$ ，而 $\mathbf{Q}$ 使用上一个 Decoder Block 的输出。
-* 经过 $N = 6$ 层的堆叠后，最后有一个 Linear 和 Softmax 层预测下一个翻译单词的概率。
 
 ###  第一个Multi-Head Attention
 
@@ -265,18 +264,53 @@ Decoder 可以在训练的过程中使用 Teacher Forcing 并且并行化训练�
 
 ### 第二个Multi-Head Attention
 
-Decoder Block 第二个 Multi-Head Attention 主要的区别在于其中 Self-Attention 的 $K$, $V$ 矩阵不是来自上一个 Decoder Block 的输出计算的，而是**来自Encoder的编码信息矩阵$C$**。
+Decoder Block 第二个 Multi-Head Attention 主要的区别在于 Attention 的 $K$, $V$ 矩阵不是来自上一个 Decoder Block 的输出计算的，而是**来自Encoder的编码信息矩阵$C$**。
 
 对于第二个 Multi-Head Attention，根据 Encoder 的输出 $C$ 计算得到 $K$, $V$，根据上一个 Decoder Block 的输出 $Z$ 得到 $Q$。
 
-### Softmax预测输出词概率
+## Attention在Transformer中的应用
 
-由于Decoder使用了Mask，在预测输出词时也需要注意，我们只关注当前要预测的词的logit，使用这个logit预测输出词。
+文章一开始解释了Self-Attention和Multi-Head Attention。通过对Transformer模型的深入解读，可以看到，模型一共使用了三种Multi-Head Attention：
+
+1. Encoder Block中使用的Attention。第一个Encoder Block的Query、Key和Value来自训练数据经过两层Embedding转化，之后的Encoder Block的Query、Key和Value来自上一个Encoder Block的输出。
+
+2. Decoder Block中的第一个Attention。与Encoder Block中的Attention类似，只不过增加了Mask，在预测第 $i$个输出时，要将第$i+1$ 之后的单词掩盖住。第一个Decoder Block的Query、Key和Value来自训练数据经过两层Embedding转化，之后的Decoder Block的Query、Key和Value来自上一个Decoder Block的输出。
+3. Decoder Block中的第二个Attention。这是一个 Encoder-Decoder Attention，它建立起了 Encoder 和 Decoder 之间的联系，Query来自第2种 Decoder Attention的输出，Key和Value 来自 Encoder 的输出。
+
+## 预测输出词概率
+
+最后一个Decoder Block输出得到的编码矩阵，是一个浮点数组成的矩阵，如何用这些浮点矩阵预测所要翻译的词？经过 $N = 6$ 层的Decoder Block堆叠后，最后的 Linear 和 Softmax 层预测下一个翻译单词的概率。
+
+Linear 层将 Decoder Block 输出的编码矩阵，转化成一个跟词表大小一样的 logit 矩阵。词表通常很大，比如 WMT翻译任务中，英德词表有三万多个 subword。
+
+最后的损失函数 Loss Function 可以是交叉熵，或者 KL 散度。
+
+由于Decoder使用了Mask，在预测时也需要注意，我们只关注当前要预测的词的 logit，使用这个 logit 预测输出词。
+
+## Beam Search
+
+前文讨论的主要是训练过程，在推理时，Decoder侧最后的 Softmax 将 logit 转化为概率，选择概率最大的词作为预测词。Encoder侧输入是源语言句子。第一个时间步，Decoder侧首先以开始符"&lt;Begin&gt;"作为输入，预测下一个概率最大的词；第二个时间步，Decoder侧以开始符和第一个预测词作为输入，来预测下一个概率最大词。每次基于上一次预测结果，选择最优的解，这是一种贪心搜索算法。贪心搜索从局部来说可能是最优的，但是从全局角度并不一定是最优的。
+
+Beam Search对贪心算法进行了改进。在每一个时间步预测时，不再只选择最优解，而是保留`num_beams`个结果。当`num_beams=1`时 Beam Search 就退化成了贪心搜索。
+
+下图中，每个时间步有ABCDE共5种可能的输出，设置`num_beams=2`，也就是说每个时间步都会保留到当前步为止条件概率最优的2个序列。
+
+![Beam Search，num_beams=2，每个时间步保留2个最优序列](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-04-beam-search.png){: width="800" .align-center}
+*Beam Search，num_beams=2，每个时间步保留2个最优序列*
+
+在第一个时间步，A和C是最优的两个，因此得到了两个结果[A],[C]，其他三个就被抛弃了；第二步会基于这两个结果继续进行生成，在A这个分支可以得到5个候选人，[AA],[AB],[AC],[AD],[AE]，C也同理得到5个，此时会对这10个进行统一排序，再保留最优的两个，即图中的[AB]和[CE]；第三步同理，也会从新的10个候选人里再保留最好的两个，最后得到了[ABD],[CED]两个结果。可以发现，Beam Search在每一步需要考察的候选人数量是贪心搜索的`num_beams`倍，因此是一种牺牲时间换取准确率的方法。
 
 {% endkatexmm %}
 
 **参考资料**
 
-[^1]: Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. 31st Conference on Neural Information Processing Systems 2017(NIPS 2017). Long Beach, CA, USA: 2017: 5998–6008.
-[^2]: [https://jalammar.github.io/illustrated-transformer/](https://jalammar.github.io/illustrated-transformer/)
+1. Vaswani A, Shazeer N, Parmar N, et al. Attention is all you need. 31st Conference on Neural Information Processing Systems 2017(NIPS 2017). Long Beach, CA, USA: 2017: 5998–6008.
+
+2. [https://jalammar.github.io/illustrated-transformer/](https://jalammar.github.io/illustrated-transformer/)
+
+3. [http://nlp.seas.harvard.edu/2018/04/03/attention.html](http://nlp.seas.harvard.edu/2018/04/03/attention.html)
+
+4. [https://www.jianshu.com/p/9b87b945151e](https://www.jianshu.com/p/9b87b945151e)
+
+5. [https://d2l.ai/chapter_recurrent-modern/beam-search.html](https://d2l.ai/chapter_recurrent-modern/beam-search.html)
 
