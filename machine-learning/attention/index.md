@@ -7,5 +7,6 @@ chapter-url: /machine-learning/attention/index.html
 ---
 
 这部分主要介绍Attention机制。共有如下几篇文章：
-                   
-1. [Transformer中的Attention机制](./transformer-attention.html)
+    
+1. [Attention机制](./attention.html)               
+2. [深入理解Transformer模型](./transformer-attention.html)

@@ -87,19 +87,19 @@ V = XW^V
 $$
 用图片演示为：
 
-![X分别乘以三个矩阵，生成Q、K、V矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-x-qkv.png){: width="400" .align-center}
+![X分别乘以三个矩阵，生成Q、K、V矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-x-qkv.png){: width="30%" .align-center}
 *X分别乘以三个矩阵，生成Q、K、V矩阵*
 
 其中，$W^Q$，$W^K$和$W^V$是三个可训练的参数矩阵。输入矩阵$X$分别与$W^Q$，$W^K$和$W^V$相乘，生成$Q$、$K$和$V$，相当于经历了一次线性变换。Attention不直接使用$X$，而是使用经过矩阵乘法生成的这三个矩阵，因为使用三个可训练的参数矩阵，可增强模型的拟合能力。
 
 Self-Attention可以解释一个句子内不同词的相互关系。比如下面的句子中，“eating”后面会有一种食物，“eating”与“apple”的Attention Score更高，而“green”只是修饰食物“apple”的修饰词，和“eating”关系不大。
 
-![句子内不同词之间的Attention示意图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-02-attention_sentence_example.png){: .align-center}
+![句子内不同词之间的Attention示意图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-02-attention_sentence_example.png){: width="80%" .align-center}
 *句子内不同词之间的Attention示意图*
 
 下面这张图是Transformer论文中描述Attention计算过程的示意图。
 
-![Scaled Dot-Product Attention](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-25-153610.png){:width="300" .align-center}
+![Scaled Dot-Product Attention](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-25-153610.png){:width="30%" .align-center}
 *Scaled Dot-Product Attention*
 
 在这张图中，$Q$与$K^\top$经过MatMul，生成了相似度矩阵。对相似度矩阵每个元素除以$\sqrt{d_k}$，$d_k$为$K$的维度大小，得到了Attention Score。这个除法被称为Scale。当$d_k$很大时，$QK^\top$的乘法结果方差变大，进行Scale可以使方差变小，训练时梯度更新更稳定。
@@ -110,22 +110,22 @@ Self-Attention的计算过程如下：
 
 **第二步：**进行$QK^\top$计算，得到相似度，如下图所示。
 
-![Q与K相乘，得到相似度矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-matmul.png){: width="600" .align-center}
+![Q与K相乘，得到相似度矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-matmul.png){: width="75%" .align-center}
 *Q与K相乘，得到相似度矩阵*
 
 **第三步：**将刚得到的相似度除以$\sqrt{d_k}$，再进行Softmax。经过Softmax的归一化后，每个值是一个大于0小于1的权重系数（Attention Score），且总和为0，这是一个权重矩阵。
 
-![经过Scale和Softmax，得到一个权重矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-softmax.png){: width="600" .align-center}
+![经过Scale和Softmax，得到一个权重矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-softmax.png){: width="75%" .align-center}
 *经过Scale和Softmax，得到一个权重矩阵*
 
 **第四步：**使用刚得到的权重矩阵，与$V$相乘，计算加权求和。
 
-![使用权重矩阵与V相乘，得到加权求和](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-v.png){: width="600" .align-center}
+![使用权重矩阵与V相乘，得到加权求和](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-v.png){: width="75%" .align-center}
 *使用权重矩阵与V相乘，得到加权求和*
 
 上图中权重矩阵的第 1 行表示单词 1 与其他所有单词的权重系数，最终单词 1 的输出 $Z_1$ 等于所有单词 $i$ 的值 $V_i$ 根据权重系数加权求和，如下图所示：
 
-![加权求和过程](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-weighted-sum.png){: width="600" .align-center}
+![加权求和过程](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-weighted-sum.png){: width="75%" .align-center}
 *加权求和过程*
 
 {: .notice--warning}
@@ -137,7 +137,7 @@ Self-Attention的计算过程如下：
 
 比如我们定义8组参数，同样的输入$X$，将得到8个不同的输出$Z_0$到$Z_7$。
 
-![同一个输入X，使用多个Self-Attention，即使用多个不同的W，生成多组Q、K、V](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-multi-attention.png){: width="400" .align-center}
+![同一个输入X，使用多个Self-Attention，即使用多个不同的W，生成多组Q、K、V](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-multi-attention.png){: width="50%" .align-center}
 *同一个输入X，使用多个Self-Attention，即使用多个不同的W，生成多组Q、K、V*
 
 比如我们定义8组参数，同样的输入$X$，将得到8个不同的输出$Z_0$到$Z_7$。
@@ -149,7 +149,7 @@ Self-Attention的计算过程如下：
 
 再去观察Transformer论文中给出的多头注意力图示，似乎更容易理解了：
 
-![Transformer论文给出的多头注意力图示](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-26-020733.png){:width="300" .align-center}
+![Transformer论文给出的多头注意力图示](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-26-020733.png){:width="30%" .align-center}
 *Transformer论文给出的多头注意力图示*
 
 ## Transformer模型结构
@@ -160,19 +160,19 @@ Transformer主要面向机器翻译任务，训练数据是两种语言组成的
 
 Transformer模型基于Encoder-Decoder架构。一般地，在Encoder-Decoder中，Encoder部分将一部分信息抽取出来，生成中间编码信息，发送到Decoder中。下图中，左侧为Transformer的Encoder部分，右侧为Transformer的Decoder部分，Encoder和Decoder分别有 $N = 6$ 个Block。
 
-![Transformer整体结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder-decoder-overview.png){: width="800" .align-center}
+![Transformer整体结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder-decoder-overview.png){: width="80%" .align-center}
 *Transformer整体结构*
 
 对于输入，Transformer的工作流程有主要三步：
 
 **第一步：**获取输入句子的每一个单词的表示向量$X$，$X$由单词的词向量Embedding和与单词位置有关的Positional Embedding相加得到。
 
-![Transformer从输入到进入Encoder之前先经过两层Embedding转换，得到一个中间表示X](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-embedding.png){: width="800" .align-center}
+![Transformer从输入到进入Encoder之前先经过两层Embedding转换，得到一个中间表示X](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-embedding.png){: width="80%" .align-center}
 *Transformer从输入到进入模型前之前先经过两层Embedding转换，得到一个中间表示X*
 
 **第二步：**将得到的单词表示矩阵 (如上图所示，每一行是一个单词的向量表示 $\mathbf{X_i}$) 传入Encoder部分（共6个Encoder Block）中，经过 6 个 Encoder Block后可以得到句子所有单词的中间编码信息矩阵 $C$，如下图。Encoder部分输入为 $\mathbf{X}$，$\mathbf{X}$维度为：$(len \times d)$ ， $len$ 是句子中单词个数，$d$ 是表示词向量的维度 (Transformer-base： $d=512$，Transformer-big: $d = 1024$)。每一个 Encoder Block输出的矩阵维度与输入完全一致。
 
-![Embedding输入经过Transformer Encoder部分，得到中间编码信息矩阵C](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder.png){:width="400" .align-center}
+![Embedding输入经过Transformer Encoder部分，得到中间编码信息矩阵C](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder.png){:width="50%" .align-center}
 *Embedding输入经过Transformer Encoder部分，得到中间编码信息矩阵C*
 
 **第三步：**将Encoder输出的编码信息矩阵$C$传递到Decoder部分，Decoder依次会根据已经翻译过的单词（第`0`个单词到第`i-1`个单词） 翻译下一个单词 `i`。最下方第一个Decoder Block的输入为目标语言经过两层Embedding之后的词矩阵表示$\mathbf{X}$。下图左侧为单词“I”的Decoder翻译过程，右侧为单词“have”的Decoder的翻译过程。在Decoder过程中，翻译到单词`i`的时候需要通过**Mask**操作遮盖住`i`之后的单词。
@@ -192,7 +192,7 @@ $$
 
 其中，$pos$表示单词在句子中的位置，$d$表示词向量的维度，$2i$表示偶数维度，$2i+1$表示奇数维度$ (2i≤d, 2i+1≤d)$。
 
-![Positional Encoding，横轴为词向量维度，纵轴为词在句子中的位置](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-positional-encoding-table.png){:width="600" .align-center}
+![Positional Encoding，横轴为词向量维度，纵轴为词在句子中的位置](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-positional-encoding-table.png){:width="75%" .align-center}
 *Positional Encoding，横轴为词向量维度，纵轴为词在句子中的位置*
 
 PE公式生成的是$[-1, 1]$区间内的实数。词向量维度为$d$，$d$是模型设计时就确定的。给定一个词，其在句子中的位置为$pos$，就是上图中的某一行。Positional Encoding就是从上图中找到一行，将这行加到词向量上。
@@ -213,7 +213,7 @@ $$
 
 前文已经介绍了Multi-Head Attention的计算过程，现在了解一下 Add & Norm 和 Feed Forward 部分。
 
-![Encoder Block由Multi-Head Attention、Add & Norm和Feed Forward组成](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder-block.jpg){:width="400" .align-center}
+![Encoder Block由Multi-Head Attention、Add & Norm和Feed Forward组成](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder-block.jpg){:width="50%" .align-center}
 *Encoder Block由Multi-Head Attention、Add & Norm和Feed Forward组成*
 
 ### Add & Norm 
@@ -230,7 +230,7 @@ $$
 
 ##  Decoder Block 
 
-![Decoder Block也由Multi-Head Attention、Add & Norm和Feed Forward组成，但Decoder Block中的Multi-Head Attention与Encoder Block不同](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-block.jpg){:width="400" .align-center}
+![Decoder Block也由Multi-Head Attention、Add & Norm和Feed Forward组成，但Decoder Block中的Multi-Head Attention与Encoder Block不同](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-block.jpg){:width="50%" .align-center}
 
 上图红色方框部分为 Transformer 的 Decoder Block 结构，与 Encoder Block 相似，但是存在一些区别：
 
@@ -251,13 +251,13 @@ Decoder 可以在训练的过程中使用 Teacher Forcing 并且并行化训练�
 
 **第一步：**根据 Decoder 的输入矩阵生成 Mask 矩阵，输入矩阵包含 "&lt;Begin&gt; I have a cat" (0, 1, 2, 3, 4) 共5个单词的表示向量，Mask矩阵是一个 5×5 的上三角矩阵。Mask目的是翻译单词 0 时只能使用单词 0 的信息，而翻译单词 1 可以使用单词 0, 1 的信息，即只能使用之前的信息。
 
-![Mask矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-mask.png){: width="800" .align-center}
+![Mask矩阵](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-mask.png){: width="80%" .align-center}
 
 **第二步：**接下来的操作和之前的 Self-Attention 一样，通过输入矩阵$X$计算得到$Q$, $K$, $V$ 矩阵。然后计算 $Q$ 和 $K^\top$ 的乘积 $QK^\top$。
 
 **第三步：**在得到 $QK^\top$ 之后需要进行 Softmax，计算 Attention Score，我们在 Softmax 之前需要使用 **Mask** 矩阵遮挡住每一个单词之后的信息，遮挡操作如下：
 
-![Mask矩阵工作原理：在Self-Attention中Softmax之前使用，使得后续词不参与Attention Score的计算](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-mask-matmul.png){: width="800" .align-center}
+![Mask矩阵工作原理：在Self-Attention中Softmax之前使用，使得后续词不参与Attention Score的计算](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-mask-matmul.png){: width="80%" .align-center}
 *Mask矩阵工作原理：在Self-Attention中Softmax之前使用，使得后续词不参与Attention Score的计算*
 
 在 **Masked** $QK^\top$ 上进行 Softmax，每一行的和都为 1。但是单词 0 在单词 1, 2, 3, 4 上的 Attention Score 都为 0。那么下一步 **Masked** $QK^\top$ 与 $V$ 相乘，得到的输出也是经过Mask之后的。
@@ -295,7 +295,7 @@ Beam Search对贪心算法进行了改进。在每一个时间步预测时，不
 
 下图中，每个时间步有ABCDE共5种可能的输出，设置`num_beams=2`，也就是说每个时间步都会保留到当前步为止条件概率最优的2个序列。
 
-![Beam Search，num_beams=2，每个时间步保留2个最优序列](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-04-beam-search.png){: width="800" .align-center}
+![Beam Search，num_beams=2，每个时间步保留2个最优序列](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-04-beam-search.png){: width="80%" .align-center}
 *Beam Search，num_beams=2，每个时间步保留2个最优序列*
 
 在第一个时间步，A和C是最优的两个，因此得到了两个结果[A],[C]，其他三个就被抛弃了；第二步会基于这两个结果继续进行生成，在A这个分支可以得到5个候选人，[AA],[AB],[AC],[AD],[AE]，C也同理得到5个，此时会对这10个进行统一排序，再保留最优的两个，即图中的[AB]和[CE]；第三步同理，也会从新的10个候选人里再保留最好的两个，最后得到了[ABD],[CED]两个结果。可以发现，Beam Search在每一步需要考察的候选人数量是贪心搜索的`num_beams`倍，因此是一种牺牲时间换取准确率的方法。

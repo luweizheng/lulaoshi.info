@@ -18,12 +18,12 @@ Attention的发展主要经历了两个阶段：
 
 从“Attention”这个名字可以读出，Attention机制主要是对注意力的捕捉。Attention的原理与大脑处理信息有一些相似。比如看到下面这张图，短时间内大脑可能只对图片中的“锦江饭店”有印象，即注意力集中在了“锦江饭店”处。短时间内，大脑可能并没有注意到锦江饭店上面有一串电话号码，下面有几个行人，后面还有“喜运来大酒家”等信息。
 
-![原始图片](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-pic-1.jpeg){:width="400" .align-center}
+![原始图片](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-pic-1.jpeg){:width="50%" .align-center}
 *原始图片*
 
 所以，大脑在短时间内处理信息时，主要将图片中最吸引人注意力的部分读出来了，类似下面。
 
-![大脑注意力只关注吸引人的部分](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-pic-attention.jpeg){:width="400" .align-center}
+![大脑注意力只关注吸引人的部分](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-pic-attention.jpeg){:width="50%" .align-center}
 *大脑注意力只关注吸引人的部分*
 
 ## Attention机制

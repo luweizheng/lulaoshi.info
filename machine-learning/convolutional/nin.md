@@ -42,7 +42,7 @@ def nin_block(in_channels, out_channels, kernel_size, strides, padding):
 
 网络的结构如下图所示：
 
-![VGG和NiN网络结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022445.png){:width="800" .align-center}
+![VGG和NiN网络结构](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2020-12-15-022445.png){:width="80%" .align-center}
 *VGG和NiN网络结构*
 
 我们基于Fashion-MNIST数据集，输入通道数为1，构建一个NiN网络。NiN网络共有四个基础块：
