@@ -11,13 +11,14 @@ description: "本节将主要介绍Flink的数据流图，包括逻辑视图和�
 ---
 
 import { Typography, Grid } from "@material-ui/core";
+import Image from 'material-ui-image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 <Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
     <Grid item md={1} lg={1} />
     <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
+        <Image src="/img/flink-book.jpeg" aspectRatio={0.71} /> 
     </Grid>
     <Grid item xs={8} md={8} lg={8}>
         本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
