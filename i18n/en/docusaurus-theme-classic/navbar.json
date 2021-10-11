@@ -1,0 +1,30 @@
+{
+  "title": {
+    "message": "Weizheng",
+    "description": "The title in the navbar"
+  },
+  "item.label.教程": {
+    "message": "Tutorials",
+    "description": "Navbar item with label 教程"
+  },
+  "item.label.博客": {
+    "message": "Blog",
+    "description": "Navbar item with label 博客"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Flink": {
+    "message": "Flink",
+    "description": "Navbar item with label Flink"
+  },
+  "item.label.GPU": {
+    "message": "GPU",
+    "description": "Navbar item with label GPU"
+  },
+  "item.label.机器学习": {
+    "message": "Machine Learning",
+    "description": "Navbar item with label 机器学习"
+  }
+}

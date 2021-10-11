@@ -1,30 +1,35 @@
-language: ruby
-rvm:
-- 2.6.3
-script:
-- chmod +x ./script/cibuild.sh
-- "./script/cibuild.sh"
-after_script:
-- rsync -r --delete-after --quiet _site/*  travis@lulaoshi.info:$TARGET_DIR
+language: node_js
+node_js:
+  - "12.13.0"
 branches:
   only:
-  - master
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+    - main
+cache:
+  npm: true
+
+install:
+  - npm ci
+
+script:
+  - npm run build
+
+after_script:
+  - rsync -r --delete-after --quiet build/*  travis@lulaoshi.info:$TARGET_DIR
+
 addons:
   apt:
     packages:
-    - libcurl4-openssl-dev
+      - libcurl4-openssl-dev
   ssh_known_hosts: lulaoshi.info
 
 sudo: false
-cache: bundler
+
 notifications:
   email: false
+
 before_install:
-- openssl aes-256-cbc -K $encrypted_6e245bcd2662_key -iv $encrypted_6e245bcd2662_iv -in id_rsa.enc -out .ssh/id_rsa -d
-- chmod 700 .ssh
-- chmod 600 .ssh/id_rsa
-- eval "$(ssh-agent -s)"
-- ssh-add .ssh/id_rsa
+  - openssl aes-256-cbc -K $encrypted_6e245bcd2662_key -iv $encrypted_6e245bcd2662_iv -in id_rsa.enc -out .ssh/id_rsa -d
+  - chmod 700 .ssh
+  - chmod 600 .ssh/id_rsa
+  - eval "$(ssh-agent -s)"
+  - ssh-add .ssh/id_rsa

@@ -1,0 +1,10 @@
+{
+  "link.title. ": {
+    "message": " ",
+    "description": "The title of the footer links column with title=  in the footer"
+  },
+  "copyright": {
+    "message": "Copyright © 2021 lulaoshi.info. Built with Docusaurus. <a target=\"_blank\" href=\"https://beian.miit.gov.cn/\">京ICP备20015649号. </a> <a target=\"_blank\" href=\"http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802031786\" style=\"display:inline-block;text-decoration:none;height:20px;line-height:20px;\"><img src='/en/img/beian.png' alt=\"公安备案\" style=\"float:left;\"/>京公网安备 11010802031786号</a>",
+    "description": "The footer copyright"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.machineLearning.category.Flink的设计与运行原理": {
+    "message": "Flink的设计与运行原理",
+    "description": "The label for category Flink的设计与运行原理 in sidebar machineLearning"
+  },
+  "sidebar.machineLearning.category.DataStream API": {
+    "message": "DataStream API",
+    "description": "The label for category DataStream API in sidebar machineLearning"
+  },
+  "sidebar.machineLearning.category.时间和窗口": {
+    "message": "时间和窗口",
+    "description": "The label for category 时间和窗口 in sidebar machineLearning"
+  },
+  "sidebar.flink.category.Flink的设计与运行原理": {
+    "message": "Flink的设计与运行原理",
+    "description": "The label for category Flink的设计与运行原理 in sidebar flink"
+  },
+  "sidebar.flink.category.DataStream API": {
+    "message": "DataStream API",
+    "description": "The label for category DataStream API in sidebar flink"
+  },
+  "sidebar.flink.category.时间和窗口": {
+    "message": "时间和窗口",
+    "description": "The label for category 时间和窗口 in sidebar flink"
+  },
+  "sidebar.flink.category.状态、检查点和保存点": {
+    "message": "状态、检查点和保存点",
+    "description": "The label for category 状态、检查点和保存点 in sidebar flink"
+  },
+  "sidebar.flink.category.Table API & SQL": {
+    "message": "Table API & SQL",
+    "description": "The label for category Table API & SQL in sidebar flink"
+  }
+}

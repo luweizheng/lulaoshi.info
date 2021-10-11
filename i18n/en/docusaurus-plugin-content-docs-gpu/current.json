@@ -1,0 +1,14 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.gpu.category.GPU基础知识": {
+    "message": "GPU基础知识",
+    "description": "The label for category GPU基础知识 in sidebar gpu"
+  },
+  "sidebar.gpu.category.使用Python Numba进行CUDA编程": {
+    "message": "使用Python Numba进行CUDA编程",
+    "description": "The label for category 使用Python Numba进行CUDA编程 in sidebar gpu"
+  }
+}
