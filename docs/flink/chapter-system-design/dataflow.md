@@ -57,17 +57,6 @@ import Box from '@mui/material/Box';
         </Box>
     </Box>
 </Box>
-<!-- <Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <Image src="/img/flink-book.jpeg" aspectRatio={0.71} />
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid> -->
 
 ## WordCount程序和数据流图
 
