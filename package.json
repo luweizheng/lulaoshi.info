@@ -31,7 +31,6 @@
         "@mui/material": "^5.0.2",
         "@svgr/webpack": "^5.5.0",
         "clsx": "^1.1.1",
-        "css-doodle": "^0.20.2",
         "file-loader": "^6.2.0",
         "hast-util-is-element": "^1.1.0",
         "material-ui-image": "^3.3.2",
@@ -41,8 +40,6 @@
         "react-spring": "^9.2.6",
         "rehype-katex": "^4.0.0",
         "remark-math": "^3.0.1",
-        "semantic-ui-css": "^2.4.1",
-        "semantic-ui-react": "^2.0.4",
         "url-loader": "^4.1.1"
     },
     "browserslist": {

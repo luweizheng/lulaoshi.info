@@ -14,18 +14,60 @@ import { Typography, Grid } from "@material-ui/core";
 import Image from 'material-ui-image'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import Box from '@mui/material/Box';
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
+<Box
+    sx={{
+    display: 'flex',
+    flexDirection: { xs: 'column', md: 'row' },
+    alignItems: 'center',
+    bgcolor: 'background.paper',
+    overflow: 'hidden',
+    borderRadius: '12px',
+    boxShadow: 1,
+    fontWeight: 'bold',
+    }}
+>
+    <Box
+    component="img"
+    sx={{
+        height: 163,
+        width: 116,
+        maxHeight: { xs: 231, md: 325 },
+        maxWidth: { xs: 325, md: 231 },
+        margin: "0.5em 0",
+    }}
+    alt="flink book"
+    src="/img/flink-book.jpeg"
+    />
+    <Box
+    sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: { xs: 'center', md: 'flex-start' },
+        m: 3,
+        minWidth: { md: 350 },
+    }}
+    >
+        <Box component="span" sx={{ fontSize: 16, mt: 1 }}>
+            本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买！
+        </Box>
+        <Box component="span">
+            配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
+        </Box>
+    </Box>
+</Box>
+<!-- <Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
     <Grid item md={1} lg={1} />
     <Grid item xs={3} md={2} lg={2}>
-        <Image src="/img/flink-book.jpeg" aspectRatio={0.71} /> 
+        <Image src="/img/flink-book.jpeg" aspectRatio={0.71} />
     </Grid>
     <Grid item xs={8} md={8} lg={8}>
         本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
         配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
     </Grid>
     <Grid item md={2} lg={2} />
-</Grid>
+</Grid> -->
 
 ## WordCount程序和数据流图
 
