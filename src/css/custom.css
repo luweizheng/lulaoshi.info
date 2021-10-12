@@ -22,7 +22,7 @@
 }
 
 .hero {
-    background-image: linear-gradient( 40deg, rgba(255, 255, 255, 0.8) 62%, rgba(0, 132, 255, 0.1)), url("/img/data-analysis.svg");
+    background-image: linear-gradient( 40deg, rgba(255, 255, 255, 0.8) 62%, rgba(0, 132, 255, 0.1));
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -34,13 +34,12 @@
 }
 
 html[data-theme="dark"] .hero {
-    background-image: linear-gradient( 40deg, rgb(23, 17, 37), rgba(0, 132, 255, 0.1)), url("/img/data-analysis.svg");
+    background-image: linear-gradient( 40deg, rgb(23, 17, 37), rgba(0, 132, 255, 0.1));
 }
 
-.upper-note {
-    border: 1px solid grey;
-    border-radius: 1%;
-    margin-bottom: 1% !important;
+.svg-inline--fontawesome {
+    margin: 0 0.2em;
+    width: 1em;
 }
 
 .list-horizontal-display {
