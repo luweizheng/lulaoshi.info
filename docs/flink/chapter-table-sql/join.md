@@ -8,21 +8,9 @@ keywords:
 description: "Flink SQL Join"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 Join是SQL中最常用的数据处理机制，它可以将两个数据源中的相关行相互连接起来。常用的Join方式有：`INNER JOIN`、`LEFT/RIGHT/FULL OUTER JOIN`。不同的Join决定了两个数据源连接方式的不同。在批处理上，对静态的数据上进行Join已经比较成熟，常用的算法有：嵌套循环（Nested Join）、排序合并（Sort Merge）、哈希合并（Hash Merge）等。这里以嵌套循环为例解释一下Join的实现原理。
 

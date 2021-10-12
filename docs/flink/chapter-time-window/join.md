@@ -8,21 +8,9 @@ keywords:
 description: "本节将介绍如何对两个数据流进行Join关联。"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 批处理经常要解决的问题是将两个数据源做关联，或者称为Join。例如，很多手机APP都有一个用户数据源User，同时APP会记录用户的行为，我们称之为Behavior，两个表按照userId来进行Join，如下图所示。Flink支持流处理上的Join，只不过Flink是在一个时间窗口上来进行两个流的Join。
 

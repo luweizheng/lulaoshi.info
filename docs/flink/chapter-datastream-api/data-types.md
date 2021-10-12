@@ -8,21 +8,9 @@ keywords:
 description: "本文将主要介绍Flink的数据类型和序列化机制。Flink数据类型和序列化入门教程。"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 几乎所有的大数据框架都要面临分布式计算、数据传输和持久化问题。数据传输过程前后要进行数据的序列化和反序列化：序列化就是将一个内存对象转换成二进制串，形成可网络传输或者可持久化的数据流。反序列化将二进制串转换为内存对象，这样就可以直接在编程语言中读写和操作这个对象。一种最简单的序列化方法就是将复杂数据结构转化成JSON格式。序列化和反序列化是很多大数据框架必须考虑的问题，在Java和大数据生态圈中，已有不少序列化工具，比如Java自带的序列化工具、Kryo等。一些RPC框架也提供序列化功能，比如最初用于Hadoop的Apache Avro、Facebook开发的Apache Thrift和Google开发的Protobuf，这些工具在速度和压缩比等方面比JSON有明显的优势。
 

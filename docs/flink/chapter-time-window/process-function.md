@@ -7,21 +7,9 @@ keywords:
 description: "本节将介绍Flink的ProcessFunction系列函数的使用方法，主要为Timer的使用方法。"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 在继续介绍Flink时间和窗口相关操作之前，我们需要先了解一下`ProcessFunction`系列函数。它们是Flink体系中最底层的API，提供了对数据流更细粒度的操作权限。之前提到的一些算子和函数能够进行一些时间上的操作，但是不能获取算子当前的Processing Time或者是Watermark时间戳，调用起来简单但功能相对受限。如果想获取数据流中Watermark的时间戳，或者使用定时器，需要使用`ProcessFunction`系列函数。Flink SQL是基于这些函数实现的，一些需要高度个性化的业务场景也需要使用这些函数。
 

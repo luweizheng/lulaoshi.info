@@ -10,21 +10,9 @@ keywords:
 description: "用户自定义 Table API"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 System Function给我们提供了大量内置功能，但对于一些特定领域或特定场景，System Function还远远不够，Flink提供了用户自定义函数功能，开发者可以实现一些特定的需求。用户自定义函数需要注册到Catalog中，因此这类函数又被称为Catalog Function。Catalog Function大大增强了Flink SQL的表达能力。
 

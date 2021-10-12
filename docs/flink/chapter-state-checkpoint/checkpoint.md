@@ -9,21 +9,9 @@ keywords:
 description: "本节将介绍Flink的Checkpoint算法原理，以及如何配置Checkpoint。Flink Checkpoint入门教程。"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 在上一节中，我们介绍了Flink的状态都是基于本地的，而Flink又是一个部署在多节点的分布式系统，分布式系统经常出现进程被杀、节点宕机或网络中断等问题，那么本地的状态在遇到故障时如何保证不丢呢？Flink定期保存状态数据到存储上，故障发生后从之前的备份中恢复，这个过程被称为Checkpoint机制。Checkpoint为Flink提供了Exactly-Once的投递保障。本节将介绍Flink的Checkpoint机制的原理，介绍中会使用多个概念：快照（Snapshot）、分布式快照（Distributed Snapshot）、检查点（Checkpoint）等，这些概念均指的是Flink的Checkpoint机制提供的数据备份过程，读者可以将这些概念等同看待。
 

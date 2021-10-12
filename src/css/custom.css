@@ -109,10 +109,6 @@ html[data-theme='dark'] {
     padding: 0 var(--ifm-pre-padding);
 }
 
-.svg-inline--fa.fa-w-16 {
-    width: 2em;
-}
-
 .footer__links {
     margin: 0;
 }

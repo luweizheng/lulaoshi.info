@@ -10,21 +10,9 @@ keywords:
 description: "本节将主要介绍Flink DataStream API中几种常见的Transformation。Flink DataStream API入门教程。"
 ---
 
-import { Typography, Grid } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import FlinkBook from '@site/src/components/FlinkBook'
 
-<Grid container className="upper-note" spacing={1} direction="row" justifyContent="center" alignItems="center">
-    <Grid item md={1} lg={1} />
-    <Grid item xs={3} md={2} lg={2}>
-        <img src="/img/flink-book.jpeg" /> 
-    </Grid>
-    <Grid item xs={8} md={8} lg={8}>
-        本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买，谢谢支持！
-        配套源码👉<a target="_blank" href="https://github.com/luweizheng/flink-tutorials"><FontAwesomeIcon icon={faGithub} size={"1x"} /></a>
-    </Grid>
-    <Grid item md={2} lg={2} />
-</Grid>
+<FlinkBook />
 
 Flink的Transformation转换主要包括四种：单数据流基本转换、基于Key的分组转换、多数据流转换和数据重分布转换。Transformation各算子可以对Flink数据流进行处理和转化，多个Transformation算子共同组成一个数据流图，DataStream Transformation是Flink流处理非常核心的API。下图展示了数据流上的几类操作，本章主要介绍四种Transformation：单数据流转换、基于Key的分组转换、多数据流转换和数据重分布转换，时间窗口部分将在第五章介绍。
 

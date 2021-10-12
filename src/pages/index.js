@@ -48,22 +48,18 @@ function HomepageHeader() {
             <FontAwesomeIcon
               icon={faWeixin}
               size="1x"
-              style={{ fontSize: "1.8rem", paddingRight: "0.6rem" }}
+              style={{ paddingRight: "0.6rem" }}
             />
           </a>
           <a href={siteConfig.customFields.zhihu}>
             <FontAwesomeIcon
               icon={faZhihu}
               size="1x"
-              style={{ fontSize: "1.8rem", paddingRight: "0.6rem" }}
+              style={{ paddingRight: "0.6rem" }}
             />
           </a>
           <a href={siteConfig.customFields.github}>
-            <FontAwesomeIcon
-              icon={faGithub}
-              size="1x"
-              style={{ fontSize: "1.5rem" }}
-            />
+            <FontAwesomeIcon icon={faGithub} size="1x" />
           </a>
         </div>
       </div>
