@@ -127,6 +127,11 @@ module.exports = {
                     label: 'Transformer',
                     id: 'attention/transformer-attention'
                 },
+                {
+                    type: 'doc',
+                    label: 'BERT',
+                    id: 'attention/bert'
+                },
             ],
         },
     ],
