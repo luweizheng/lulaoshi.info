@@ -88,7 +88,7 @@ const katex = require("rehype-katex");
                     sidebarPath: require.resolve("./sidebars/machineLearning.js"),
                     remarkPlugins: [math],
                     rehypePlugins: [katex],
-                    sidebarCollapsed: false,
+                    sidebarCollapsed: true,
                     // ... other options
                 },
             ],

@@ -1,5 +1,5 @@
 ---
-title: 深入理解BERT
+title: BERT原理解析及HuggingFace transformers使用入门
 keywords: 
   - BERT
   - 预训练
@@ -10,7 +10,7 @@ keywords:
 description: "BERT详解，及HuggingFace使用指南"
 ---
 
-自BERT（BidirectionalEncoder Representations from Transformer）出现后，NLP界开启了一个全新的范式，本文主要介绍BERT的主要原理。本文主要介绍BERT的原理，以及如何使用HuggingFace提供的 `transformers` 库完成基于BERT的微调任务。
+自BERT（Bidirectional Encoder Representations from Transformer）[1]出现后，NLP界开启了一个全新的范式。本文主要介绍BERT的原理，以及如何使用HuggingFace提供的 `transformers` 库完成基于BERT的微调任务。
 
 ## 预训练
 
@@ -18,7 +18,7 @@ BERT在一个较大的语料上进行预训练（Pre-train）。预训练主要�
 
 ### 训练目标
 
-BERT使用了维基百科的数据，英文的维基百科共几十GB，这是一个庞大的语料库。对于一个GB的语料库，雇佣人力进行标注成本极高。BERT使用了两个巧妙方法来无监督地训练模型：Masked Language Model和Next Sentence Prediction。这两个方法可以无需花费时间和人力标注数据，以较低成本无监督地得到训练数据。图1就是一个输入输出样例。
+BERT使用了维基百科等语料库数据，共几十GB，这是一个庞大的语料库。对于一个GB级的语料库，雇佣人力进行标注成本极高。BERT使用了两个巧妙方法来无监督地训练模型：Masked Language Modeling和Next Sentence Prediction。这两个方法可以无需花费时间和人力标注数据，以较低成本无监督地得到训练数据。图1就是一个输入输出样例。
 
 对于Masked Language Modeling，给定一些输入句子（图1中最下面的输入层），BERT将输入句子中的一些单词盖住（图1中Masked层），经过中间的词向量和BERT层后，BERT的目标是让模型能够预测那些刚刚被盖住的词。还记得英语考试中，我们经常遇到“完形填空”题型吗？能把完形填空做对，说明已经理解了文章背后的语言逻辑。BERT的Masked Language Modeling本质上就是在做“完形填空”：预训练时，先将一部分词随机地盖住，经过模型的拟合，如果能够很好地预测那些盖住的词，模型就学到了文本的内在逻辑。
 
@@ -42,10 +42,10 @@ BERT使用了维基百科的数据，英文的维基百科共几十GB，这是�
 
 :::
 
-我们首先需要将文本中每个Token都转换成一维词向量。假如词向量的维度为`hidden_size`，句子的Token长度为`seq_len`，或者说句子共包含`seq_len`个Token，那么上图中，输入就是`seq_len * hidden_size`。再加上`batch_size`，那么输入就是`batch_size * seq_len * hidden_size`。上图只展示了一个样本，未体现出`batch_size`，或者可以理解成`batch_size = 1`，即每次只处理一条文本。为便于理解，后文不考虑`batch_size`这个维度，但实际模型训练时，`batch_size`通常大于1。
+我们首先需要将文本中每个Token都转换成一维词向量。假如词向量的维度为`hidden_size`，句子的Token长度为`seq_len`，或者说句子共包含`seq_len`个Token，那么上图中，输入就是`seq_len * hidden_size`。再加上`batch_size`，那么输入就是`batch_size * seq_len * hidden_size`。上图只展示了一个样本，未体现出`batch_size`，或者可以理解成`batch_size = 1`，即每次只处理一条文本。为便于理解，本文的图解中不考虑`batch_size`这个维度，实际模型训练时，`batch_size`通常大于1。
 
 
-词向量经过BERT模型一系列复杂的转换后，模型最后仍然以词向量的形式输出，用以对文本进行语义表示。输入的词向量是`seq_len * hidden_size`，句子共`seq_len`个Token，将每个Token都转换成词向量，送入BERT模型。经过BERT模型后，得到的输出仍然是`seq_len * hidden_size`维度。输出仍然是`seq_len`的长度，其中输出的`i` 个位置（0 < `i`  < `seq_len`）的词向量，表示经过了拟合后的第`i`个Token的语义表示。后续可以用输出中每个位置的词向量来进行一些其他任务，比如进行命名实体识别等。
+词向量经过BERT模型一系列复杂的转换后，模型最后仍然以词向量的形式输出，用以对文本进行语义表示。输入的词向量是`seq_len * hidden_size`，句子共`seq_len`个Token，将每个Token都转换成词向量，送入BERT模型。经过BERT模型后，得到的输出仍然是`seq_len * hidden_size`维度。输出仍然是`seq_len`的长度，其中输出的`i` 个位置（0 < `i`  < `seq_len`）的词向量，表示经过了拟合后的第`i`个Token的语义表示。后续可以用输出中每个位置的词向量来进行一些其他任务，比如命名实体识别等。
 
 除了使用Masked方法故意盖住一些词外，BERT还加了一些特殊的符号：`[CLS]`和`[SEP]`。`[CLS]`用在句首，是句子序列中`i = 0`位置的Token。BERT认为输出序列的`i = 0`位置的Token对应的词向量包含了整个句子的信息，可对整个句子进行分类。`[SEP]`用在分割前后两个句子上。
 
@@ -97,7 +97,7 @@ Transformer是BERT的核心模块，Attention注意力机制又是Transformer中
 
 ### Tokenizer
 
-下面两行代码会创建`BertTokenizer`，并将所需的词表加载进来。
+下面两行代码会创建 `BertTokenizer`，并将所需的词表加载进来。首次使用这个模型时，`transformers` 会帮我们将模型从HuggingFace Hub下载到本地。
 
 ```python
 >>> from transformers import BertTokenizer
@@ -164,9 +164,9 @@ Transformer是BERT的核心模块，Attention注意力机制又是Transformer中
 >>> model = BertModel.from_pretrained("bert-base-chinese")
 ```
 
-`BertModel`是一个PyTorch中用来包裹网络结构的`nn.Module`，`BertModel`里有`forward`方法，`forward`方法中实现了将Token转化为词向量，再将词向量进行多层的Transformer Encoder的复杂变换。
+`BertModel`是一个PyTorch中用来包裹网络结构的`torch.nn.Module`，`BertModel`里有`forward()`方法，`forward()`方法中实现了将Token转化为词向量，再将词向量进行多层的Transformer Encoder的复杂变换。
 
-`forward`方法的入参有`input_ids`、`attention_mask`、`token_type_ids`等等，这些参数基本上是刚才Tokenizer部分的输出。
+`forward()`方法的入参有`input_ids`、`attention_mask`、`token_type_ids`等等，这些参数基本上是刚才Tokenizer部分的输出。
 
 ```python
 >>> bert_output = model(input_ids=batch['input_ids'])
@@ -214,6 +214,8 @@ class BertForSequenceClassification(BertPreTrainedModel):
 ```
 
 在这段代码中，`BertForSequenceClassification`在`BertModel`基础上，增加了`nn.Dropout`和`nn.Linear`层，在预测时，将`BertModel`的输出放入`nn.Linear`，完成一个分类任务。除了`BertForSequenceClassification`，还有`BertForQuestionAnswering`用于问答，`BertForTokenClassification`用于序列标注，比如命名实体识别。
+
+`transformers` 中的各个API还有很多其他参数设置，比如得到每一层Transformer Encoder的输出等等，可以访问他们的[文档](https://huggingface.co/docs/transformers/)查看使用方法。
 
 **参考资料**
 
