@@ -186,7 +186,7 @@ Transformer是BERT的核心模块，Attention注意力机制又是Transformer中
 
 BERT可以进行很多下游任务，`transformers`库中实现了一些下游任务，我们也可以参考`transformers`中的实现，来做自己想做的任务。比如单文本分类，`transformers`库提供了`BertForSequenceClassification`类。
 
-```python
+```python {7-10,19-22}
 class BertForSequenceClassification(BertPreTrainedModel):
     def __init__(self, config):
         super().__init__(config)

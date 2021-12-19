@@ -88,6 +88,13 @@ figure figcaption {
     padding: 0 var(--ifm-pre-padding);
 }
 
+html[data-theme="dark"] .docusaurus-highlight-code-line {
+    background-color: rgb(72, 77, 91);
+    display: block;
+    margin: 0 calc(-1 * var(--ifm-pre-padding));
+    padding: 0 var(--ifm-pre-padding);
+}
+
 html[data-theme='dark'] {
     --ifm-background-color: #202225;
     --ifm-footer-background-color: var(--ifm-background-color);
@@ -99,13 +106,6 @@ html[data-theme='dark'] {
     --ifm-color-primary-lighter: #ffa726;
     --ifm-color-primary-lightest: #ffb74d;
     --ifm-border-color: #ffffff;
-}
-
-.docusaurus-highlight-code-line {
-    background-color: rgb(72, 77, 91);
-    display: block;
-    margin: 0 calc(-1 * var(--ifm-pre-padding));
-    padding: 0 var(--ifm-pre-padding);
 }
 
 .footer__links {
