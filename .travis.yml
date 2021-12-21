@@ -14,7 +14,7 @@ script:
   - npm run build
 
 after_script:
-  - rsync -r --delete-after --quiet build/*  travis@lulaoshi.info:$TARGET_DIR
+  - rsync -r -avP --delete-after --quiet build/*  travis@lulaoshi.info:$TARGET_DIR
 
 addons:
   apt:
