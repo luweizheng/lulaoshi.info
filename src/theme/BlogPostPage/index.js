@@ -4,40 +4,44 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React , {useEffect} from 'react';
-import Seo from '@theme/Seo';
-import BlogLayout from '@theme/BlogLayout';
-import BlogPostItem from '@theme/BlogPostItem';
-import BlogPostPaginator from '@theme/BlogPostPaginator';
-import {ThemeClassNames} from '@docusaurus/theme-common';
+import React, { useEffect } from "react";
+import Seo from "@theme/Seo";
+import BlogLayout from "@theme/BlogLayout";
+import BlogPostItem from "@theme/BlogPostItem";
+import BlogPostPaginator from "@theme/BlogPostPaginator";
+import { ThemeClassNames } from "@docusaurus/theme-common";
+import TOC from "@theme/TOC";
 
 function BlogPostPage(props) {
-  {/* utterance comment */}
+  /* utterance comment */
   useEffect(() => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
 
     script.src = "https://utteranc.es/client.js";
-    script.setAttribute('repo', "luweizheng/lulaoshi.info");
-    script.setAttribute('issue-term', "pathname");
-    script.setAttribute('theme',"github-light");
+    script.setAttribute("repo", "luweizheng/lulaoshi.info");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
     script.crossOrigin = "anonymous";
     script.async = true;
 
     document.getElementById("comment-system").appendChild(script);
   }, []);
 
-  const {content: BlogPostContents, sidebar} = props;
-  const {frontMatter, assets, metadata} = BlogPostContents;
+  const { content: BlogPostContents, sidebar } = props;
   const {
-    title,
-    description,
-    nextItem,
-    prevItem,
-    date,
-    tags,
-    authors,
-  } = metadata;
-  const {hide_table_of_contents: hideTableOfContents, keywords} = frontMatter;
+    // TODO this frontmatter is not validated/normalized, it's the raw user-provided one. We should expose normalized one too!
+    frontMatter,
+    assets,
+    metadata,
+  } = BlogPostContents;
+  const { title, description, nextItem, prevItem, date, tags, authors } =
+    metadata;
+  const {
+    hide_table_of_contents: hideTableOfContents,
+    keywords,
+    toc_min_heading_level: tocMinHeadingLevel,
+    toc_max_heading_level: tocMaxHeadingLevel,
+  } = frontMatter;
   const image = assets.image ?? frontMatter.image;
   return (
     <BlogLayout
@@ -45,9 +49,15 @@ function BlogPostPage(props) {
       pageClassName={ThemeClassNames.page.blogPostPage}
       sidebar={sidebar}
       toc={
-        !hideTableOfContents && BlogPostContents.toc
-          ? BlogPostContents.toc
-          : undefined
+        !hideTableOfContents &&
+        BlogPostContents.toc &&
+        BlogPostContents.toc.length > 0 ? (
+          <TOC
+            toc={BlogPostContents.toc}
+            minHeadingLevel={tocMinHeadingLevel}
+            maxHeadingLevel={tocMaxHeadingLevel}
+          />
+        ) : undefined
       }>
       <Seo // TODO refactor needed: it's a bit annoying but Seo MUST be inside BlogLayout
         // otherwise  default image (set by BlogLayout) would shadow the custom blog post image
@@ -65,13 +75,13 @@ function BlogPostPage(props) {
             content={authors
               .map((author) => author.url)
               .filter(Boolean)
-              .join(',')}
+              .join(",")}
           />
         )}
         {tags.length > 0 && (
           <meta
             property="article:tag"
-            content={tags.map((tag) => tag.label).join(',')}
+            content={tags.map((tag) => tag.label).join(",")}
           />
         )}
       </Seo>
@@ -87,9 +97,8 @@ function BlogPostPage(props) {
       {(nextItem || prevItem) && (
         <BlogPostPaginator nextItem={nextItem} prevItem={prevItem} />
       )}
-
-    {/* utterance comment */}
-    <div id="comment-system"></div>
+      {/* utterance comment */}
+      <div id="comment-system"></div>
     </BlogLayout>
   );
 }

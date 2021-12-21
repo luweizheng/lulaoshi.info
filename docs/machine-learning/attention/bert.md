@@ -76,7 +76,7 @@ BERT使用了维基百科等语料库数据，共几十GB，这是一个庞大�
 
 ## 模型结构
 
-Transformer是BERT的核心模块，Attention注意力机制又是Transformer中最关键的部分。前两篇文章，我们介绍了[Attention注意力机制](/machine-learning/attention/attention)和[Transformer](/machine-learning/attention/transformer-attention)，这里不再赘述。BERT用到的主要是Transformer的Encoder，没有使用Transformer Decoder。
+Transformer是BERT的核心模块，Attention注意力机制又是Transformer中最关键的部分。前两篇文章，我们介绍了[Attention注意力机制](attention.md)和[Transformer](transformer-attention.md)，这里不再赘述。BERT用到的主要是Transformer的Encoder，没有使用Transformer Decoder。
 
 把多个Transformer Encoder组装起来，就构成了BERT。在论文中，作者分别用12个和24个Transformer Encoder组装了两套BERT模型，两套模型的参数总数分别为110M和340M。
 

@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "14.15.0"
+  - "14.18.0"
 branches:
   only:
     - main

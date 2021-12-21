@@ -12,7 +12,7 @@ const katex = require("rehype-katex");
         tagline: "大数据和人工智能",
         url: "https://lulaoshi.info",
         baseUrl: "/",
-        onBrokenLinks: "throw",
+        onBrokenLinks: "warn",
         onBrokenMarkdownLinks: "warn",
         favicon: "img/favicon/favicon.ico",
         organizationName: "luweizheng", // Usually your GitHub org/user name.

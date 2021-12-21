@@ -4,52 +4,57 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React , {useEffect} from 'react';
-import clsx from 'clsx';
-import useWindowSize from '@theme/hooks/useWindowSize';
-import DocPaginator from '@theme/DocPaginator';
-import DocVersionBanner from '@theme/DocVersionBanner';
-import Seo from '@theme/Seo';
-import DocItemFooter from '@theme/DocItemFooter';
-import TOC from '@theme/TOC';
-import TOCCollapsible from '@theme/TOCCollapsible';
-import {MainHeading} from '@theme/Heading';
-import styles from './styles.module.css';
-import {ThemeClassNames} from '@docusaurus/theme-common';
+import React, { useEffect } from "react";
+import clsx from "clsx";
+import useWindowSize from "@theme/hooks/useWindowSize";
+import DocPaginator from "@theme/DocPaginator";
+import DocVersionBanner from "@theme/DocVersionBanner";
+import DocVersionBadge from "@theme/DocVersionBadge";
+import Seo from "@theme/Seo";
+import DocItemFooter from "@theme/DocItemFooter";
+import TOC from "@theme/TOC";
+import TOCCollapsible from "@theme/TOCCollapsible";
+import { MainHeading } from "@theme/Heading";
+import styles from "./styles.module.css";
+import { ThemeClassNames } from "@docusaurus/theme-common";
 export default function DocItem(props) {
-  {/* utterance comment */}
+  {
+    /* utterance comment */
+  }
   useEffect(() => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
 
     script.src = "https://utteranc.es/client.js";
-    script.setAttribute('repo', "luweizheng/lulaoshi.info");
-    script.setAttribute('issue-term', "pathname");
-    script.setAttribute('theme',"github-light");
+    script.setAttribute("repo", "luweizheng/lulaoshi.info");
+    script.setAttribute("issue-term", "pathname");
+    script.setAttribute("theme", "github-light");
     script.crossOrigin = "anonymous";
     script.async = true;
 
     document.getElementById("comment-system").appendChild(script);
   }, []);
 
-  const {content: DocContent, versionMetadata} = props;
-  const {metadata, frontMatter} = DocContent;
+  const { content: DocContent } = props;
+  const { metadata, frontMatter } = DocContent;
   const {
     image,
     keywords,
     hide_title: hideTitle,
     hide_table_of_contents: hideTableOfContents,
+    toc_min_heading_level: tocMinHeadingLevel,
+    toc_max_heading_level: tocMaxHeadingLevel,
   } = frontMatter;
-  const {description, title} = metadata; // We only add a title if:
+  const { description, title } = metadata; // We only add a title if:
   // - user asks to hide it with frontmatter
   // - the markdown content does not already contain a top-level h1 heading
 
   const shouldAddTitle =
-    !hideTitle && typeof DocContent.contentTitle === 'undefined';
+    !hideTitle && typeof DocContent.contentTitle === "undefined";
   const windowSize = useWindowSize();
   const canRenderTOC =
     !hideTableOfContents && DocContent.toc && DocContent.toc.length > 0;
   const renderTocDesktop =
-    canRenderTOC && (windowSize === 'desktop' || windowSize === 'ssr');
+    canRenderTOC && (windowSize === "desktop" || windowSize === "ssr");
   return (
     <>
       <Seo
@@ -63,34 +68,28 @@ export default function DocItem(props) {
 
       <div className="row">
         <div
-          className={clsx('col', {
+          className={clsx("col", {
             [styles.docItemCol]: !hideTableOfContents,
           })}>
-          <DocVersionBanner versionMetadata={versionMetadata} />
+          <DocVersionBanner />
           <div className={styles.docItemContainer}>
             <article>
-              {versionMetadata.badge && (
-                <span
-                  className={clsx(
-                    ThemeClassNames.docs.docVersionBadge,
-                    'badge badge--secondary',
-                  )}>
-                  Version: {versionMetadata.label}
-                </span>
-              )}
+              <DocVersionBadge />
 
               {canRenderTOC && (
                 <TOCCollapsible
                   toc={DocContent.toc}
+                  minHeadingLevel={tocMinHeadingLevel}
+                  maxHeadingLevel={tocMaxHeadingLevel}
                   className={clsx(
                     ThemeClassNames.docs.docTocMobile,
-                    styles.tocMobile,
+                    styles.tocMobile
                   )}
                 />
               )}
 
               <div
-                className={clsx(ThemeClassNames.docs.docMarkdown, 'markdown')}>
+                className={clsx(ThemeClassNames.docs.docMarkdown, "markdown")}>
                 {/*
                 Title can be declared inside md content or declared through frontmatter and added manually
                 To make both cases consistent, the added title is added under the same div.markdown block
@@ -104,8 +103,7 @@ export default function DocItem(props) {
               <DocItemFooter {...props} />
             </article>
 
-            <DocPaginator metadata={metadata} />
-
+            <DocPaginator previous={metadata.previous} next={metadata.next} />
             {/* utterance comment */}
             <div id="comment-system"></div>
           </div>
@@ -114,6 +112,8 @@ export default function DocItem(props) {
           <div className="col col--3">
             <TOC
               toc={DocContent.toc}
+              minHeadingLevel={tocMinHeadingLevel}
+              maxHeadingLevel={tocMaxHeadingLevel}
               className={ThemeClassNames.docs.docTocDesktop}
             />
           </div>
