@@ -151,6 +151,11 @@ const katex = require("rehype-katex");
                         label: "博客",
                         position: "left",
                     },
+                    {
+                        to: "/talks",
+                        label: "分享",
+                        position: "left",
+                    },
                     { type: "localeDropdown", position: "right" },
                     {
                         href: "https://github.com/luweizheng/lulaoshi.info",
