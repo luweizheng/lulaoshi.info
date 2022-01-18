@@ -1,5 +1,5 @@
 ---
-title:  "Docker /dev/shm 默认设置引发的血案"
+title:  "Docker /dev/shm 默认设置引发的异常日志"
 date:   2022-01-17 16:19:00 +0800
 description: "`/dev/shm`是一个特殊的目录，它表示是一块共享内存（Share Memory）。这个目录可以用来在进程间进行数据的通信和共享。默认情况下，Docker容器启动后`/dev/shm`只有64M！高性能计算场景需要设置一个更大的值。"
 categories: [Linux]
@@ -12,8 +12,7 @@ Linux下一切皆文件。GPU、硬盘、扫描仪、鼠标等都以文件或目
 
 `/dev/shm`是一个特殊的目录，它表示是一块共享内存（Share Memory）。这个目录可以用来在进程间进行数据的通信和共享。比如，第一个进程创建一块内存区域，另外一个进程去访问该内存区域，两个进程之间可以快速分享数据和信息。`/dev/shm`使用了tmpfs，tmpfs是Linux上基于内存的文件系统，可以达到内存级别的读写速度。
 
-`/dev/shm`的性质决定了，它可以用于高性能IPC（Inter-process communication
-）。很多高性能场景计算应用会使用这几个函数操作这块内存区域。
+`/dev/shm`的性质决定了，它可以用于高性能IPC（Inter-process communication）。很多高性能场景计算应用会使用这几个函数操作这块内存区域。
 
 在Linux中，如果想要使用`/dev/shm`，可以用以下几个方法：
 
