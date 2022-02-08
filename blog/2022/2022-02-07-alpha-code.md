@@ -93,7 +93,7 @@ AlphaCode 主要使用了编码器-解码器（Encoder-Decoder）的 seq2seq 方
 
 ## 总结 {#conclusion}
 
-作者认为，AlphaCode 能够击败半数的人类选手，主要原因在于：
+作者认为，AlphaCode 能够击败半数人类选手，主要原因在于：
 
 1. 训练数据足够大且质量高。
 2. Transformer 预训练模型能够将训练数据中涵盖的知识编码到模型中。
