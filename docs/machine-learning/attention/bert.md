@@ -172,7 +172,7 @@ Transformer是BERT的核心模块，Attention注意力机制又是Transformer中
 >>> bert_output = model(input_ids=batch['input_ids'])
 ```
 
-`forward`方法返回模型预测的结果，返回结果是一个`tuple(torch.FloatTensor)`，即多个`Tensor`组成的`tuple`。`tuple`默认返回两个重要的`Tensor`：
+`forward()`方法返回模型预测的结果，返回结果是一个`tuple(torch.FloatTensor)`，即多个`Tensor`组成的`tuple`。`tuple`默认返回两个重要的`Tensor`：
 
 ```python
 >>> len(bert_output)
