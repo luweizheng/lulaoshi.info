@@ -26,7 +26,7 @@ Codeforces 上的题目五花八门，但是都需要参赛者编程求解。每
 
 <figure>
     <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2022-02-08-codeforces-problem.svg" width="80%"/>
-    <figcaption>图1 AlphaCode 所求解的问题样例</figcaption>
+    <figcaption>图1 AlphaCode 所求解的问题样例，深色的上半部分为编程问题描述，浅色的下半部分为 AlphaCode 生成的代码答案</figcaption>
 </figure>
 
 ## Sampling & Evaluation：海量试错 {#sampling-evaluation}
@@ -72,7 +72,7 @@ AlphaCode 使用的经典的预训练+微调（Pretraining + Fine-tuning）范�
     <figcaption>图5 AlphaCode 预训练与微调所使用的数据集</figcaption>
 </figure>
 
-预训练使用的是从 GitHub 爬下来的开源代码，经过了精细的预处理和清洗，大约有715GB。看到这个规模的训练数据，就知道只有屈指可数的几家公司能够做这个预训练，实在是太大了，估计需要成千上万块GPU。预训练部分单纯就是让模型学习不同编程语言的套路，或者说学习编程语言中的语义和语法。
+预训练使用的是从 GitHub 爬下来的开源代码，经过了精细的预处理和清洗，大约有715GB。看到这个规模的训练数据，就知道只有屈指可数的几家巨无霸公司能够做这个预训练，实在是太大了，估计需要成千上万块GPU。预训练部分单纯就是让模型学习不同编程语言的套路，或者说学习编程语言中的语义和语法。
 
 微调部分使用的是 CodeContests 数据集，这个数据集收集了很多类似 Codeforces 这样的编程平台上的编程题目、元数据以及人类正确和错误的代码提交结果。目的是针对 Codeforces 这样的编程竞赛，让模型学会如何生成对应的代码。这个数据集大约2GB。
 
@@ -97,7 +97,7 @@ AlphaCode 主要使用了编码器-解码器（Encoder-Decoder）的 seq2seq 方
 
 1. 训练数据足够大且质量高。
 2. Transformer 预训练模型能够将训练数据中涵盖的知识编码到模型中。
-3. Sampling & Evaluation 的海量试错机制，先提出海量可能的编程代码，再一步步缩小搜索空间。
+3. Sampling & Evaluation 的海量试错机制，先生成海量可能的答案，再一步步缩小搜索空间。
 
 阅读完论文和一些解读之后，我感觉至少短期内，离AI替代程序员应该还有一段距离。但是，未来，可真不好说...
 
