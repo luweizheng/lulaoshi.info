@@ -1,7 +1,7 @@
 ---
-title:  "AlphaCode快速解读"
+title:  "AlphaCode论文及原理快速解读"
 date:   2022-02-08 10:30:00 +0800
-description: "AlphaCode 论文解读"
+description: "AlphaCode的原理主要是生成了海量的候选答案，最后筛选出正确的答案。"
 categories: [Deep Learning]
 slug: alphacode
 --- 
