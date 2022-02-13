@@ -4,7 +4,6 @@ date:   2022-02-13 23:49:00 +0800
 description: "Embedding 本质是一个查询矩阵，或者说是一个 dict 数据结构。以词向量为例， Embedding dict 的 Key 是词在词表中的索引位置（Index），Embedding dict 的 Value 是这个词的 `dim` 维的向量。"
 categories: [PyTorch]
 slug: pytorch-embedding-explained
-draft: true
 --- 
 
 Embedding 本质是一个查询矩阵，或者说是一个 dict 数据结构。以词向量为例， Embedding dict 的 Key 是词在词表中的索引位置（Index），Embedding dict 的 Value 是这个词的 `dim` 维的向量。
