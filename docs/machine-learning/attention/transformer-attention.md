@@ -67,23 +67,37 @@ $$
 下面以词向量矩阵为例，这个矩阵中，每行为一个词的词向量。矩阵与自身的转置相乘，生成了目标矩阵，目标矩阵其实就是一个词的词向量与各个词的词向量的相似度。
 
 <figure>
-  <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-25-matmul.svg" />
+  <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2022-02-18-matmul.svg" />
 	<figcaption>词向量矩阵相乘</figcaption>
 </figure>
 
 如果再加上Softmax呢？我们进行下面的计算：$Softmax(\mathbf{X}\mathbf{X}^\top)$。Softmax的作用是对向量做归一化，那么就是对相似度的归一化，得到了一个归一化之后的权重矩阵，矩阵中，某个值的权重越大，表示相似度越高。
 
 <figure>
-  <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-25-matmul-softmax.svg" />
+  <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2022-02-18-matmul-softmax.svg" />
 	<figcaption>相似度矩阵的归一化</figcaption>
 </figure>
 
 在这个基础上，再进一步：$Softmax(\mathbf{X}\mathbf{X}^\top)\mathbf{X}$，将得到的归一化的权重矩阵与词向量矩阵相乘。权重矩阵中某一行分别与词向量的一列相乘，词向量矩阵的一列其实代表着不同词的某一维度。经过这样一个矩阵相乘，相当于一个加权求和的过程，得到结果词向量是经过加权求和之后的新表示，而权重矩阵是经过相似度和归一化计算得到的。
 
 <figure>
-  <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-09-25-matmul-softmax-mul.svg" />
+  <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2022-02-18-matmul-softmax-mul.svg" />
 	<figcaption>通过与权重矩阵相乘，完成加权求和过程</figcaption>
 </figure>
+
+上述过程用 PyTorch 实现：
+
+```python
+import torch
+import torch.nn as nn
+
+x = torch.tensor([[1, 3, 2], [1, 1, 3], [1, 2, 1]], dtype=torch.float64)
+
+attention_scores = torch.matmul(x, x.transpose(-1, -2))
+attention_scores = nn.functional.softmax(attention_scores, dim=-1)
+
+print(attention_scores)
+```
 
 ## Self-Attention中的Q、K、V
 
@@ -132,7 +146,7 @@ Self-Attention的计算过程如下：
 	<figcaption>Q与K相乘，得到相似度矩阵</figcaption>
 </figure>
 
-**第三步：**将刚得到的相似度除以$\sqrt{d_k}$，再进行Softmax。经过Softmax的归一化后，每个值是一个大于0小于1的权重系数（Attention Score），且总和为0，这是一个权重矩阵。
+**第三步：**将刚得到的相似度除以$\sqrt{d_k}$，再进行Softmax。经过Softmax的归一化后，每个值是一个大于0小于1的权重系数（Attention Score），且每行总和为0，这是一个权重矩阵。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-softmax.png" width="75%" />
