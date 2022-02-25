@@ -11,7 +11,7 @@
         "message": "Blog",
         "description": "Navbar item with label 博客"
     },
-    "item.label.分享": {
+    "item.label.演讲": {
         "message": "Talks",
         "description": "Navbar item with label 分享"
     },

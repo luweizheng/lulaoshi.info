@@ -14,6 +14,4 @@ import BVideo from "@site/src/components/BVideo";
 
 #### CLUG 2021
 
-**深度学习负载IO模式和优化策略** / China Lustre User Group 2021 / Online
-
-<BVideo src="//player.bilibili.com/player.html?aid=550210402&bvid=BV1Ui4y1R7YN&cid=470669746&page=1"/>
+**深度学习负载IO模式和优化策略** / China Lustre User Group 2021 / [B站](https://www.bilibili.com/video/BV1Ui4y1R7YN?zw)

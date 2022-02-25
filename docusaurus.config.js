@@ -8,7 +8,7 @@ const katex = require("rehype-katex");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (
     module.exports = {
-        title: "Weizheng",
+        title: "鲁老师",
         tagline: "大数据和人工智能",
         url: "https://lulaoshi.info",
         baseUrl: "/",
@@ -124,7 +124,7 @@ const katex = require("rehype-katex");
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
             ({
             navbar: {
-                title: "皮皮鲁的科技星球",
+                title: "鲁老师",
                 logo: {
                     alt: "site logo",
                     src: "img/favicon/safari-pinned-tab.svg",
@@ -153,7 +153,7 @@ const katex = require("rehype-katex");
                     },
                     {
                         to: "/talks",
-                        label: "分享",
+                        label: "演讲",
                         position: "left",
                     },
                     { type: "localeDropdown", position: "right" },
