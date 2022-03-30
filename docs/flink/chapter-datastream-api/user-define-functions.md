@@ -185,7 +185,7 @@ public abstract class RichFlatMapFunction<IN, OUT> extends AbstractRichFunction 
 
 它既实现了`FlatMapFunction`接口类，又继承了`AbstractRichFunction`。其中`AbstractRichFunction`是一个抽象类，有一个成员变量`RuntimeContext`，有`open`、`close`和`getRuntimeContext`等方法。
 
-我们尝试继承并实现RichFlatMapFunction`，并使用一个累加器。首先简单介绍累加器的概念：在单机环境下，我们可以用一个for循环做累加统计，但是在分布式计算环境下，计算是分布在多台节点上的，每个节点处理一部分数据，因此单纯循环无法满足计算，累加器是大数据框架帮我们实现的一种机制，允许我们在多节点上进行累加统计。
+我们尝试继承并实现`RichFlatMapFunction`，并使用一个累加器。首先简单介绍累加器的概念：在单机环境下，我们可以用一个for循环做累加统计，但是在分布式计算环境下，计算是分布在多台节点上的，每个节点处理一部分数据，因此单纯循环无法满足计算，累加器是大数据框架帮我们实现的一种机制，允许我们在多节点上进行累加统计。
 
 ```java
 // 实现RichFlatMapFunction类
