@@ -58,7 +58,7 @@ setup(
 )
 ```
 
-在上面这段代码里， `console_scripts` 是一种特殊的 entry_points 。 `setuptools` 从中读取 `"<console script name> = <python object path>"` 。当把这个 Python 包安装好后，它会自动创建一个命令行工具。现在，我们先在本地用开发者模式安装这个包：
+在上面这段代码里， `console_scripts` 是一种特殊的 entry_points 。 `setuptools` 从中读取 `"<console_script_name> = <python_package:object_name>"` 。当把这个 Python 包安装好后，它会自动创建一个命令行工具。后文还会细讲 ``"<console_script_name> = <python_package:object_name>"`` 对应的内容。现在，我们先在本地用开发者模式安装这个包：
 
 ```shell
 $ python setup.py develop
@@ -530,6 +530,8 @@ cute_snek
         sneks[entry_point.name] = entry_point.load()
 ```
 
+上面这段代码中的 for 循环会对所有 entry_points 进行注册和加载。 比如，for 循环中某个 `entry_point` 就是 `'normal = snek:normal_snek'`。 `entry_point.load()` 将包名为 `snek` 中的 `normal_snek` 变量加载进来。 `'normal = snek:normal_snek'` 符合如下规则：`"<user_defined_key> = <python_package:object_name>"`， `<user_defined_key>` 是开发者定义的跟业务高度相关的 Key，`<python_package:object_name>` 为 Python 对象名（变量或者方法）。
+
 有一种特殊的 entry_points ，名为 `console_scripts`。在这里注册的内容可以直接被集成为命令行工具。
 
 ```python
@@ -538,9 +540,7 @@ cute_snek
         ]
 ```
 
-在上面这个例子中，`'snek = snek:main'` 等号左侧的 `snek` 是命令行工具的名字，等号右侧是“包名:包内对应的方法名”。
-
-在上满这段代码中会对所有 entry_points 进行注册和加载。 比如，`entry_point` 就是 `'normal = snek:normal_snek'`。 `entry_point.load()` 将包名为 `snek` 中的 `normal_snek` 变量加载进来。
+在上面这个例子中，`'snek = snek:main'` 等号左侧的 `snek` 是命令行工具的名字，等号右侧是“包名:包内对应的方法名”。 `"<console_script_name> = <python_package:object_name>"` 这样的模式，`<console_script_name>` 为生成的命令行工具的名字， `<python_package:object_name>` 为 Python 对象名（变量或者方法）。
 
 ## 应用场景{#application}
 
