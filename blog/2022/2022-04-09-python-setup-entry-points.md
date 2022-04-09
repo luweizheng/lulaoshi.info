@@ -8,7 +8,7 @@ slug: python-setup-entry-points
 
 一个 Python 软件包中的 `setup.py` 文件包含这个 Python 包如何打包发布等重要信息。本文主要对[这篇博客](https://amir.rachum.com/blog/2017/07/28/python-entry-points/)进行了翻译解读，以解释 Python `setup.py` 文件中 `entry_point` 用法。
 
-## 第一个简单的 Python 包：Snek{#first-simple-python-package-snek}
+## 第一个简单的 Python 包：snek{#first-simple-python-package-snek}
 
 我作为技术合伙人兼任CTO与其他人合伙成立了一家软件公司。软件公司的第一个 Python 产品名为 snek，这个软件可以在屏幕上画出一条蛇。我写下了公司第一行代码，得到如下 Python 文件 `snek.py` ：
 
@@ -236,7 +236,7 @@ if __name__ == '__main__':
         sneks[entry_point.name] = entry_point.load()
 ```
 
-`pkg_resources.iter_entry_points('snek_types')` 将遍历 **当前系统** 所安装的所有名为 `snek_types` 的 entry_points 。如果其他的包在 `setup.py` 中定义了叫 `snek_types"` 的 entry_points ，将会在 snek 运行时动态加载进来。
+`pkg_resources.iter_entry_points('snek_types')` 将遍历 **当前系统** 所安装的所有名为 `snek_types` 的 entry_points 。如果其他的包在 `setup.py` 中定义了叫 `"snek_types"` 的 entry_points ，将会在 snek 运行时动态加载进来。
 
 比如说，第三方开发者能够画出更加酷炫的蛇，另外创建了一个工程，名为 `cute_snek` ，并且在里面编写了 `cute_snek.py`
 
@@ -324,7 +324,7 @@ $ snek --type cute
                         ~--______-~                ~-___-~
 ```
 
-## 重构Snek包{#refactor-snek}
+## 重构snek包{#snek-refactor}
 
 既然第三方的 cute snek 可以动态加载进来，那么原始的 snek 呢？其实，所有的 snek 都是可以动态加载的。我们对原始的 `snek.py` 进行了重构，都使用动态加载的方式。
 
@@ -497,7 +497,7 @@ $ snek --type cute
                         ~--______-~                ~-___-~
 ```
 
-## 总结{#conclusion}
+## 完整逻辑{#conclusion}
 
 总结一下，我们自己的团队开发了一款名为 snek 的软件，源代码包括如下：
 
@@ -516,3 +516,24 @@ cute_snek
 ```
 
 分别 `cd` 到两款软件源代码目录，用 `python setup.py develop` 方式，将源代码打包安装到当前系统内。由于两个软件的 `setup.py` 中 `entry_points` 都注册了名为 `snek_types` 的字段，Python 执行时会去系统中寻找所有注册过的值。虽然代码分散在不同的地方、不同的包，但是都可以被动态加载进来。
+
+```python
+        'snek_types': [
+            'normal = snek:normal_snek',
+        ]
+```
+
+在上面这段 `entry_points` 注册代码中，共有两层，第一层：`snek_types`，第二层： `cute` / `normal` / `fancy`。 `'normal = snek:normal_snek'` 中  `snek:normal_snek` 部分，冒号左侧是包名，冒号右侧为变量名或者方法名。
+
+```python
+    for entry_point in pkg_resources.iter_entry_points('snek_types'):
+        sneks[entry_point.name] = entry_point.load()
+```
+
+在上满这段代码中会对所有 entry_points 进行注册和加载。 比如，`entry_point` 就是 `'normal = snek:normal_snek'`。 `entry_point.load()` 将包名为 `snek` 中的 `normal_snek` 变量加载进来。
+
+## 应用场景{#application}
+
+那到底实际有哪些应用场景？
+
+著名科学数据分享平台 [zenodo](https://zenodo.org/) 是在 Python Web 框架 Flask 下继续进行开发的，它由很多个包组成。在开发时，就大量使用了 entry_points 来注册具有相互继承关系的包之间需要同时注册的变量或者方法。
