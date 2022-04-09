@@ -530,6 +530,16 @@ cute_snek
         sneks[entry_point.name] = entry_point.load()
 ```
 
+有一种特殊的 entry_points ，名为 `console_scripts`。在这里注册的内容可以直接被集成为命令行工具。
+
+```python
+        'console_scripts': [
+            'snek = snek:main',
+        ]
+```
+
+在上面这个例子中，`'snek = snek:main'` 等号左侧的 `snek` 是命令行工具的名字，等号右侧是“包名:包内对应的方法名”。
+
 在上满这段代码中会对所有 entry_points 进行注册和加载。 比如，`entry_point` 就是 `'normal = snek:normal_snek'`。 `entry_point.load()` 将包名为 `snek` 中的 `normal_snek` 变量加载进来。
 
 ## 应用场景{#application}
