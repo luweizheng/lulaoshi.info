@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import DocItem from '@theme-original/DocItem';
+import BlogPostItem from '@theme-original/BlogPostItem';
 
-export default function DocItemWrapper(props) {
-
+export default function BlogPostItemWrapper(props) {
+  
   /* utterance comment begin */
   useEffect(() => {
     const script = document.createElement("script");
@@ -20,7 +20,7 @@ export default function DocItemWrapper(props) {
 
   return (
     <>
-      <DocItem {...props} />
+      <BlogPostItem {...props} />
       {/* utterance comment begin */}
       <div id="comment-system"></div>
       {/* utterance comment end */}
