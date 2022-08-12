@@ -152,6 +152,11 @@ const katex = require("rehype-katex");
                         position: "left",
                     },
                     {
+                        to: "/publications",
+                        label: "发表",
+                        position: "left",
+                    },
+                    {
                         to: "/talks",
                         label: "演讲",
                         position: "left",

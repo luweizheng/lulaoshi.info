@@ -11,9 +11,13 @@
         "message": "Blog",
         "description": "Navbar item with label 博客"
     },
+    "item.label.论文": {
+        "message": "Publications",
+        "description": "Navbar item with label 论文"
+    },
     "item.label.演讲": {
         "message": "Talks",
-        "description": "Navbar item with label 分享"
+        "description": "Navbar item with label 演讲"
     },
     "item.label.GitHub": {
         "message": "GitHub",
