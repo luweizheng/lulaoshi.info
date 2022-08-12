@@ -11,7 +11,7 @@
         "message": "Blog",
         "description": "Navbar item with label 博客"
     },
-    "item.label.论文": {
+    "item.label.发表": {
         "message": "Publications",
         "description": "Navbar item with label 论文"
     },
