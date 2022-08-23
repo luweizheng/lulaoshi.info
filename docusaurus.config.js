@@ -26,6 +26,17 @@ const katex = require("rehype-katex");
             github: "https://github.com/luweizheng",
         },
 
+        themes: [
+            // search local
+            [
+                require.resolve("@easyops-cn/docusaurus-search-local"),
+                {
+                    hashed: true,
+                    language: ["en", "zh"],
+                },
+            ],
+        ],
+
         scripts: [
             'https://hm.baidu.com/hm.js?c676936091a9af3267c592c7553f1f7b',
         ],
