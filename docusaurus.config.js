@@ -8,7 +8,7 @@ const katex = require("rehype-katex");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 (
     module.exports = {
-        title: "鲁老师",
+        title: "鲁老师技术分享",
         tagline: "大数据和人工智能",
         url: "https://lulaoshi.info",
         baseUrl: "/",
