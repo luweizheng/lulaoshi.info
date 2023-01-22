@@ -1,12 +1,7 @@
-# Dependencies
-/node_modules
-
-# Production
-/build
-
-# Generated files
-.docusaurus
-.cache-loader
+node_modules/
+src/.vuepress/.cache/
+src/.vuepress/.temp/
+src/.vuepress/dist/
 
 # Misc
 .DS_Store
