@@ -11,10 +11,10 @@ install:
   - npm ci
 
 script:
-  - npm run build
+  - npm run docs:build
 
 after_script:
-  - rsync --recursive --verbose --progress --delete-after build/*  travis@lulaoshi.info:$TARGET_DIR
+  - rsync --recursive --verbose --progress --delete-after src/.vuepress/dist/*  travis@lulaoshi.info:$TARGET_DIR
 
 addons:
   apt:
