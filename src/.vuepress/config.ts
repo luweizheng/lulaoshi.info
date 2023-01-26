@@ -14,6 +14,7 @@ export default defineUserConfig({
 
   head: [
     ["script", { src: "https://hm.baidu.com/hm.js?c676936091a9af3267c592c7553f1f7b" }],
+    ["meta", {name: "google-site-verification", content: "eHE1bxyapx0KKbqTqt5f6R4ihsMct0bgdbmhGggIEuE"}],
   ],
 
   theme,
