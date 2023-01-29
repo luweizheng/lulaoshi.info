@@ -7,6 +7,7 @@ head:
       content: 神经网络, 深度学习, PyTorch, 房价预测, Kaggle
 description: "使用PyTorch构建神经网络，进行房价预测。"
 category: [机器学习]
+tag: [房价预测]
 article: false
 ---
 

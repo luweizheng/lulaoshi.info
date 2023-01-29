@@ -7,6 +7,7 @@ head:
       content: 岭回归, Ridge, Ridge Regression, Lasso, Lasso Regression, 线性回归, 正则化, L1正则化, L2正则化, 范数, 稀疏特征, 稀疏解
 description: "正则化可以有效防止模型过拟合。"
 category: [机器学习]
+tag: [正则化]
 article: false
 ---
 

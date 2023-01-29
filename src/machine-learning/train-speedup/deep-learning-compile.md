@@ -14,7 +14,7 @@ article: false
 深度学习编译已经成为当前各个主流深度学习的标配。例如，PyTorch 2.x的 `torch.compile`，TensorFlow 2.x 的 `tf.function`。深度学习编译的流行主要因为两种原因：
 
 * 深度学习编译可明显提升训练和推理速度：深度学习编译过程进行了大量优化，优化过后的程序能更好地运行在硬件上。
-* 深度学习加速器硬件层出不穷，上层软件为每种加速器硬件都进行编程适配的工作量太大，深度学习编译是一种中间层，尽量减少上层软件开发的成本。
+* 深度学习加速器硬件层出不穷，上层软件为每种加速器硬件都进行编程适配的工作量太大，深度学习编译器是一种中间层，尽量减少上层软件开发的成本。
 
 ## 深度学习编译器
 
@@ -73,9 +73,9 @@ $$
 * 相邻算子算子融合（Operator Fusion）等
 * 死代码消除（Dead Code Elimination，DCE）
 
-优化的收益很大，其中收益最大的优化是相邻间算子融合。算子融合可以减少算子的个数。如下图[^3]所示，原本需要2个GPU Kernel，在GPU上启动2次核函数，调用多次内存读写，现在经过算子融合之后，合并为1个GPU Kernel，调用更少次数的内存读写。深度学习里使用最多的是 `Conv + ReLU + BatchNorm` 和 `GEMM + BiasAdd + ReLU` 这两类融合。
+优化的收益很大，其中收益最大的优化是相邻间算子融合。算子融合可以减少算子的个数。如下图[^3]所示，原本需要3个GPU Kernel，在GPU上启动3次核函数，调用多次内存读写，现在经过算子融合之后，合并为1个GPU Kernel，调用更少次数的内存读写。深度学习里使用最多的是 `Conv + ReLU + BatchNorm` 和 `GEMM + BiasAdd + ReLU` 这两类融合。
 
-![算子融合在GPU上的视线：将乘法和加法2个GPU Kernel融合为1个Kernel](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-01-27-mul-add-fusion.png)
+![算子融合在GPU上的实现：将3个GPU Kernel融合为1个Kernel](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-01-27-kernel-fusion.png)
 
 另外两个经常用到的优化是死代码消除（Dead Code Elimination，DCE）和公共子表达式消除（Common Subexpression Elimination，CSE）。DCE就是消除用户代码中写的，但实际计算中根本没有使用到的代码。CSE是把多个相同的公共表达式提出取来进行复用。例如：
 
@@ -98,7 +98,7 @@ d = temp + e
 
 相比前端优化，后端优化更偏向硬件和芯片，需要开发者非常熟悉芯片设计架构。以卷积为例，卷积的实现有很多种算法，在什么场景（输入、输出）下使用什么算法，以取得最优的性能？
 
-一种做法是提供常用算子库：NVIDIA的cuBLAS和cuDNN，Intel的oneAPI。这些算子库中的卷积经过了高度手工优化，针对某种特定的输入输出，它会选择最优的算法。当然，这种做法非常耗费人力，只有大厂才有实力；而且移植性差，NVIDIA的算子库无法应用给Intel。
+一种做法是提供常用算子库：NVIDIA的cuBLAS和cuDNN，Intel的oneAPI。这些算子库中的卷积、矩阵乘法等常用算子经过了高度手工优化，针对某种特定的输入输出，它会选择最优的算法。当然，这种做法非常耗费人力，只有大厂才有实力；而且移植性差，NVIDIA的算子库无法应用给Intel。
 
 另一种方法是自动化生成算子。很多顶级研究团队都在专注于自动化代码生成，发表了很多论文，比如TVM、MindSpore等。不过，自动化生成的理想很丰满，但在一些特定场景仍然无法跟手工优化的算子相比。
 
@@ -111,4 +111,5 @@ d = temp + e
 
 [^1]: https://www.tensorflow.org/xla/tutorials/jit_compile
 [^2]: [Compiling machine learning programs via high-level tracing](https://mlsys.org/Conferences/doc/2018/146.pdf)
-[^3]: [Fusion and Runtime Compilation for NNVM and TinyFlow](http://dmlc.github.io/2016/11/21/fusion-and-runtime-compilation-for-nnvm-and-tinyflow.html)
+[^3]: J. Filipovič, M. Madzin, J. Fousek, and L. Matyska, “Optimizing CUDA code by kernel fusion: application on BLAS,” The Journal of Supercomputing, vol. 71, no. 10, pp. 3934–3957, Oct. 2015, doi: 10.1007/s11227-015-1483-z.
+

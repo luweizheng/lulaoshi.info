@@ -7,6 +7,7 @@ head:
       content: 线性模型, 线性回归, 过拟合, 欠拟合
 description: "过拟合和欠拟合"
 category: [机器学习]
+tag: [过拟合, 欠拟合]
 article: false
 ---
 

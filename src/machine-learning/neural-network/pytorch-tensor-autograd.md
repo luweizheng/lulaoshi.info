@@ -7,7 +7,7 @@ head:
       content: 神经网络, 深度学习, PyTorch, 自动微分, 求导
 description: "PyTorch Tensor和自动求导入门。"
 category: [机器学习]
-tag: [PyTorch]
+tag: [PyTorch, Tensor]
 article: false
 ---
 
