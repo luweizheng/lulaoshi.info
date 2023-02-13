@@ -21,7 +21,7 @@ article: false
 
 $$
 \begin{aligned}
-L(\boldsymbol{w}) &= \frac{1}{2}\sum_{i=1}^m(f_\boldsymbol{w}(\boldsymbol{x}^{(i)}) - y^{(i)})^2 \\ 
+L(\boldsymbol{w}) &= \frac{1}{2}\sum_{i=1}^m(f_{\boldsymbol{w}}(\boldsymbol{x}^{(i)}) - y^{(i)})^2 \\ 
 &= \frac{1}{2}\sum_{i=1}^m(\boldsymbol{w}^\top\boldsymbol{x}^{(i)} - y^{(i)})^2
 \end{aligned}
 $$
