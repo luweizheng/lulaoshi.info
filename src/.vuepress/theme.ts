@@ -78,7 +78,6 @@ export default hopeTheme({
     components: {
       components: [
         "Badge",
-        "Catalog",
       ],
 
     },

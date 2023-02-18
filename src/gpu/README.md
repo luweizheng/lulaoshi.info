@@ -6,4 +6,4 @@ category: [GPU]
 article: false
 ---
 
-<Catalog />
+<AutoCatalog />

@@ -7,4 +7,4 @@ category: [机器学习]
 article: false
 ---
 
-<Catalog />
+<AutoCatalog />
