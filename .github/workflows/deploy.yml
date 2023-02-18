@@ -25,6 +25,8 @@ jobs:
         run: npm install
 
       - name: Build Blog
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
         run: npm run docs:build
 
       - name: Install SSH Key
