@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy-gh-pages:
+  deploy-to-server:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,12 +29,14 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
         run: npm run docs:build
 
-      - name: Deploy
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          ARGS: "--recursive --verbose --progress --delete-after"
-          SOURCE: "src/.vuepress/dist/*"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }} 
+          known_hosts: unnecessary
+      
+      - name: Adding Known Hosts
+        run: ssh-keyscan -p ${{ secrets.REMOTE_PORT }} -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: Deploy with rsync
+        run: rsync -avz -e --delete-after src/.vuepress/dist/* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/var/www/html
