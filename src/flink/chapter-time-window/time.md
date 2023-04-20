@@ -10,6 +10,17 @@ category: [Flink]
 article: false
 ---
 
+::: tip
+
+本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买！
+
+<a href="https://item.jd.com/13154364.html"> ![](https://img.shields.io/badge/JD-%E8%B4%AD%E4%B9%B0%E9%93%BE%E6%8E%A5-red) </a>
+<a href="https://github.com/luweizheng/flink-tutorials">
+![](https://img.shields.io/badge/GitHub-%E9%85%8D%E5%A5%97%E6%BA%90%E7%A0%81-blue)
+</a>
+
+:::
+
 在流处理中，时间是一个非常核心的概念，是整个系统的基石。我们经常会遇到这样的需求：给定一个时间窗口，比如一个小时，统计时间窗口内的数据指标。那如何界定哪些数据将进入这个窗口呢？在窗口的定义之前，首先需要确定一个作业使用什么样的时间语义。
 
 本节将介绍Flink的Event Time、Processing Time和Ingestion Time三种时间语义，接着会详细介绍Event Time和Watermark的工作机制，以及如何对数据流设置Event Time并生成Watermark。

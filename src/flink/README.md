@@ -15,7 +15,10 @@ article: false
 
 本教程已出版为《Flink原理与实践》，感兴趣的读者请在各大电商平台购买！
 
-京东下单👉 <a href="https://item.jd.com/13154364.html"> <Badge text="京东" color="#428bca" /></a> 配套源码👉 <a href="https://github.com/luweizheng/flink-tutorials"> <Badge text="GitHub源码" color="grey" /> </a>
+<a href="https://item.jd.com/13154364.html"> ![](https://img.shields.io/badge/JD-%E8%B4%AD%E4%B9%B0%E9%93%BE%E6%8E%A5-red) </a>
+<a href="https://github.com/luweizheng/flink-tutorials">
+![](https://img.shields.io/badge/GitHub-%E9%85%8D%E5%A5%97%E6%BA%90%E7%A0%81-blue)
+</a>
 
 :::
 
