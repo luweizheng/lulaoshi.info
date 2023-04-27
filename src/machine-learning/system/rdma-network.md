@@ -41,7 +41,7 @@ InfiniBand目前主流的技术是100G、200G。人家起了一些很极客的�
 
 ![胖树拓扑](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-fat-tree-topology.png)
 
-说了这么多成本，再来说性能。贵的就是好的；好的就是贵的。InfiniBand确实能够达到极高的带宽和极低的延迟。据维基百科，InfiniBand对比以太网，延迟分别是100纳秒和230纳秒。老黄家训练大模型，都是用的InfiniBand。
+说了这么多成本，再来说性能。贵的就是好的；好的就是贵的。InfiniBand确实能够达到极高的带宽和极低的延迟。据维基百科，InfiniBand对比以太网，延迟分别是100纳秒和230纳秒。包括微软、NVIDIA、以及美国国家实验室等世界上主流的超级计算机，都是用的InfiniBand。
 
 ## RoCE
 
@@ -49,13 +49,19 @@ InfiniBand目前主流的技术是100G、200G。人家起了一些很极客的�
 
 目前来说，华为在力推RoCE，但如果也要做无损网络，整个网络成本也很难控制在InfiniBand的50%以下。
 
+## GPUDirect RDMA
+
+训练大模型，节点间通信成本很高，InfiniBand与GPU的组合可以提供跨节点的 GPUDirect RDMA，就是说两个节点的GPU通信不需要经过内存和CPU，而是直接由InfiniBand网卡通信。GPUDirect RDMA对于大模型训练尤其重要，因为模型都在GPU上，模型拷贝到CPU上就已经耗费了大量时间，再通过CPU发送至其他节点就更慢了。
+
+![GPUDirect RDMA](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-27-gpu-direct-rdma.png)
+
 ## MPI&NCCL
 
 前面聊完了硬件，再聊聊软件。在这些高速网络上编程，有几个常用的方案，最通用的可能是MPI（Message Passing Interface），然后就是深度学习训练所需要的NCCL（NVIDIA Collective Communication Library）。
 
 MPI是经典的并行计算接口，主要有OpenMPI和Intel MPI几个实现，可以达到节点间通信的需求。一般情况下，在计算节点上安装了InfiniBand驱动，安装了OpenMPI/Intel MPI之后，一些高性能的计算流量会走InfiniBand网络。
 
-NCCL是16年左右开始的一个项目，已经有了MPI，NVIDIA还要造一个轮子，因为MPI并不是做深度学习的，MPI是一个通用的框架。NCCL试图解决深度学习训练中特有的通讯问题。
+NCCL是16年左右开始的一个项目，已经有了MPI，NVIDIA还要造一个轮子，因为MPI是一个通用的框架，并不是专门做深度学习的。NCCL试图解决深度学习训练中特有的通讯问题。
 
 NCCL主要实现了以下几个通信原语：
 
@@ -67,7 +73,7 @@ NCCL主要实现了以下几个通信原语：
 
 说白了，就是提供了一个接口，用户不需要知道哪些节点的如何相互之间通信，只需要调用接口，就可以实现GPU之间的通信。
 
-NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要太深入了解，它主要给深度学习框架来用，深度学习框架PyTorch、MindSpore等等都是调用NCCL来进行GPU上的集合通讯的。搞应用的人只需要配置一个环境变量：`NCCL_SOCKET_IFNAME`，比如 `export NCCL_SOCKET_IFNAME=ib0`，其中`ib0`是InfiniBand网卡的名字，这个网卡的名字可以通过`ifconfig`或者`ip a`看到。
+NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要太深入了解，它主要给深度学习框架来用，深度学习框架PyTorch、MindSpore等等都是调用NCCL来进行GPU上的集合通讯的。
 
 下面是一个最经典的 DataParallel 模式，NCCL提供Allreduce原语，把不同GPU上的梯度同步一下。
 
@@ -93,10 +99,14 @@ NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要�
 
 ## 如何配置网卡？烧钱就是了
 
-如果要做大模型，最佳的方案是一张GPU卡配一个InfiniBand网卡，NVIDIA的DGX系统就是这么搭配的。那么一个计算节点上通常可能有9个InfiniBand网卡，其中1个给存储系统（比如Lustre），另外8个分别给8个GPU卡。这样的成本极高，只有老黄玩得起。预算有限的话，可以 1 + 1， 1 + 2，或者1 + 4。下面这张图里可以看到，8张H100搭配8张400G的InfiniBand NDR，这速度也是没谁了。
+如果要做大模型，最佳的方案是一张GPU卡配一个InfiniBand网卡，NVIDIA的DGX系统就是这么搭配的。那么一个计算节点上通常可能有9个InfiniBand网卡，其中1个给存储系统（比如Lustre），另外8个分别给8个GPU卡。这样的成本极高。预算有限的话，最好也要1 + 4。一般情况下，GPU和InfiniBand都是连在PCI-E Switch上，2个GPU会连在1个PCI-E Switch上。最理想情况是给每个GPU分配1个InfiniBand网卡，这样无疑是最优的。如果给2个GPU配1个InfiniBand网卡，2个GPU共享PCI-E Switch和InfiniBand网卡，两个GPU之间会争抢这1个InfiniBand网卡。如果InfiniBand网卡数量越少，GPU之间的争抢越明显，节点间的通信效率就越低。
+
+![浪潮5688M6设计图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-27-inspur-5688.png)
+
+下面这张图里可以看到，如果只配置1张100Gbps的网卡，带宽是12GB/s，将bit转换为byte，即 $100 \div 8 \ \approx 12$。随着网卡数量的增多，带宽也近乎线性地增长。8张H100搭配8张400G的InfiniBand NDR，这速度也是没谁了。
+
 
 ![带宽对比](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-nvidia-ib-bw.png)
-
 
 
 ![每个GPU配一个网卡是最理想的情况](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-network-gpu.png)
