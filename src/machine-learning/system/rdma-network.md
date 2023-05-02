@@ -55,6 +55,10 @@ InfiniBand目前主流的技术是100G、200G。人家起了一些很极客的�
 
 ![GPUDirect RDMA](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-27-gpu-direct-rdma.png)
 
+## 驱动
+
+如何让硬件工作，以释放NVIDIA GPU和InfiniBand网卡的性能？其实很简单，只需要安装NVIDIA推荐的最新的驱动即可，在NVIDIA最新的驱动中，有一个名为 `nv_peer_mem` 的模块，加载之后即可以开启GPUDirect RDMA。上层的应用，比如PyTorch或者TensorFlow，几乎不用改代码，就可以充分利用多张GPU卡和InfiniBand网卡带来的性能提升。
+
 ## MPI&NCCL
 
 前面聊完了硬件，再聊聊软件。在这些高速网络上编程，有几个常用的方案，最通用的可能是MPI（Message Passing Interface），然后就是深度学习训练所需要的NCCL（NVIDIA Collective Communication Library）。
@@ -111,6 +115,9 @@ NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要�
 
 ![每个GPU配一个网卡是最理想的情况](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-network-gpu.png)
 
+## Benchmark
+
+如果想测试你的系统的集合通讯的性能，可以使用[nccl-tests](https://github.com/NVIDIA/nccl-tests)这个库，这个库需要依赖CUDA、MPI和NCCL编译，并使用 `mpirun` 进行多机通信测试。一张HDR（200Gbps）网卡的理论峰值是 24GB/s ，一般情况下，增加 InfiniBand 网卡，就可以获得更高的多机通讯性能。
 
 
 参考资料：
