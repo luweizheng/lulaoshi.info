@@ -15,7 +15,7 @@ article: false
 
 ## RDMA
 
-**Remote Direct Memory Access (RDMA)** 是一种超高速的网络内存访问技术，它允许程序以极快速度访问远程计算节点的内存。速度快的原因如下图所示，一次网络访问，不需要经过操作系统的内核（Sockets、TCP/IP等），这些操作系统内核操作都会耗费CPU时间。RDMA直接越过了这些操作系统内核开销，直接访问到网卡（Network Interface Card，NIC）。
+**Remote Direct Memory Access (RDMA)** 是一种超高速的网络内存访问技术，它允许程序以极快速度访问远程计算节点的内存。速度快的原因如下图所示，一次网络访问，不需要经过操作系统的内核（Sockets、TCP/IP等），这些操作系统内核操作都会耗费CPU时间。RDMA直接越过了这些操作系统内核开销，直接访问到网卡（Network Interface Card，NIC）。一些地方又称之为HCA（Host Channel Adapter）。
 
 ![](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-traditional-vs-rdma.png)
 
@@ -101,7 +101,7 @@ NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要�
 
 ![3节点通信路径](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-gpu3.png)
 
-## 如何配置网卡？烧钱就是了
+## 大模型网卡配置
 
 如果要做大模型，最佳的方案是一张GPU卡配一个InfiniBand网卡，NVIDIA的DGX系统就是这么搭配的。那么一个计算节点上通常可能有9个InfiniBand网卡，其中1个给存储系统（比如Lustre），另外8个分别给8个GPU卡。这样的成本极高。预算有限的话，最好也要1 + 4。一般情况下，GPU和InfiniBand都是连在PCI-E Switch上，2个GPU会连在1个PCI-E Switch上。最理想情况是给每个GPU分配1个InfiniBand网卡，这样无疑是最优的。如果给2个GPU配1个InfiniBand网卡，2个GPU共享PCI-E Switch和InfiniBand网卡，两个GPU之间会争抢这1个InfiniBand网卡。如果InfiniBand网卡数量越少，GPU之间的争抢越明显，节点间的通信效率就越低。
 
@@ -115,10 +115,32 @@ NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要�
 
 ![每个GPU配一个网卡是最理想的情况](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-04-18-network-gpu.png)
 
+## 大模型网络拓扑：导轨优化
+
+如果想做大模型，还需要配置专用的胖树网络拓扑，这种胖树网络拓扑和普通的HPC胖树还不太一样，NVIDIA起名为Rails（导轨优化），具体来说，像下面两张图。
+
+
+![低配置胖树导轨优化](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-05-03-rails1.png)
+
+这张图是一个低配版本的胖树和导轨优化拓扑：共配置了2台交换机，QM8700是HDR交换机，两个HDR交换机通过4根HDR线缆相连以保证互联速率；每台DGX GPU节点共9张IB卡（图中的HCA），其中1张给存储（Storage Target），剩下8张给大模型训练。这8张IB卡中的HCA1/3/5/7连到第一个交换机，HCA2/4/6/8连到第二个交换机。
+
+![8节点以上](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-05-03-rails2.png)
+
+这张图是一张无阻塞全速导轨优化：每台DGX GPU节点共配置8张IB卡，每张卡上连1台交换机，这些交换机被称为叶子（Leaf）交换机，共需8个叶子交换机；确切地说HCA1连第一个叶子交换机，HCA2连第二个叶子交换机，以此类推。叶子交换机之间的通信通过骨干（Spine）交换机来保障速率。
+
+这样做的目的就是为了避免降速，任何一张IB卡都可以和整个网络中其他IB卡高速通信，也就是说，任何一个GPU都可以以极快地速度与其他GPU高速通信。
+
 ## Benchmark
 
 如果想测试你的系统的集合通讯的性能，可以使用[nccl-tests](https://github.com/NVIDIA/nccl-tests)这个库，这个库需要依赖CUDA、MPI和NCCL编译，并使用 `mpirun` 进行多机通信测试。一张HDR（200Gbps）网卡的理论峰值是 24GB/s ，一般情况下，增加 InfiniBand 网卡，就可以获得更高的多机通讯性能。
 
+下面是我们2节点的`allreduce`实测峰值，网络拓扑为低配版本，GPU为8卡NVLink a800。
+
+|   	|  性能实测	|
+|---	|---	|
+| 1卡 	| 16GB/s  	|
+| 4卡未开启GPUDirect RDMA 	|  30GB/s 	|
+| 4卡开启GPUDirect RDMA 	|  80GB/s 	|
 
 参考资料：
 
