@@ -1,6 +1,6 @@
 ---
 title: Flink原理与实践
-icon: "script"
+icon: "Apache"
 index: false
 head:
   - - meta

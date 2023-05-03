@@ -16,6 +16,7 @@ export const zhSidebar = sidebar({
   "/gpu/": "structure",
   "/machine-learning/": "structure",
   "/flink/": "structure",
+  "/python/": "structure",
   // "/gpu/": [{
   //     text: "GPU基础知识",
   //     prefix: "gpu-basic/",
