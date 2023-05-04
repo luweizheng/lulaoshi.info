@@ -45,7 +45,13 @@ export default defineUserConfig({
           Object.fromEntries(
             app.pages
               .filter(({ path }) => path.startsWith("/deep-learning/"))
-              .map(({ path }) => [path.replace(/^\/deep-learning\//, "/machine-learning/"), path])
+              .map(({ path }) => {
+                const newPath = path.replace(/^\/deep-learning\//, "/machine-learning/");
+                return [
+                  newPath.endsWith("/") ? `${newPath}index.html` : newPath,
+                  path,
+                ];
+              })
           ),
       }),
     ],

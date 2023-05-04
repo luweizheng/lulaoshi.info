@@ -12,7 +12,7 @@ features:
     details: 《Flink原理与实践》在线免费版，手把手教你如何在Flink上对数据流进行有状态的计算...
     link: /flink/
 
-  - title: 机器学习笔记
+  - title: 深度学习笔记
     icon: creative
     details: 深入浅出介绍机器学习背后的原理，让公式能够看懂，让概念落地到PyTorch和NumPy实现...
     link: /deep-learning/

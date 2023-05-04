@@ -1,5 +1,5 @@
 ---
-title: 机器学习
+title: 深度学习笔记
 icon: "creative"
 index: false
 
