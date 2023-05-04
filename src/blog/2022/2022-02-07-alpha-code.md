@@ -39,7 +39,7 @@ Codeforces 上的题目五花八门，但是都需要参赛者编程求解。每
 
 上图为 AlphaCode 的架构，左侧（Data）为模型和数据部分，主要使用 Transformer 进行预训练和微调，右侧（Samping & Evaluation）是如何生成代码并参与 Codeforces 比赛。
 
-AlphaCode 使用了经典的 Transformer 模型。有关 Transformer 的介绍，网络上已经有不少，我自己之前也写过一些 [Transformer](/machine-learning/attention/transformer-attention) 和 [BERT](/machine-learning/attention/bert) 的入门文章。关注深度学习的朋友都知道，Transfomer 作为当前大红大紫的AI模型，虽然在各个榜单上刷榜，但它并不具有人类基本的推理能力。
+AlphaCode 使用了经典的 Transformer 模型。有关 Transformer 的介绍，网络上已经有不少，我自己之前也写过一些 [Transformer](/deep-learning/attention/transformer-attention) 和 [BERT](/deep-learning/attention/bert) 的入门文章。关注深度学习的朋友都知道，Transfomer 作为当前大红大紫的AI模型，虽然在各个榜单上刷榜，但它并不具有人类基本的推理能力。
 
 相比Transformer，我认为使得 AlphaCode 成功的主要在于这个 Sampling & Evaluation。这个 Sampling & Evaluation 系统有点类似搜索引擎或者推荐引擎。AI拥有存储和制作海量内容的能力，但无法知道人类真正需要什么。最关键的就是如何从海量内容中进行筛选。搜索或推荐引擎一般会对海量内容进行检索，最终呈现给用户的只有几条内容。海量的内容需要经过几大步骤：召回、粗排、精排、重排。其实就是先从海量的内容库中，先粗略筛选出一万篇的内容，再使用更精细的模型对一万篇进行一次次筛选，最终选择出与用户需求最相关的几篇内容。
 

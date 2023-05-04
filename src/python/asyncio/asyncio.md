@@ -60,7 +60,19 @@ r = example_function(1, 2, 3)
 调用之后，`example_function` 会被立即执行，返回值会被赋值给 `r` 。
 
 2. `async def` 关键字也定义了一个 `Callable` 对象，但当我们调用这个函数时，函数体内代码**不是**立即执行。
-   
+
+```python
+async def example_coroutine_function(a, b, c):
+    ...
+```
+
+跟 `example_function` 类似，`example_coroutine_function` 也是一个 `Callable` 对象，它接受3个参数，通过下面的方式调用：
+
+```python
+r = example_coroutine_function(1, 2, 3)
+```
+
+但这不会直接运行函数体内的代码块。相反，Python 创建了一个 `Coroutine` 对象，并将其分配给 `r`。要使代码块实际运行，您需要使用 asyncio 提供的其他工具。最常见的是 `await` 关键字。下面的示例中使用了函数 asyncio.gather。其他示例可以在 python 文档中找到。参见例如等待。
 
 :::
 

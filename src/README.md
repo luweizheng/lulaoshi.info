@@ -15,7 +15,7 @@ features:
   - title: 机器学习笔记
     icon: creative
     details: 深入浅出介绍机器学习背后的原理，让公式能够看懂，让概念落地到PyTorch和NumPy实现...
-    link: /machine-learning/
+    link: /deep-learning/
 
   - title: HPC教程
     icon: process

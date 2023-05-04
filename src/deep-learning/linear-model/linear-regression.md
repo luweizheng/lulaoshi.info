@@ -8,7 +8,7 @@ head:
 description: "线性回归对已有数据进行建模，预测未来数据的。整个模型是一个线性变换。本文是一个入门的线性回归教程。"
 category: [机器学习]
 article: false
-redirectFrom: /machine-learning/linear-model/linear-regression.html
+# redirectFrom: /machine-learning/linear-model/linear-regression.html
 ---
 
 > 线性回归是统计学中最基础的数学模型，几乎各个学科的研究中都能看到线性回归的影子，比如量化金融、计量经济学等；当前炙手可热的深度学习也一定程度构建在线性回归基础上。因此，每个人都有必要了解线性回归的原理。

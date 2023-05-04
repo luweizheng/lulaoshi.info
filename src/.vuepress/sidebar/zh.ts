@@ -14,7 +14,7 @@ export const zhSidebar = sidebar({
   //   },
   // ], 
   "/gpu/": "structure",
-  "/machine-learning/": "structure",
+  "/deep-learning/": "structure",
   "/flink/": "structure",
   "/python/": "structure",
   // "/gpu/": [{
