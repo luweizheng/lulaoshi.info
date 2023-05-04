@@ -1,6 +1,7 @@
 import { defineUserConfig } from "vuepress";
-import { searchProPlugin } from "vuepress-plugin-search-pro";
 import { docsearchPlugin } from "@vuepress/plugin-docsearch";
+import { redirectPlugin } from "vuepress-plugin-redirect";
+
 import theme from "./theme.js";
 
 export default defineUserConfig({
@@ -37,6 +38,15 @@ export default defineUserConfig({
             },
           },
         },
+      }),
+
+      redirectPlugin({
+        config: (app) =>
+          Object.fromEntries(
+            app.pages
+              .filter(({ path }) => path.startsWith("/deep-learning/"))
+              .map(({ path }) => [path.replace(/^\/deep-learning\//, "/machine-learning/"), path])
+          ),
       }),
     ],
   ],

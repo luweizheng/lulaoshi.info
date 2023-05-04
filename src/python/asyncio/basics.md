@@ -133,3 +133,7 @@ Event Loop 不能强制中断当前正在执行的协程。当前正在执行的
 * 协程（Coroutine）：异步编程中的某个函数体。
 * Event Loop：管理和控制协程。
 * Task：某个可运行的任务。
+
+**参考资料**
+
+1. [https://bbc.github.io/cloudfit-public-docs/asyncio/asyncio-part-1.html](https://bbc.github.io/cloudfit-public-docs/asyncio/asyncio-part-1.html)
