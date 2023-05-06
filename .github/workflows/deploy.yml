@@ -34,8 +34,6 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
         run: pnpm docs:build
 
-vuepress-plugin-md-enhance:  ⚠ Found unicode character （ inside tex in deep-learning/convolutional/nin.md. You should use \text{（}
-
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
