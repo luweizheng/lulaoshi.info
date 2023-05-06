@@ -1,7 +1,8 @@
 ---
 title: 装饰器：decorator
 index: false
-order: 0
+dir:
+  order: 0
 category: [Python]
 article: false
 ---

@@ -1,7 +1,8 @@
 ---
 title: 打包与发布：setup.py
 index: false
-order: 1
+dir:
+  order: 3
 category: [Python]
 article: false
 ---

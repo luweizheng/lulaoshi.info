@@ -14,20 +14,27 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
+        
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-          cache: npm
+          node-version: 16
+          cache: pnpm
 
       - name: Install Deps
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build Blog
         env:
           NODE_OPTIONS: --max_old_space_size=4096
-        run: npm run docs:build
+        run: pnpm docs:build
+
+vuepress-plugin-md-enhance:  ⚠ Found unicode character （ inside tex in deep-learning/convolutional/nin.md. You should use \text{（}
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
