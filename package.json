@@ -11,11 +11,11 @@
   },
   "devDependencies": {
     "@vuepress/client": "2.0.0-beta.61",
-    "@vuepress/plugin-docsearch": "^2.0.0-beta.61",
+    "@vuepress/plugin-docsearch": "2.0.0-beta.61",
     "vue": "^3.2.47",
     "vuepress": "2.0.0-beta.61",
-    "vuepress-plugin-redirect": "^2.0.0-beta.207",
-    "vuepress-plugin-search-pro": "2.0.0-beta.205",
-    "vuepress-theme-hope": "2.0.0-beta.205"
+    "vuepress-plugin-redirect": "2.0.0-beta.208",
+    "vuepress-plugin-search-pro": "2.0.0-beta.208",
+    "vuepress-theme-hope": "2.0.0-beta.208"
   }
 }

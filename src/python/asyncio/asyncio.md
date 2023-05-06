@@ -72,8 +72,58 @@ async def example_coroutine_function(a, b, c):
 r = example_coroutine_function(1, 2, 3)
 ```
 
-但这不会直接运行函数体内的代码块。相反，Python 创建了一个 `Coroutine` 对象，并将其分配给 `r`。要使代码块实际运行，您需要使用 asyncio 提供的其他工具。最常见的是 `await` 关键字。下面的示例中使用了函数 asyncio.gather。其他示例可以在 python 文档中找到。参见例如等待。
+但执行这行之后**不会**直接运行函数体内的代码块。相反，Python 创建了一个 `Coroutine` 对象，并将其分配给 `r`。要使代码块实际运行，需要使用 asyncio 提供的其他工具。最常见的是 `await` 关键字。接下来我们开始讨论 `await`。
 
-:::
+## await 与 Awaitable
+
+`await` 是 asyncio 的最为核心的关键字之一。
+
+* 它只能在异步代码块中使用，即在 `async def` 语句定义的协程代码块中。
+* 它有一个参数，并且有一个返回值。
+
+例如：
+
+```python
+r = example_coroutine_function(1, 2, 3)
+s = await r
+```
+
+上面这行代码中，`r` 是一个 Awaitable，它用 `r = example_coroutine_function(1, 2, 3)` 定义。 执行 `s = await r` 这行代码，就将对 `r` 执行 `await` 操作并将返回值赋值给 `s`。
+
+或者将这两行整合成一行：
+
+```python
+s = await example_coroutine_function(1, 2, 3)
+```
+
+一个 `async def` + `await` 的完整的例子：
+
+```python
+import asyncio
+
+async def add(x, y):
+    return x + y
+
+async def get_results():
+    # 直接 print(add(3, 4)) 得到的是一个 coroutine object
+    # 这个coroutine object其实是一个 awaitable
+    # 而且还会提示：RuntimeWarning: coroutine 'add' was never awaited
+    # 因为这个 awaitable 从来没被 await
+    print(add(3, 4))
+
+    # 打印出结果为 7
+    print(await add(3, 4))
+
+    res1 = await add(3, 4)
+    res2 = await add(8, 5)
+    # 打印出结果为 7 13
+    print(res1, res2)
+
+asyncio.run(get_results())
+```
+
+可以看到 `await` 在 `async def` 定义的协程 `get_results()` 里。直接 `print(add(3, 4))` 得到的是一个 coroutine object，这个coroutine object其实是一个 awaitable。而且还会提示：RuntimeWarning: coroutine 'add' was never awaited，因为这个 awaitable 从来没被 await。 `print(await add(3, 4))` 可以打印出结果，先 `await` ，才能得到结果。
+
+
 
 
