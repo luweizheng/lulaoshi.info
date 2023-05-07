@@ -8,7 +8,7 @@ description: "Python setup.py entry_points 详解"
 order: 1
 category: [Python]
 article: false
-# redirectFrom: "/blog/python-setup-entry-points/"
+redirectFrom: "/blog/python-setup-entry-points/"
 ---
 
 本文主要对[这篇博客](https://amir.rachum.com/blog/2017/07/28/python-entry-points/)进行了翻译解读，以解释 Python `setup.py` 文件中 `entry_point` 用法。
