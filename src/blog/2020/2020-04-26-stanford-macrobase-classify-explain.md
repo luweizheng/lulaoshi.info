@@ -1,6 +1,6 @@
 ---
 title:  "MacroBase：斯坦福开源的端到端异常点检测和解释系统"
-date:   2020-04-26 18:06:41 +0800
+date:   2020-04-26 18:06:41 
 description: "MacroBase是一款开源的异常点检测和解释系统，面对海量监控数据，它不仅告诉你出事了，还告诉你为什么出事了。"
 category: [论文解读]
 permalink: /blog/stanford-macrobase-classify-explain

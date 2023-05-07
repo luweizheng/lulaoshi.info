@@ -1,6 +1,6 @@
 ---
 title:  "Docker /dev/shm 默认设置引发的异常日志"
-date:   2022-01-17 16:19:00 +0800
+date:   2022-01-17 16:19:00 
 description: "`/dev/shm`是一个特殊的目录，它表示是一块共享内存（Share Memory）。这个目录可以用来在进程间进行数据的通信和共享。默认情况下，Docker容器启动后`/dev/shm`只有64M！高性能计算场景需要设置一个更大的值。"
 category: [Linux]
 tag: [docker]

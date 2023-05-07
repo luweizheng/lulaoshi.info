@@ -1,10 +1,10 @@
 ---
 title:  "Python setup.py entry_points 详解"
-date:   2022-04-09 17:25:00 +0800
+date: 2022-04-09 17:25:00
 # description: "以解释 Python `setup.py` 文件中 `entry_point` 用法。"
 category: [Python]
 permalink: /blog/python-setup-entry-points
-# redirectTo: "https://lulaoshi.info/python/setup-py/entry-points.html"
+# redirectTo: "python/setup-py/entry-points.html"
 --- 
 
 一个 Python 软件包中的 `setup.py` 文件包含这个 Python 包如何打包发布等重要信息。本文主要对[这篇博客](https://amir.rachum.com/blog/2017/07/28/python-entry-points/)进行了翻译解读，以解释 Python `setup.py` 文件中 `entry_point` 用法。

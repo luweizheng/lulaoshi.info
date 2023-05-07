@@ -1,6 +1,6 @@
 ---
 title:  "faker.js删库，开源软件的白嫖、恰饭与35岁中年危机"
-date:   2022-01-15 18:00:00 +0800
+date:   2022-01-15 18:00:00 
 description: "从faker.js删库，谈谈开源软件的白嫖与商业模式"
 category: [商业模式]
 permalink: /blog/open-source-developer-payoff

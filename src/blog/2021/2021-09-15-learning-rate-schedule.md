@@ -1,6 +1,6 @@
 ---
 title:  "Learning Rate Schedule：学习率调整策略"
-date:   2021-09-15 23:16:40 +0800
+date:   2021-09-15 23:16:40 
 description: "使用Linear+Warmup+Decay方法调整学习率"
 category: [深度学习]
 permalink: /blog/learning-rate-schedule

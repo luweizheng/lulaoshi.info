@@ -1,6 +1,6 @@
 ---
 title:  "Python机器学习库是如何打包并安装的"
-date:   2020-05-09 20:45:41 +0800
+date:   2020-05-09 20:45:41 
 description: "pip提供源码和预编译好的可执行文件，conda提供预编译好的可执行文件。pip有时候对GPU支持不那么好，使用conda更合适。尽管依赖问题非常棘手，但明白包管理以及包编译安装原理有助于我们深刻理解计算机基本原理，避免成为一个调包侠。"
 category: [Python]
 permalink: /blog/how-python-package

@@ -41,6 +41,7 @@ export default defineUserConfig({
       }),
 
       redirectPlugin({
+        hostname: "https://lulaoshi.info",
         config: (app) =>
           Object.fromEntries(
             app.pages

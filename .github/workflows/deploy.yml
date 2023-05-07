@@ -24,15 +24,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: pnpm
+          cache: npm
 
       - name: Install Deps
-        run: pnpm install --frozen-lockfile
+        # run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Build Blog
         env:
           NODE_OPTIONS: --max_old_space_size=4096
-        run: pnpm docs:build
+        # run: pnpm docs:build
+        run: npm run docs:build
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2

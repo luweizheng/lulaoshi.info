@@ -2,7 +2,7 @@
 title:  "没数据？数据共享难？担心隐私和安全？试试联邦学习"
 keywords: 
     - 联邦学习
-date:   2020-11-13 17:58:41 +0800
+date:   2020-11-13 17:58:41 
 description: "联邦学习本质上是一种加密的分布式机器学习，允许不同机构在本地利用自有数据进行机器学习，共同建立机器学习模型，以应对越来越严格的隐私监管。"
 category: [机器学习]
 permalink: /blog/federated-learning-intro

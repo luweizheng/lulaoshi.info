@@ -1,6 +1,6 @@
 ---
 title:  "PyTorch Tensor Operations"
-date:   2022-01-30 16:19:00 +0800
+date:   2022-01-30 16:19:00 
 description: ""
 category: [深度学习]
 permalink: /blog/pytorch-tensor-operations

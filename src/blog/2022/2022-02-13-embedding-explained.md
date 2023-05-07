@@ -1,6 +1,6 @@
 ---
 title:  "什么是词向量？如何得到词向量？Embedding 快速解读"
-date:   2022-02-22 18:27:00 +0800
+date:   2022-02-22 18:27:00 
 description: "Embedding 本质是一个查询矩阵，或者说是一个 dict 数据结构。以词向量为例， Embedding dict 的 Key 是词在词表中的索引位置（Index），Embedding dict 的 Value 是这个词的 `dim` 维的向量。"
 category: [自然语言处理]
 tag: [词向量]

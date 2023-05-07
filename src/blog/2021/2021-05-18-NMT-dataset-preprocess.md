@@ -1,6 +1,6 @@
 ---
 title:  "神经机器翻译数据集WMT预处理流程"
-date:   2021-05-18 14:58:41 +0800
+date:   2021-05-18 14:58:41 
 description: "神经机器翻译中需要对原始文本使用Tokenizer分词，并使用BPE工具生成subword子词。"
 category: [自然语言处理]
 permalink: /blog/NMT-dataset-preprocess
