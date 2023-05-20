@@ -5,7 +5,7 @@ head:
     - name: keywords
       content: staticmethod, 装饰器, python
 description: "Python @staticmethod"
-order: 1
+order: 2
 category: [Python]
 article: false
 ---

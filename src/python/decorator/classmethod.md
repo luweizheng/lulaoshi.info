@@ -5,7 +5,7 @@ head:
     - name: keywords
       content: classmethod, 装饰器, python
 description: "Python @classmethod"
-order: 1
+order: 3
 category: [Python]
 article: false
 ---
