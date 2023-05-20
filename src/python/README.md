@@ -2,8 +2,6 @@
 title: Python 边角聊
 index: false
 icon: "python"
-order: 0
-category: [Python]
 article: false
 ---
 

@@ -3,7 +3,6 @@ title: 内置属性与方法
 index: false
 dir:
   order: 3
-category: [Python]
 article: false
 ---
 
