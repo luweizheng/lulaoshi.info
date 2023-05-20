@@ -105,8 +105,8 @@ async def add(x, y):
     return x + y
 
 async def get_results():
-    # 直接 print(add(3, 4)) 得到的是一个 coroutine object
-    # 这个coroutine object其实是一个 awaitable
+    # 直接 print(add(3, 4)) 得到的是一个 Coroutine object
+    # 这个 Coroutine object其实是一个 awaitable
     # 而且还会提示：RuntimeWarning: coroutine 'add' was never awaited
     # 因为这个 awaitable 从来没被 await
     print(add(3, 4))
@@ -122,8 +122,22 @@ async def get_results():
 asyncio.run(get_results())
 ```
 
-可以看到 `await` 在 `async def` 定义的协程 `get_results()` 里。直接 `print(add(3, 4))` 得到的是一个 coroutine object，这个coroutine object其实是一个 awaitable。而且还会提示：RuntimeWarning: coroutine 'add' was never awaited，因为这个 awaitable 从来没被 await。 `print(await add(3, 4))` 可以打印出结果，先 `await` ，才能得到结果。
+可以看到 `await` 在 `async def` 定义的协程 `get_results()` 里。直接 `print(add(3, 4))` 得到的是一个 Coroutine 对象，这个 Coroutine 对象其实是一个 awaitable。而且还会提示：RuntimeWarning: coroutine 'add' was never awaited，因为这个 awaitable 从来没被 await。 `print(await add(3, 4))` 可以打印出结果，先 `await` ，才能得到结果。
 
+换个角度思考，`await` 一个 Coroutine object，有点像主动去调用一个传统意义上的同步函数。这个 Coroutine 对象里的代码段包含了异步的代码。回忆[上一节](basics.md)，我们提到，异步代码是以 Task 的形式去运行，被 Event Loop 管理和调度的，Task 可以被暂停和恢复，每个 Task 有自己调用栈。所以，虽然调用一个同步函数和 `await` 一个 Coroutine 对象有点像，但是 Coroutine 对象中的异步代码是可以被暂停和恢复的。这也是同步函数和异步函数的重要区别。
 
+一共有三种可以被 `await` 的对象：
+
+* Coroutine 对象
+
+`await r`， `r` 是一个Coroutine 对象，Python 会在当前 Task 里执行这个 Coroutine 对象中定义的异步代码，并返回结果。
+
+* 使用 `asyncio.Future` 类创建的任何对象
+
+如果 `await` 一个 `asyncio.Future` 对象，则当前 Task 被暂停。
+
+* 实现了 `__await__` 方法的类和对象
+
+这种方法给一些包开发者提供了接口，开发者可以自己定义一些 Awaitable 的
 
 

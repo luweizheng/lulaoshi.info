@@ -130,6 +130,20 @@ NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要�
 
 这样做的目的就是为了避免降速，任何一张IB卡都可以和整个网络中其他IB卡高速通信，也就是说，任何一个GPU都可以以极快地速度与其他GPU高速通信。
 
+下面这张图是我们实际部署的一个6台交换机组成的全速网络，密密麻麻的线非常恐怖：
+
+![人大数据中心 InfiniBand HDR 大模型网络实拍图](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-05-19-ibswitch.jpeg)
+
+它背后的拓扑是下面这个样子，2个绿色的是 Spine 交换机，4个蓝色的是 Leaf 交换机，蓝色和绿色之间共80根线，蓝色下面接计算节点。
+
+![2 Spine + 4 Leaf组成的网络拓扑](http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2023-05-19-topo.png)
+
+## SHARP：网络优化
+
+搭建好一个全速网络后，还有一些网络路由方面的优化，比如： Scalable Hierarchical Aggregation and Reduction Protocol (SHARP)。SHARP 是 NVIDIA InfiniBand 网络技术栈中负责进一步优化网络。它提供的一个最核心的功能是：将必须经过 CPU 收发的网络包 offload 到 InfiniBand 交换机上，进一步减少计算节点负载。这样计算节点更专注于计算，而非网络包的收发和处理，同时能减少网络上不必要的流量。
+
+当然，SHARP 也包含在 NVIDIA 提供的驱动中，一个脚本即可开启。
+
 ## Benchmark
 
 如果想测试你的系统的集合通讯的性能，可以使用[nccl-tests](https://github.com/NVIDIA/nccl-tests)这个库，这个库需要依赖CUDA、MPI和NCCL编译，并使用 `mpirun` 进行多机通信测试。一张HDR（200Gbps）网卡的理论峰值是 24GB/s ，一般情况下，增加 InfiniBand 网卡，就可以获得更高的多机通讯性能。
@@ -139,8 +153,10 @@ NCCL的接口比较底层，大多数搞深度学习上层应用的人不需要�
 |   	|  性能实测	|
 |---	|---	|
 | 1卡 	| 16GB/s  	|
-| 4卡未开启GPUDirect RDMA 	|  30GB/s 	|
-| 4卡开启GPUDirect RDMA 	|  80GB/s 	|
+| 4卡 	|  30GB/s 	|
+| 4卡 + GPUDirect RDMA 	|  80GB/s 	|
+| 10卡 + GPUDirect RDMA + SHARP  	|  95GB/s 	|
+
 
 参考资料：
 
