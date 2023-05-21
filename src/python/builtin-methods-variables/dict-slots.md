@@ -1,10 +1,10 @@
 ---
-title: __dict__ 与 __slots__
+title: __dict__ 与 __slots__ 变量
 head:
   - - meta
     - name: keywords
-      content: dict, 内置变量, 内置方法, python
-description: "Python __dict__"
+      content: dict, slots, 内置变量, python
+description: "Python __dict__ 与 __slots__"
 order: 1
 category: [Python]
 article: false
