@@ -33,7 +33,7 @@ object.methodname(arg1, arg2)
 
 一个完整可运行的案例：
 
-```python
+```python {6-8}
 class Student:
     name = 'unknown' # 类属性
     def __init__(self, age=12):
@@ -69,7 +69,7 @@ Student Class Attributes: name=unknown, school=None
 
 比如，下面这个例子中的 `cls.age` 访问了实例属性：
 
-```python
+```python {6-9}
 class Student:
     name = 'unknown' # 类属性
     def __init__(self):

@@ -37,9 +37,12 @@ Python 将类属性 `class_attribute` 和实例属性 `instance_attribute` 放�
 
 ```python
 >>> print(MyClass.__dict__)
-{'__module__': '__main__', '__doc__': '\n    This is a test class.\n    ', 
-'class_attribute': 'Class', '__init__': <function MyClass.__init__ at 0x7fd3c51aa268>, 
-'__dict__': <attribute '__dict__' of 'MyClass' objects>, '__weakref__': <attribute '__weakref__' of 'MyClass' objects>}
+{'__module__': '__main__', 
+'__doc__': '\n    This is a test class.\n    ', 
+'class_attribute': 'Class', 
+'__init__': <function MyClass.__init__ at 0x7fd3c51aa268>, 
+'__dict__': <attribute '__dict__' of 'MyClass' objects>, 
+'__weakref__': <attribute '__weakref__' of 'MyClass' objects>}
 ```
 
 `class_attribute` 是类属性，它存放在 `MyClass` 类的 `__dict__`。同时，也可以看到，类的 `__dict__` 除了有用户自己定义的 `class_attribute` 类属性外，还有类自带的 `__init__` 方法；`__doc__` 等等。
@@ -53,9 +56,10 @@ Python 将类属性 `class_attribute` 和实例属性 `instance_attribute` 放�
 
 使用 `__slots__` 定义一个属性，属性名为 `value`：
 
-```python
+```python {2}
 class SlottedClass:
     __slots__ = ['value']
+    
     def __init__(self, i):
         self.value = i
 ```
@@ -182,7 +186,7 @@ class Child(BaseA, BaseB):
 
 如果不想放弃 `__dict__` 提供的动态添加属性的功能，还可以把 `__dict__` 嵌套进 `__slots__` 中：
 
-```python
+```python {2}
 class Foo:
     __slots__ = 'bar', 'baz', '__dict__'
 

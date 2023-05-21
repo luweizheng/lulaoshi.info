@@ -43,7 +43,7 @@ object.methodname(arg1, arg2)
 
 一个基本的例子：
 
-```python
+```python {7-9}
 class Student:
     name = 'unknown' # 类属性
     

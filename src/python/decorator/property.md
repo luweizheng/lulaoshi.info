@@ -21,7 +21,7 @@ article: false
 
 这里的方法是专门处理属性值的函数，通常是 `getter`、 `setter` 方法。比如，一个描述二维平面坐标的类 `Point`，它有两个实例属性 `x` 和 `y`，并通过 `get_x` 和 `set_x` 方法来访问和修改属性值 `x`，`y` 与之类似。那一个简单的 Python 例子如下：
 
-```python
+```python {6-7,9-10}
 class Point:
     def __init__(self, x, y):
         self._x = x
@@ -69,7 +69,7 @@ def get_x(self, value):
 
 上面展示的这个例子在 C++ 和 Java 编程语言中很常见，但是不够 pythonic。一种 pythonic 的方式是使用 `property`。具体而言，使用 `property` 装饰器：
 
-```python
+```python {6-15}
 class Point:
     def __init__(self, x, y):
         self._x = x
@@ -122,7 +122,7 @@ get x
 
 还以刚才的 `Point` 为例，`_x` 和 `_y` 应该是数字，而非字符串。Python 是弱类型的，用户可能不注意输入值的类型，假如用户输入一个字符串赋值给 `x`，应该抛异常。
 
-```python
+```python {10-16}
 class Point:
     def __init__(self, x, y):
         self.x = x

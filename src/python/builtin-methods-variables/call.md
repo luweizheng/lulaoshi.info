@@ -23,7 +23,7 @@ class Test():
 
 调用时，我们跟其他方法一样，生成一个 `Test` 类的对象实例 `test`，这个 `test` 还能像函数一样被调用：
 
-```python
+```python {2-3}
 >>> test = Test()
 >>> test(a="hello")
 Invoking '__call__' method with parameters: hello
@@ -31,7 +31,7 @@ Invoking '__call__' method with parameters: hello
 
 另外一种实现：将任意一个 `Callable` 赋值给 `__call__`，由于 `Callable` 本身就是一个函数，因此 `__call__` 执行的就是这个函数。
 
-```python
+```python {8}
 class Test():
     def __init__(self):
         pass
@@ -44,7 +44,7 @@ class Test():
 
 著名深度学习框架 PyTorch 的 `nn.Module` 就大量使用了 `__call__`。比如，我们经常定义一个神经网络，并进行前向传播：
 
-```python
+```python {8}
 class Net(nn.Module):
     ...
 
@@ -57,7 +57,7 @@ y_pred = model(train_features)
 
 在 PyTorch `nn.Module` 的[源代码](https://github.com/pytorch/pytorch/blob/HEAD/torch/nn/modules/module.py)是这么实现的：
 
-```python
+```python {10}
 class Module:
     ...
 
