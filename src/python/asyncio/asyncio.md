@@ -330,7 +330,7 @@ It took 6.005615991074592 second(s) to complete.
 
 把刚才的程序做一个简单的修改，`call_api()` 不变，只不过调用 `call_api()` 的方式变为使用 `asyncio.create_task()`。
 
-```python {12-14,19}
+```python {12-14,18}
 import asyncio
 import time
 
