@@ -10,11 +10,11 @@
     "docs:dev": "vuepress dev src"
   },
   "devDependencies": {
-    "@vuepress/client": "2.0.0-beta.62",
-    "@vuepress/plugin-docsearch": "2.0.0-beta.62",
+    "@vuepress/client": "2.0.0-beta.63",
+    "@vuepress/plugin-docsearch": "2.0.0-beta.63",
     "vue": "^3.3.4",
-    "vuepress": "2.0.0-beta.62",
-    "vuepress-plugin-redirect": "2.0.0-beta.211",
-    "vuepress-theme-hope": "2.0.0-beta.211"
+    "vuepress": "2.0.0-beta.63",
+    "vuepress-plugin-redirect": "2.0.0-beta.227",
+    "vuepress-theme-hope": "2.0.0-beta.227"
   }
 }
