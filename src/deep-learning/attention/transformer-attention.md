@@ -139,16 +139,16 @@ Self-Attention可以解释一个句子内不同词的相互关系。比如下面
 
 Self-Attention的计算过程如下：
 
-**第一步：**$X$与$W$进行矩阵乘法，生成$Q$、$K$和$V$。
+**第一步：** $X$与$W$进行矩阵乘法，生成$Q$、$K$和$V$。
 
-**第二步：**进行$QK^\top$计算，得到相似度，如下图所示。
+**第二步：** 进行$QK^\top$计算，得到相似度，如下图所示。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-matmul.png" width="75%" />
 	<figcaption>Q与K相乘，得到相似度矩阵</figcaption>
 </figure>
 
-**第三步：**将刚得到的相似度除以$\sqrt{d_k}$，再进行Softmax。经过Softmax的归一化后，每个值是一个大于0小于1的权重系数（Attention Score），且每行总和为0，这是一个权重矩阵。
+**第三步：** 将刚得到的相似度除以$\sqrt{d_k}$，再进行Softmax。经过Softmax的归一化后，每个值是一个大于0小于1的权重系数（Attention Score），且每行总和为0，这是一个权重矩阵。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-qk-softmax.png" width="75%" />
@@ -215,21 +215,21 @@ Transformer模型基于Encoder-Decoder架构。一般地，在Encoder-Decoder中
 
 对于输入，Transformer的工作流程有主要三步：
 
-**第一步：**获取输入句子的每一个单词的表示向量$X$，$X$由单词的词向量Embedding和与单词位置有关的Positional Embedding相加得到。
+**第一步：** 获取输入句子的每一个单词的表示向量$X$，$X$由单词的词向量Embedding和与单词位置有关的Positional Embedding相加得到。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-embedding.png"  width="80%" />
 	<figcaption>Transformer从输入到进入Encoder之前先经过两层Embedding转换，得到一个中间表示X</figcaption>
 </figure>
 
-**第二步：**将得到的单词表示矩阵 (如上图所示，每一行是一个单词的向量表示 $\mathbf{X_i}$) 传入Encoder部分（共6个Encoder Block）中，经过 6 个 Encoder Block后可以得到句子所有单词的中间编码信息矩阵 $C$，如下图。Encoder部分输入为 $\mathbf{X}$，$\mathbf{X}$维度为：$(len \times d)$ ， $len$ 是句子中单词个数，$d$ 是表示词向量的维度 (Transformer-base： $d=512$，Transformer-big: $d = 1024$)。每一个 Encoder Block输出的矩阵维度与输入完全一致。
+**第二步：** 将得到的单词表示矩阵 (如上图所示，每一行是一个单词的向量表示 $\mathbf{X_i}$) 传入Encoder部分（共6个Encoder Block）中，经过 6 个 Encoder Block后可以得到句子所有单词的中间编码信息矩阵 $C$，如下图。Encoder部分输入为 $\mathbf{X}$，$\mathbf{X}$维度为：$(len \times d)$ ， $len$ 是句子中单词个数，$d$ 是表示词向量的维度 (Transformer-base： $d=512$，Transformer-big: $d = 1024$)。每一个 Encoder Block输出的矩阵维度与输入完全一致。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-encoder.png"  width="50%" />
 	<figcaption>Embedding输入经过Transformer Encoder部分，得到中间编码信息矩阵C</figcaption>
 </figure>
 
-**第三步：**将Encoder输出的编码信息矩阵$C$传递到Decoder部分，Decoder依次会根据已经翻译过的单词（第`0`个单词到第`i-1`个单词） 翻译下一个单词 `i`。最下方第一个Decoder Block的输入为目标语言经过两层Embedding之后的词矩阵表示$\mathbf{X}$。下图左侧为单词“I”的Decoder翻译过程，右侧为单词“have”的Decoder的翻译过程。在Decoder过程中，翻译到单词`i`的时候需要通过**Mask**操作遮盖住`i`之后的单词。
+**第三步：** 将Encoder输出的编码信息矩阵$C$传递到Decoder部分，Decoder依次会根据已经翻译过的单词（第`0`个单词到第`i-1`个单词） 翻译下一个单词 `i`。最下方第一个Decoder Block的输入为目标语言经过两层Embedding之后的词矩阵表示$\mathbf{X}$。下图左侧为单词“I”的Decoder翻译过程，右侧为单词“have”的Decoder的翻译过程。在Decoder过程中，翻译到单词`i`的时候需要通过 **Mask** 操作遮盖住`i`之后的单词。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder.png"  width="80%" />
@@ -314,16 +314,16 @@ Decoder Block 的第一个 Multi-Head Attention 采用了 Mask 操作，因为�
 
 Decoder 可以在训练的过程中使用 Teacher Forcing 并且并行化训练，即将正确的单词序列 (&lt;Begin&gt; I have a cat) 和对应输出 (I have a cat &lt;end&gt;) 传递到 Decoder。那么在预测第 $i$个输出时，就要将第$i+1$ 之后的单词掩盖住，注意， Mask 操作是在 Self-Attention 的 Softmax 之前使用的。下面用 0 1 2 3 4 5 分别表示 "&lt;Begin&gt; I have a cat &lt;end&gt;"。
 
-**第一步：**根据 Decoder 的输入矩阵生成 Mask 矩阵，输入矩阵包含 "&lt;Begin&gt; I have a cat" (0, 1, 2, 3, 4) 共5个单词的表示向量，Mask矩阵是一个 5×5 的上三角矩阵。Mask目的是翻译单词 0 时只能使用单词 0 的信息，而翻译单词 1 可以使用单词 0, 1 的信息，即只能使用之前的信息。
+**第一步：** 根据 Decoder 的输入矩阵生成 Mask 矩阵，输入矩阵包含 "&lt;Begin&gt; I have a cat" (0, 1, 2, 3, 4) 共5个单词的表示向量，Mask矩阵是一个 5×5 的上三角矩阵。Mask目的是翻译单词 0 时只能使用单词 0 的信息，而翻译单词 1 可以使用单词 0, 1 的信息，即只能使用之前的信息。
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-mask.png" width="80%" />
 	<figcaption>Mask矩阵</figcaption>
 </figure>
 
-**第二步：**接下来的操作和之前的 Self-Attention 一样，通过输入矩阵$X$计算得到$Q$, $K$, $V$ 矩阵。然后计算 $Q$ 和 $K^\top$ 的乘积 $QK^\top$。
+**第二步：** 接下来的操作和之前的 Self-Attention 一样，通过输入矩阵$X$计算得到$Q$, $K$, $V$ 矩阵。然后计算 $Q$ 和 $K^\top$ 的乘积 $QK^\top$。
 
-**第三步：**在得到 $QK^\top$ 之后需要进行 Softmax，计算 Attention Score，我们在 Softmax 之前需要使用 **Mask** 矩阵遮挡住每一个单词之后的信息，遮挡操作如下：
+**第三步：** 在得到 $QK^\top$ 之后需要进行 Softmax，计算 Attention Score，我们在 Softmax 之前需要使用 **Mask** 矩阵遮挡住每一个单词之后的信息，遮挡操作如下：
 
 <figure>
   <img src="http://aixingqiu-1258949597.cos.ap-beijing.myqcloud.com/2021-10-03-transformer-decoder-mask-matmul.png" width="80%" />
